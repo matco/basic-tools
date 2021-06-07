@@ -50,11 +50,11 @@ class Bus {
 		if(this.enabled) {
 			if(!this.paused) {
 				this.listeners.forEach(event.hit, event);
+				this.onEvent?.call(undefined, event);
 			}
 			else {
 				awaiting_events.push(event);
 			}
-			this.onEvent?.call(undefined, event);
 		}
 	}
 }
