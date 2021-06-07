@@ -474,19 +474,19 @@ export default function test(assert) {
 	//toDisplay, toFullDisplay and format
 	(function() {
 		//do not set timezone in date string so Javascript engine will use the timezone of the context, like the toDisplay method
-		assert.equal(new Date('2009-01-25T00:00:00').toDisplay(), '25.01.2009', 'Date "2009-01-25T00:00:00" to display is "25.01.2009"');
-		assert.equal(new Date('2009-01-25T00:00:00+02:00').toUTCDisplay(), '24.01.2009', 'Date "2009-01-25T00:00:00+02:00" to UTC display is "24.01.2009"');
-		assert.equal(new Date('2009-01-25T00:00:00Z').toUTCDisplay(), '25.01.2009', 'Date "2009-01-25T00:00:00Z" to UTC display is "25.01.2009"');
+		assert.equal(new Date('2009-01-25T00:00:00').toDisplay(), '2009-01-25', 'Date "2009-01-25T00:00:00" to display is "2009-01-25"');
+		assert.equal(new Date('2009-01-25T00:00:00+02:00').toUTCDisplay(), '2009-01-24', 'Date "2009-01-25T00:00:00+02:00" to UTC display is "2009-01-24"');
+		assert.equal(new Date('2009-01-25T00:00:00Z').toUTCDisplay(), '2009-01-25', 'Date "2009-01-25T00:00:00Z" to UTC display is "2009-01-25"');
 
-		assert.equal(new Date('2009-01-25T00:00:00').toFullDisplay(), '25.01.2009 00:00:00', 'Date "2009-01-25T00:00:00" to full display is "25.01.2009 00:00:00"');
-		assert.equal(new Date('2009-01-25T00:00:00+02:00').toUTCFullDisplay(), '24.01.2009 22:00:00', 'Date "2009-01-25T00:00:00+02:00" to UTC full display is "24.01.2009 22:00:00"');
-		assert.equal(new Date('2009-01-25T00:00:00Z').toUTCFullDisplay(), '25.01.2009 00:00:00', 'Date "2009-01-25T00:00:00Z" to UTC full display is "25.01.2009 00:00:00"');
+		assert.equal(new Date('2009-01-25T00:00:00').toFullDisplay(), '2009-01-25 00:00:00', 'Date "2009-01-25T00:00:00" to full display is "2009-01-25 00:00:00"');
+		assert.equal(new Date('2009-01-25T00:00:00+02:00').toUTCFullDisplay(), '2009-01-24 22:00:00', 'Date "2009-01-25T00:00:00+02:00" to UTC full display is "2009-01-24 22:00:00"');
+		assert.equal(new Date('2009-01-25T00:00:00Z').toUTCFullDisplay(), '2009-01-25 00:00:00', 'Date "2009-01-25T00:00:00Z" to UTC full display is "2009-01-25 00:00:00"');
 
-		assert.equal(new Date('2009-01-25T22:38:46.234').toFullDisplay(), '25.01.2009 22:38:46', 'Date "2009-01-25T22:38:46.234" to full display is "25.01.2009 22:38:46"');
-		assert.equal(new Date('2009-01-25T22:38:46.234Z').toUTCFullDisplay(), '25.01.2009 22:38:46', 'Date "2009-01-25T22:38:46.234Z" to full display is "25.01.2009 22:38:46"');
+		assert.equal(new Date('2009-01-25T22:38:46.234').toFullDisplay(), '2009-01-25 22:38:46', 'Date "2009-01-25T22:38:46.234" to full display is "2009-01-25 22:38:46"');
+		assert.equal(new Date('2009-01-25T22:38:46.234Z').toUTCFullDisplay(), '2009-01-25 22:38:46', 'Date "2009-01-25T22:38:46.234Z" to full display is "2009-01-25 22:38:46"');
 
-		assert.equal(new Date('2009-12-25T22:44').toFullDisplay(), '25.12.2009 22:44:00', 'Date "2009-11-25T22:44" to full display is "25.12.2009 22:38:00"');
-		assert.equal(new Date('2009-12-25T22:44Z').toUTCFullDisplay(), '25.12.2009 22:44:00', 'Date "2009-11-25T22:44Z" to full display is "25.12.2009 22:38:00"');
+		assert.equal(new Date('2009-12-25T22:44').toFullDisplay(), '2009-12-25 22:44:00', 'Date "2009-11-25T22:44" to full display is "2009-12-25 22:38:00"');
+		assert.equal(new Date('2009-12-25T22:44Z').toUTCFullDisplay(), '2009-12-25 22:44:00', 'Date "2009-11-25T22:44Z" to full display is "2009-12-25 22:38:00"');
 
 		assert.equal(new Date('2009-01-25T00:00:00').format('${day}.${month}.${year}'), '25.01.2009', 'Date "2009-01-25T00:00:00" formatter with formatter "${day}.${month}.${year}" is "25.01.2009"');
 		assert.equal(new Date('2009-01-25T00:00:00+02:00').formatUTC('${day}.${month}.${year}'), '24.01.2009', 'Date "2009-01-25T00:00:00+02:00" formatter with formatter "${day}.${month}.${year}" is "24.01.2009"');
@@ -517,57 +517,57 @@ export default function test(assert) {
 	//parseToDisplay, parseToFullDisplay and parseToFullDisplayUTC
 	(function() {
 		//parseToDisplay
-		assert.equal(Date.parseToDisplay('25.01.2009').getTime(), new Date('2009/01/25').getTime(), 'Parsing date "25.01.2009" gives the good date');
-		assert.equal(Date.parseToDisplay('5.2.2009').getTime(), new Date('2009/2/5').getTime(), 'Parsing date "5.2.2009" gives the good date');
-		assert.notOk(Date.isValidDate(Date.parseToDisplay('25.01.09')), 'Incomplete date "25.01.09" cannot be parsed');
-		const date = Date.parseToDisplay('33.01.2009');
-		assert.ok(!Date.isValidDate(date) || date.getTime() === new Date('2009/02/02').getTime(), 'Parsing date "33.01.2009" gives date [2009/02/02] for some browsers and gives an invalid date for others browsers');
+		assert.equal(Date.parseToDisplay('2009-01-25').getTime(), new Date('2009/01/25').getTime(), 'Parsing date "2009-01-25" gives the good date');
+		assert.equal(Date.parseToDisplay('2009-2-5').getTime(), new Date('2009/2/5').getTime(), 'Parsing date "2009-2-5" gives the good date');
+		assert.notOk(Date.isValidDate(Date.parseToDisplay('09-01-25')), 'Incomplete date "09-01-25" cannot be parsed');
+		const date = Date.parseToDisplay('2009-01-33');
+		assert.ok(!Date.isValidDate(date) || date.getTime() === new Date('2009/02/02').getTime(), 'Parsing date "2009-01-33" gives date [2009/02/02] for some browsers and gives an invalid date for others browsers');
 
 		//parseToFullDisplay
-		assert.equal(Date.parseToFullDisplay('25.01.2009 22:38:46').getTime(), new Date(2009, 0, 25, 22, 38, 46).getTime(), 'Parsing date "25.01.2009 22:38:46" gives the good date');
-		assert.equal(Date.parseToFullDisplay('25.01.2009 22:62:46').getTime(), new Date(2009, 0, 25, 23, 2, 46).getTime(), 'Parsing date "25.01.2009 22:62:46" gives the good date');
-		assert.equal(Date.parseToFullDisplay('25.01.2009 2:6:4').getTime(), new Date(2009, 0, 25, 2, 6, 4).getTime(), 'Parsing date "25.01.2009 2:6:4" gives the good date');
+		assert.equal(Date.parseToFullDisplay('2009-01-25 22:38:46').getTime(), new Date(2009, 0, 25, 22, 38, 46).getTime(), 'Parsing date "2009-01-25 22:38:46" gives the good date');
+		assert.equal(Date.parseToFullDisplay('2009-01-25 22:62:46').getTime(), new Date(2009, 0, 25, 23, 2, 46).getTime(), 'Parsing date "2009-01-25 22:62:46" gives the good date');
+		assert.equal(Date.parseToFullDisplay('2009-01-25 2:6:4').getTime(), new Date(2009, 0, 25, 2, 6, 4).getTime(), 'Parsing date "2009-01-25 2:6:4" gives the good date');
 		assert.notOk(Date.isValidDate(Date.parseToFullDisplay('25.01.09 2:6:4')), 'Incomplete date "25.01.09 2:6:4" cannot be parsed');
 
 		//parseToFullDisplayUTC
-		assert.equal(Date.parseToFullDisplayUTC('25.01.2009 22:38:46').getTime(), new Date(Date.UTC(2009, 0, 25, 22, 38, 46)).getTime(), 'Parsing date "25.01.2009 22:38:46" gives the good date');
-		assert.equal(Date.parseToFullDisplayUTC('25.01.2009 22:62:46').getTime(), new Date(Date.UTC(2009, 0, 25, 23, 2, 46)).getTime(), 'Parsing date "25.01.2009 22:62:46" gives the good date');
+		assert.equal(Date.parseToFullDisplayUTC('2009-01-25 22:38:46').getTime(), new Date(Date.UTC(2009, 0, 25, 22, 38, 46)).getTime(), 'Parsing date "2009-01-25 22:38:46" gives the good date');
+		assert.equal(Date.parseToFullDisplayUTC('2009-01-25 22:62:46').getTime(), new Date(Date.UTC(2009, 0, 25, 23, 2, 46)).getTime(), 'Parsing date "2009-01-25 22:62:46" gives the good date');
 		let local_date;
 		//test with winter time
 		local_date = new Date(2014, 1, 25, 10, 42, 30);
 		assert.equal(
-			Date.parseToFullDisplay('25.01.2014 10:42:30').getTime() - Date.parseToFullDisplayUTC('25.01.2014 10:42:30').getTime(),
+			Date.parseToFullDisplay('2014-01-25 10:42:30').getTime() - Date.parseToFullDisplayUTC('2014-01-25 10:42:30').getTime(),
 			local_date.getTimezoneOffset() * 60 * 1000,
-			'Difference between date "25.01.2014 10:42:30" parsed as UTC and the same date parsed as local time is equals to the local timezone offset');
+			'Difference between date "2014-01-25 10:42:30" parsed as UTC and the same date parsed as local time is equals to the local timezone offset');
 		//test with summer time
 		local_date = new Date(2014, 7, 25, 10, 42, 30);
 		assert.equal(
-			Date.parseToFullDisplay('25.07.2014 10:42:30').getTime() - Date.parseToFullDisplayUTC('25.07.2014 10:42:30').getTime(),
+			Date.parseToFullDisplay('2014-07-25 10:42:30').getTime() - Date.parseToFullDisplayUTC('2014-07-25 10:42:30').getTime(),
 			local_date.getTimezoneOffset() * 60 * 1000,
-			'Difference between date "25.07.2014 10:42:30" parsed as UTC and the same date parsed as local time is equals to the local timezone offset');
+			'Difference between date "2014-07-25 10:42:30" parsed as UTC and the same date parsed as local time is equals to the local timezone offset');
 	})();
 
 	//toFullDisplay
 	(function() {
-		let date = Date.parseToFullDisplay('20.01.2015 22:42:12');
+		let date = Date.parseToFullDisplay('2015-01-20 22:42:12');
 		date.roundToMinute();
-		assert.equal(date.toFullDisplay(), '20.01.2015 22:42:00', 'Rounding date to minute give a date with 0 second');
+		assert.equal(date.toFullDisplay(), '2015-01-20 22:42:00', 'Rounding date to minute give a date with 0 second');
 		date.roundToHour();
-		assert.equal(date.toFullDisplay(), '20.01.2015 23:00:00', 'Rounding date to hour give a date with 0 minute');
+		assert.equal(date.toFullDisplay(), '2015-01-20 23:00:00', 'Rounding date to hour give a date with 0 minute');
 		date.roundToDay();
-		assert.equal(date.toFullDisplay(), '21.01.2015 00:00:00', 'Rounding date to day give a date with 0 hour');
+		assert.equal(date.toFullDisplay(), '2015-01-21 00:00:00', 'Rounding date to day give a date with 0 hour');
 
-		date = Date.parseToFullDisplay('20.01.2015 12:29:52');
+		date = Date.parseToFullDisplay('2015-01-20 12:29:52');
 		date.roundToMinute();
-		assert.equal(date.toFullDisplay(), '20.01.2015 12:30:00', 'Rounding date to minute give a date with 0 second');
+		assert.equal(date.toFullDisplay(), '2015-01-20 12:30:00', 'Rounding date to minute give a date with 0 second');
 		date.roundToHour();
-		assert.equal(date.toFullDisplay(), '20.01.2015 13:00:00', 'Rounding date to hour give a date with 0 minute');
+		assert.equal(date.toFullDisplay(), '2015-01-20 13:00:00', 'Rounding date to hour give a date with 0 minute');
 		date.roundToDay();
-		assert.equal(date.toFullDisplay(), '21.01.2015 00:00:00', 'Rounding date to day give a date with 0 hour');
+		assert.equal(date.toFullDisplay(), '2015-01-21 00:00:00', 'Rounding date to day give a date with 0 hour');
 
-		date = Date.parseToFullDisplay('20.01.2015 03:00:12');
+		date = Date.parseToFullDisplay('2015-01-20 03:00:12');
 		date.roundToDay();
-		assert.equal(date.toFullDisplay(), '20.01.2015 00:00:00', 'Rounding date to day give a date with 0 hour');
+		assert.equal(date.toFullDisplay(), '2015-01-20 00:00:00', 'Rounding date to day give a date with 0 hour');
 	})();
 
 	//add or remove duration
@@ -586,10 +586,10 @@ export default function test(assert) {
 		assert.equal(date.getTime(), new Date('2009/01/24').getTime(), 'Add -1 day to [2009/01/25] gives [2009/01/24]');
 		date = new Date('2009/01/25');
 		date.addDays(3.8);
-		assert.equal(date.toDisplay(), '28.01.2009', 'Add 3.8 days to [2009/01/25] to display is [28.01.2009]');
+		assert.equal(date.toDisplay(), '2009-01-28', 'Add 3.8 days to [2009/01/25] to display is [2009-01-28]');
 		date = new Date('2009/01/25');
 		date.addDays(4.1);
-		assert.equal(date.toDisplay(), '29.01.2009', 'Add 4.1 days to [2009/01/25] to display is [29.01.2009]');
+		assert.equal(date.toDisplay(), '2009-01-29', 'Add 4.1 days to [2009/01/25] to display is [2009-01-29]');
 	})();
 
 	//add time using a string

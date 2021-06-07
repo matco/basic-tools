@@ -270,21 +270,21 @@ Date.getDifferenceInSeconds = function(start, stop) {
 	return time / Date.MS_IN_SECOND;
 };
 Date.parseToDisplay = function(date) {
-	const parts = date.match(/^(\d{1,2}).(\d{1,2}).(\d{4})$/);
+	const parts = date.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
 	//return data only if format is valid
 	if(parts) {
-		return new Date(`${parts[3]}/${parts[2]}/${parts[1]}`);
+		return new Date(`${parts[1]}/${parts[2]}/${parts[3]}`);
 	}
 	//to be consistent with native date API, return an invalid date
 	return new Date('Invalid date');
 };
 (function() {
-	const parts_regexp = /^(\d{1,2}).(\d{1,2}).(\d{4}) (\d{1,2}):(\d{1,2}):(\d{1,2})/;
+	const parts_regexp = /^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})/;
 	Date.parseToFullDisplay = function(date) {
 		const parts = date.match(parts_regexp);
 		//return data only if format is valid
 		if(parts) {
-			return new Date(parseInt(parts[3]), parseInt(parts[2]) - 1, parseInt(parts[1]), parseInt(parts[4]), parseInt(parts[5]), parseInt(parts[6]));
+			return new Date(parseInt(parts[1]), parseInt(parts[2]) - 1, parseInt(parts[3]), parseInt(parts[4]), parseInt(parts[5]), parseInt(parts[6]));
 		}
 		//to be consistent with native date API, return an invalid date
 		return new Date('Invalid date');
@@ -293,7 +293,7 @@ Date.parseToDisplay = function(date) {
 		const parts = date.match(parts_regexp);
 		//return data only if format is valid
 		if(parts) {
-			return new Date(Date.UTC(parseInt(parts[3]), parseInt(parts[2]) - 1, parseInt(parts[1]), parseInt(parts[4]), parseInt(parts[5]), parseInt(parts[6])));
+			return new Date(Date.UTC(parseInt(parts[1]), parseInt(parts[2]) - 1, parseInt(parts[3]), parseInt(parts[4]), parseInt(parts[5]), parseInt(parts[6])));
 		}
 		//to be consistent with native date API, return an invalid date
 		return new Date('Invalid date');
@@ -333,7 +333,7 @@ Date.getDurationLiteral = function(duration) {
 
 //prototypes
 Date.prototype.toDisplay = function() {
-	return `${this.getDate().pad(2)}.${(this.getMonth() + 1).pad(2)}.${this.getFullYear()}`;
+	return `${this.getFullYear()}-${(this.getMonth() + 1).pad(2)}-${this.getDate().pad(2)}`;
 };
 Date.prototype.toFullDisplay = function() {
 	return `${this.toDisplay()} ${this.getHours().pad(2)}:${this.getMinutes().pad(2)}:${this.getSeconds().pad(2)}`;
@@ -350,7 +350,7 @@ Date.prototype.format = function(formatter) {
 	});
 };
 Date.prototype.toUTCDisplay = function() {
-	return `${this.getUTCDate().pad(2)}.${(this.getUTCMonth() + 1).pad(2)}.${this.getUTCFullYear()}`;
+	return `${this.getUTCFullYear()}-${(this.getUTCMonth() + 1).pad(2)}-${this.getUTCDate().pad(2)}`;
 };
 Date.prototype.toUTCFullDisplay = function() {
 	return `${this.toUTCDisplay()} ${this.getUTCHours().pad(2)}:${this.getUTCMinutes().pad(2)}:${this.getUTCSeconds().pad(2)}`;
