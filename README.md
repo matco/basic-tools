@@ -17,8 +17,7 @@ Javascript classes:
 * **db_connector.js** (requires a DOM) simplifies manipulation of indexedDB.
 * **loader.js** (requires a DOM) is able to load code (HTML, CSS or Javascript) in a DOM document.
 * **lzw.js** is an implementation of LZW.
-* **promisequeue.js** executes a set promises one after the other.
-* **queue.js** is a custom implementation of a queue.
+* **queue.js** executes a set promises one after the other.
 * **reviver.js** transforms a tree or raw objects in a tree of typed object.
 * **svg.js** (requires a DOM) simplifies drawing in SVG.
 * **timeframe.js** manages timeframe.

@@ -1,4 +1,4 @@
-export class PromiseQueue {
+export class Queue {
 	constructor(resultCallback?: (result: any) => any)
 	run()
 	add(promiser: () => Promise<any>)

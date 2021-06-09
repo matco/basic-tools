@@ -1,6 +1,6 @@
 import './extension.js';
 
-export class PromiseQueue {
+export class Queue {
 	constructor(result_callback) {
 		this.promises = [];
 		this.resultCallback = result_callback;

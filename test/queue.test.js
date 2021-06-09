@@ -1,7 +1,7 @@
 /*eslint-env mocha*/
 
 import * as assert from 'assert';
-import {PromiseQueue} from '../promise_queue.js';
+import {Queue} from '../queue.js';
 
 const messages = [];
 let chrono = 0;
@@ -16,11 +16,11 @@ function timer_generator(message, time) {
 	});
 }
 
-describe('PromiseQueue', function() {
+describe('Queue', function() {
 
 	describe('#add and #addAll', function() {
 		it('add one promise or an array or promises to a queue', function(done) {
-			const queue = new PromiseQueue().then(done);
+			const queue = new Queue().then(done);
 
 			queue.add(timer_generator('Message 1 (1d)', delay));
 
