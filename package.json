@@ -1,7 +1,7 @@
 {
-	"name": "js-tools",
-	"description": "js-tools is a set of tools that will make your life easier when developing Javascript applications",
-	"version": "0.0.1",
+	"name": "@matco/basic-tools",
+	"description": "basic-tools is a set of tools that will make your life easier when developing Javascript applications",
+	"version": "1.0.0",
 	"scripts": {
 		"lint": "eslint .",
 		"tsc": "tsc",
@@ -17,10 +17,10 @@
 	"license": "Unlicense",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/matco/js-tools.git"
+		"url": "https://github.com/matco/basic-tools.git"
 	},
 	"bugs": {
-		"url": "https://github.com/matco/js-tools/issues"
+		"url": "https://github.com/matco/basic-tools/issues"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.14.3",

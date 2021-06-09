@@ -1,5 +1,5 @@
-# js-tools
-js-tools is a set of tools that will make your life easier when developing Javascript applications.
+# basic-tools
+basic-tools is a set of tools that will make your life easier when developing Javascript applications.
 
 It contains two kind of tools:
 * Two tools "enhance" Javascript by prototyping Javascript native classes (use with caution)
@@ -26,24 +26,47 @@ Javascript classes:
 All tools are tested in their related file *.test.js.
 
 ## Usage
-Install as an NPM dependency:
-```
-npm i -s git+ssh://git@github.com:matco/js-tools.git
-```
+### Manual
+Copy the tools you need in a folder named `basic-tools` somewhere in your project.
 
-### Extensions
+#### Extensions
 In a module:
 ```
-import 'node_modules/js-tools/extension.js';
+import './basic-tools/extension.js';
 ```
 
 In the HTML:
 ```
-<script type="text/javascript" src="node_modules/js-tools/extension.js"></script>
+<script type="text/javascript" src="basic-tools/extension.js"></script>
 ```
 
-### Tools
+#### Tools
 Import only what you need:
 ```
-import {Timeframe} from './node_modules/js-tools/timeframe.js';
+import {Timeframe} from './basic-tools/timeframe.js';
+```
+
+### With NPM and Webpack
+The instructions below are for those who are using NPM and Webpack.
+
+Install as an NPM dependency:
+```
+npm i @matco/basic-tools --save
+```
+
+#### Extensions
+In a module:
+```
+import '@matco/basic-tools/extension.js';
+```
+
+In the HTML:
+```
+<script type="text/javascript" src="@matco/basic-tools/extension.js"></script>
+```
+
+#### Tools
+Import only what you need:
+```
+import {Timeframe} from '@matco/basic-tools/timeframe.js';
 ```
