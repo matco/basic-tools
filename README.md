@@ -31,12 +31,19 @@ Install as an NPM dependency:
 npm i -s git+ssh://git@github.com:matco/js-tools.git
 ```
 
-For tools that enhance Javascript:
+### Extensions
+In a module:
+```
+import 'node_modules/js-tools/extension.js';
+```
+
+In the HTML:
 ```
 <script type="text/javascript" src="node_modules/js-tools/extension.js"></script>
 ```
 
-For other tools:
+### Tools
+Import only what you need:
 ```
 import {Timeframe} from './node_modules/js-tools/timeframe.js';
 ```
