@@ -5,7 +5,8 @@
 	"scripts": {
 		"lint": "eslint .",
 		"tsc": "tsc",
-		"test": "mocha"
+		"test": "mocha",
+		"test-server": "http-server ."
 	},
 	"type": "module",
 	"keywords": [],
@@ -29,6 +30,7 @@
 		"@types/node": "^15.12.1",
 		"eslint": "^7.22.0",
 		"eslint-plugin-jsdoc": "^32.2.0",
+		"http-server": "^0.12.3",
 		"mocha": "^9.0.0",
 		"node-fetch": "^3.0.0-beta.9",
 		"typescript": "^4.2.3"
