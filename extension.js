@@ -86,6 +86,9 @@ if(!Object.getObjectPathValue) {
 			const current = path.substring(0, path.indexOf('.'));
 			object = Function.isFunction(object[current]) ? object[current]() : object[current];
 			path = path.substring(path.indexOf('.') + 1);
+			if(object === undefined) {
+				return undefined;
+			}
 		}
 		return Function.isFunction(object[path]) ? object[path]() : object[path];
 	};
