@@ -80,6 +80,15 @@ export const SVG = {
 		text.appendChild(document.createTextNode(content));
 		return text;
 	},
+	Image: function(x, y, width, height, href, properties) {
+		return append_properties(SVG.Element('image', {
+			x: round_coordinate(x),
+			y: round_coordinate(y),
+			width: round_dimension(width),
+			height: round_dimension(height),
+			href: href
+		}), properties);
+	},
 	Title: function(content, properties) {
 		const title = SVG.Element('title', properties);
 		title.appendChild(document.createTextNode(content));
