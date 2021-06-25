@@ -21,6 +21,7 @@
 		"eqeqeq": "error",
 		"indent": ["error", "tab", {"SwitchCase": 1}],
 		"key-spacing": "error",
+		"keyword-spacing": ["error", {"overrides": {"catch": {"after": false}, "if": {"after": false}, "for": {"after": false}, "switch": {"after": false}, "while": {"after": false}}}],
 		"linebreak-style": ["error", "unix"],
 		"no-console": "off",
 		"no-multi-spaces": "error",

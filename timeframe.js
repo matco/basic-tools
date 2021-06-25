@@ -1,6 +1,6 @@
 export class Timeframe {
 	constructor(startDate, stopDate) {
-		if (startDate && stopDate && stopDate.isBefore(startDate)) {
+		if(startDate && stopDate && stopDate.isBefore(startDate)) {
 			throw new Error('Unable to create a timeframe with a stop date before its start date');
 		}
 		this.startDate = startDate;
@@ -31,13 +31,13 @@ export class Timeframe {
 		return (!this.startDate || this.startDate.isBefore(date) || this.startDate.equals(date)) && (!this.stopDate || this.stopDate.isAfter(date) || this.stopDate.equals(date));
 	}
 	overlap(timeframe) {
-		if (timeframe.isInfinite()) {
+		if(timeframe.isInfinite()) {
 			return true;
 		}
-		if (!timeframe.startDate) {
+		if(!timeframe.startDate) {
 			return !this.startDate || this.startDate.isBefore(timeframe.stopDate);
 		}
-		if (!timeframe.stopDate) {
+		if(!timeframe.stopDate) {
 			return !this.stopDate || this.stopDate.isBefore(timeframe.startDate);
 		}
 		return this.surround(timeframe.startDate) || this.surround(timeframe.stopDate) || timeframe.surround(this.startDate);
@@ -46,7 +46,7 @@ export class Timeframe {
 		return `${this.startDate} - ${this.stopDate}`;
 	}
 	equals(timeframe) {
-		if (!timeframe) {
+		if(!timeframe) {
 			return false;
 		}
 		const same_start_date = !this.startDate && !timeframe.startDate || this.startDate && timeframe.startDate && this.startDate.getTime() === timeframe.startDate.getTime();
