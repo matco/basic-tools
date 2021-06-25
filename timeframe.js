@@ -1,7 +1,7 @@
 export class Timeframe {
 	constructor(startDate, stopDate) {
 		if(startDate && stopDate && stopDate.isBefore(startDate)) {
-			throw new Error('Unable to create a timeframe with a stop date before its start date');
+			throw new Error(`Unable to create a timeframe with a stop date before its start date (start date: ${startDate.toISOString()}, stop date ${stopDate.toISOString()}`);
 		}
 		this.startDate = startDate;
 		this.stopDate = stopDate;
@@ -43,7 +43,7 @@ export class Timeframe {
 		return this.surround(timeframe.startDate) || this.surround(timeframe.stopDate) || timeframe.surround(this.startDate);
 	}
 	toString() {
-		return `${this.startDate} - ${this.stopDate}`;
+		return `${this.startDate.toISOString()} - ${this.stopDate.toISOString()}`;
 	}
 	equals(timeframe) {
 		if(!timeframe) {
