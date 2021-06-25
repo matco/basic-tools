@@ -108,7 +108,7 @@ export const SVG = {
 		const words = text.textContent.split(' ');
 		text.textContent = '';
 		//create first line
-		let tspan = append_properties(SVG.Element('tspan', {x: text.getAttribute('x'), dy: 0}));
+		let tspan = SVG.Element('tspan', {x: text.getAttribute('x'), dy: 0});
 		text.appendChild(tspan);
 		//re-add word one after an other
 		let word;
@@ -125,7 +125,7 @@ export const SVG = {
 				line.pop();
 				tspan.textContent = line.join(' ');
 				//start a new line
-				tspan = append_properties(SVG.Element('tspan', {x: text.getAttribute('x'), dy: 15}));
+				tspan = SVG.Element('tspan', {x: text.getAttribute('x'), dy: 15});
 				text.appendChild(tspan);
 				line = [];
 				//excluded word must be managed next loop
