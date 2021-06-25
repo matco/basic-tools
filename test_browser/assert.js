@@ -9,6 +9,7 @@ function log(success, message, specification) {
 		}
 	}
 	console.log(text);
+	return text;
 }
 
 function check_exception(exception, exception_assert, message, specification) {
@@ -32,10 +33,11 @@ function check_exception(exception, exception_assert, message, specification) {
 
 export const assert = {
 	success(message, specification) {
-		log.call(this, true, message, specification);
+		log(true, message, specification);
 	},
 	fail(message, specification) {
-		log.call(this, false, message, specification);
+		const text = log(false, message, specification);
+		throw new Error(text);
 	},
 	equal(actual, expected, message, specification) {
 		actual === expected ? this.success(message, specification) : this.fail(`${message}: Actual [${actual}] - Expected [${expected}]`, specification);
