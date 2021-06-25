@@ -6,7 +6,7 @@ import {LZW} from '../lzw.js';
 
 describe('LZW', function() {
 
-	describe('#compress and #compressToString', function() {
+	describe('#Compress and #CompressToString', function() {
 		it('compress text successfully', function() {
 			let text = 'taratata';
 			let encoded_text = 'taraĀĀ';

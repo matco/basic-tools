@@ -5,7 +5,7 @@ import {Hash} from '../hash.js';
 
 describe('Hash', function() {
 
-	describe('#encode and #decode', function() {
+	describe('#Encode and #Decode', function() {
 		it('encodes and decodes simple objects', function() {
 			const object_1 = {toto: 'tata'};
 			assert.strictEqual(Hash.Encode(object_1), '#toto=tata', 'Hash works with simple object');

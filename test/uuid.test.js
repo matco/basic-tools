@@ -5,7 +5,7 @@ import {UUID} from '../uuid.js';
 
 describe('UUID', function() {
 
-	describe('#generate', function() {
+	describe('#Generate', function() {
 		it('generates valid UUID', function() {
 			assert.strictEqual(UUID.Generate().length, 36, 'An UUID contains 36 characters');
 			assert.strictEqual(UUID.Generate().split('-').length, 5, 'An UUID contains 5 segments separated by "-"');
