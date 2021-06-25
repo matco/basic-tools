@@ -43,7 +43,7 @@ describe('DBConnector', function() {
 			const db_2 = new DBConnector(db_name, 'id');
 			await db_2.open();
 			//add character without id
-			await assert.throws(
+			await assert.throwAsync(
 				async () => await db_2.add(character_1),
 				e => e.name === 'DataError',
 				'It is not possible to add an object without id'
