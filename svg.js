@@ -52,6 +52,15 @@ export const SVG = {
 			height: round_dimension(height)
 		}), properties);
 	},
+	RectangleCentered: function(x, y, width, height, properties) {
+		return SVG.Rectangle(x - width / 2, y - height / 2, width, height, properties);
+	},
+	RectangleCenteredHorizontally: function(x, y, width, height, properties) {
+		return SVG.Rectangle(x - width / 2, y, width, height, properties);
+	},
+	RectangleCenteredVertically: function(x, y, width, height, properties) {
+		return SVG.Rectangle(x, y - height / 2, width, height, properties);
+	},
 	Circle: function(cx, cy, r, properties) {
 		return append_properties(SVG.Element('circle', {
 			cx: round_coordinate(cx),
@@ -88,6 +97,15 @@ export const SVG = {
 			height: round_dimension(height),
 			href: href
 		}), properties);
+	},
+	ImageCentered: function(x, y, width, height, href, properties) {
+		return SVG.Image(x - width / 2, y - height / 2, width, height, href, properties);
+	},
+	ImageCenteredHorizontally: function(x, y, width, height, href, properties) {
+		return SVG.Image(x - width / 2, y, width, height, href, properties);
+	},
+	ImageCenteredVertically: function(x, y, width, height, href, properties) {
+		return SVG.Image(x, y - height / 2, width, height, href, properties);
 	},
 	Title: function(content, properties) {
 		const title = SVG.Element('title', properties);
