@@ -133,11 +133,10 @@ describe('Timeframe', function() {
 		});
 	});
 
-
 	describe('#equals', function() {
 		it('checks if 2 timeframes are equal', function() {
 			let timeframe_1, timeframe_2;
-			//equal
+
 			timeframe_1 = new Timeframe(new Date('2008/02/07'), new Date('2008/09/07'));
 			timeframe_2 = new Timeframe(new Date('2008/02/07'), new Date('2008/09/07'));
 			assert.ok(timeframe_1.equals(timeframe_2), 'Two timeframes with same start dates and same stop dates are similar');
