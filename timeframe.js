@@ -29,10 +29,10 @@ export class Timeframe {
 	clone() {
 		return new Timeframe(this.startDate ? this.startDate.clone() : undefined, this.stopDate ? this.stopDate.clone() : undefined);
 	}
-	surround(date) {
+	surrounds(date) {
 		return (!this.startDate || this.startDate.isBefore(date) || this.startDate.equals(date)) && (!this.stopDate || this.stopDate.isAfter(date) || this.stopDate.equals(date));
 	}
-	overlap(timeframe) {
+	overlaps(timeframe) {
 		if(timeframe.isInfinite()) {
 			return true;
 		}
@@ -42,7 +42,7 @@ export class Timeframe {
 		if(!timeframe.stopDate) {
 			return !this.stopDate || this.stopDate.isBefore(timeframe.startDate);
 		}
-		return this.surround(timeframe.startDate) || this.surround(timeframe.stopDate) || timeframe.surround(this.startDate);
+		return this.surrounds(timeframe.startDate) || this.surrounds(timeframe.stopDate) || timeframe.surrounds(this.startDate);
 	}
 	toString() {
 		return `${this.startDate.toISOString()} - ${this.stopDate.toISOString()}`;

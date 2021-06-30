@@ -9,8 +9,8 @@ export class Timeframe {
 	getMinutes(): number
 	getSeconds(): number
 	clone(): Timeframe
-	surround(date: Date): boolean
-	overlap(timeframe: Timeframe): boolean
+	surrounds(date: Date): boolean
+	overlaps(timeframe: Timeframe): boolean
 	toString(): string;
 	equals(timeframe: Timeframe): boolean
 	extendPercentage(percentage: number): Timeframe
