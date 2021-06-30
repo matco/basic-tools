@@ -1,3 +1,5 @@
+import './extension.js';
+
 export class Timeframe {
 	constructor(startDate, stopDate) {
 		if(startDate && stopDate && stopDate.isBefore(startDate)) {
