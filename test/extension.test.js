@@ -660,21 +660,38 @@ describe('extension', function() {
 
 		describe('#addDays, #addMinutes, #addSeconds', function() {
 			it('add the number of units to a date', function() {
-				let date = new Date();
-				const time = date.getTime();
+				let date, time;
+
+				date = new Date('2020-01-05T07:59:59');
+				time = date.getTime();
 				date.addSeconds(2);
 				assert.strictEqual(date.getTime() - time, 2000, 'Adding 2 seconds is the same as adding 2000 milliseconds');
-				assert.ok(date.getTime() - new Date().getTime() > 1998, 'Difference between 2 seconds added to now and now is more than 1998 milliseconds (less than 2ms are required to do the trick)');
-				assert.ok(date.getTime() - new Date().getTime() <= 2000, 'Difference between 2 seconds added to now and now is less or equals to 2000 milliseconds (less than 2ms are required to do the trick)');
+				assert.strictEqual(date.getTime(), new Date('2020-01-05T08:00:01').getTime(), 'Adding 2 seconds to a date updates the date to 2 seconds later');
+
+				date = new Date('2020-01-04T23:59:59');
+				time = date.getTime();
+				date.addSeconds(1);
+				assert.strictEqual(date.getTime() - time, 1000, 'Adding 1 second is the same as adding 1000 milliseconds');
+				assert.strictEqual(date.getTime(), new Date('2020-01-05T00:00:00').getTime(), 'Adding 1 second to a date updates the date to 1 second later');
+
+				date = new Date('2020-01-04T23:59:59');
+				time = date.getTime();
+				date.addSeconds(0.5);
+				assert.strictEqual(date.getTime() - time, 500, 'Adding 0.5 second is the same as adding 500 milliseconds');
+				assert.strictEqual(date.getTime(), new Date('2020-01-04T23:59:59.5').getTime(), 'Adding 0.5 second to a date updates the date to 0.5 second later');
+
 				date = new Date('2009/01/25');
 				date.addDays(3);
 				assert.strictEqual(date.getTime(), new Date('2009/01/28').getTime(), 'Add 3 days to [2009/01/25] gives [2009/01/28]');
+
 				date = new Date('2009/01/25');
 				date.addDays(-1);
 				assert.strictEqual(date.getTime(), new Date('2009/01/24').getTime(), 'Add -1 day to [2009/01/25] gives [2009/01/24]');
+
 				date = new Date('2009/01/25');
 				date.addDays(3.8);
 				assert.strictEqual(date.toDisplay(), '2009-01-28', 'Add 3.8 days to [2009/01/25] to display is [2009-01-28]');
+
 				date = new Date('2009/01/25');
 				date.addDays(4.1);
 				assert.strictEqual(date.toDisplay(), '2009-01-29', 'Add 4.1 days to [2009/01/25] to display is [2009-01-29]');
