@@ -153,4 +153,24 @@ describe('Timeframe', function() {
 			assert.ok(!timeframe_1.equals(timeframe_2), 'Two timeframes with same start dates and different stop dates are not similar');
 		});
 	});
+
+	describe('#extendSeconds', function() {
+		it('checks if it adds seconds to a timeframe', function() {
+			let timeframe;
+
+			timeframe = new Timeframe(new Date('2020-01-05T08:00:00'), new Date('2020-01-05T10:00:00'));
+			assert.strictEqual(timeframe.getSeconds(), 7200);
+			timeframe.extendSeconds(60);
+			assert.strictEqual(timeframe.getSeconds(), 7260, 'Adding 60 seconds to a timeframe makes it 60 seconds longer');
+			assert.strictEqual(timeframe.startDate.getTime(), new Date('2020-01-05T07:59:30').getTime(), 'Adding 60 seconds to a timeframe shifts its start date 30 seconds earlier');
+			assert.strictEqual(timeframe.stopDate.getTime(), new Date('2020-01-05T10:00:30').getTime(), 'Adding 60 seconds to a timeframe shifts its stop date 30 seconds later');
+
+			timeframe = new Timeframe(new Date('2020-01-05T08:00:00'), new Date('2020-01-05T08:00:00'));
+			assert.strictEqual(timeframe.getSeconds(), 0);
+			timeframe.extendSeconds(1);
+			assert.strictEqual(timeframe.getSeconds(), 1, 'Adding 1 seconds to a timeframe makes it 1 second longer');
+			assert.strictEqual(timeframe.startDate.getTime(), new Date('2020-01-05T07:59:59.5').getTime(), 'Adding 1 second to a timeframe shifts its start date 0.5 second earlier');
+			assert.strictEqual(timeframe.stopDate.getTime(), new Date('2020-01-05T08:00:00.5').getTime(), 'Adding 1 second to a timeframe shifts its stop date 0.5 second later');
+		});
+	});
 });

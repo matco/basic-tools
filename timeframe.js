@@ -63,25 +63,25 @@ export class Timeframe {
 		return this;
 	}
 	extendDays(days) {
-		const margin = Math.floor(days / 2);
+		const margin = (days / 2);
 		this.startDate.addDays(-margin);
 		this.stopDate.addDays(margin);
 		return this;
 	}
 	extendHours(hours) {
-		const margin = Math.floor(hours / 2);
+		const margin = (hours / 2);
 		this.startDate.addHours(-margin);
 		this.stopDate.addHours(margin);
 		return this;
 	}
 	extendMinutes(minutes) {
-		const margin = Math.floor(minutes / 2);
+		const margin = (minutes / 2);
 		this.startDate.addMinutes(-margin);
 		this.stopDate.addMinutes(margin);
 		return this;
 	}
 	extendSeconds(seconds) {
-		const margin = Math.floor(seconds / 2);
+		const margin = (seconds / 2);
 		this.startDate.addSeconds(-margin);
 		this.stopDate.addSeconds(margin);
 		return this;
