@@ -125,7 +125,7 @@ describe('extension', function() {
 				assert.strictEqual(Object.key({titi: 42}, 42), 'titi', 'Key for a number value is the right key');
 				assert.throws(
 					() => Object.key({titi: 'tutu'}, 'toto'),
-					e => e.message === 'Object does not contains value',
+					e => e instanceof Error && e.message === 'Object does not contains value',
 					'Asking key for a non existing value throws an exception'
 				);
 			});
@@ -137,7 +137,7 @@ describe('extension', function() {
 				assert.strictEqual(Object.key(object, embedded_object), 'titi', 'Key for an object value is the right key');
 				assert.throws(
 					() => Object.key(object, {mama: 'momo', mimi: 'mumu'}),
-					e => e.message === 'Object does not contains value',
+					e => e instanceof Error && e.message === 'Object does not contains value',
 					'Asking key for a similar value throws an exception'
 				);
 			});
