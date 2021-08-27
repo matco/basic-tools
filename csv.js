@@ -72,11 +72,15 @@ class CSV {
 					}
 					continue;
 				}
+				//do not accept some characters outside quotes
+				if(CSV.INVALID_CHARACTERS.includes(character)) {
+					continue;
+				}
 			}
 			column += character;
 		}
 		//file may end without any delimiter
-		if(column) {
+		if(column || columns.length > 0) {
 			columns.push(column);
 			lines.push(columns);
 		}
@@ -92,6 +96,7 @@ class CSV {
 	}
 }
 
+CSV.INVALID_CHARACTERS = ['\r'];
 CSV.MIME_TYPE = 'text/csv';
 CSV.DELIMITER_LINE = '\n';
 CSV.DELIMITER_COLUMN = ',';
