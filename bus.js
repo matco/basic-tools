@@ -1,7 +1,5 @@
 import './extension.js';
 
-const awaiting_events = [];
-
 class Bus {
 	constructor() {
 		this.enabled = true;
@@ -9,6 +7,8 @@ class Bus {
 		this.locked = false;
 		this.listeners = [];
 		this.onEvent = undefined;
+
+		this.awaitingEvents = [];
 	}
 	disable() {
 		this.enabled = false;
@@ -43,8 +43,8 @@ class Bus {
 	}
 	resume() {
 		this.paused = false;
-		awaiting_events.forEach(Bus.prototype.dispatch, this);
-		awaiting_events.length = 0;
+		this.awaitingEvents.forEach(Bus.prototype.dispatch, this);
+		this.awaitingEvents.length = 0;
 	}
 	dispatch(event) {
 		if(this.enabled) {
@@ -53,7 +53,7 @@ class Bus {
 				this.onEvent?.call(undefined, event);
 			}
 			else {
-				awaiting_events.push(event);
+				this.awaitingEvents.push(event);
 			}
 		}
 	}
