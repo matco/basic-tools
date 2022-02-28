@@ -272,6 +272,9 @@ Date.getDifferenceInSeconds = function(start, stop) {
 	const time = stop.getTime() - start.getTime();
 	return time / Date.MS_IN_SECOND;
 };
+Date.getDifferenceInMilliseconds = function(start, stop) {
+	return stop.getTime() - start.getTime();
+};
 Date.parseToDisplay = function(date) {
 	const parts = date.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
 	//return data only if format is valid

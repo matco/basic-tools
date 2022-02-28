@@ -42,12 +42,14 @@ describe('Timeframe', function() {
 			assert.strictEqual(timeframe.getHours(), 24, 'There are 24 hours between [2004/02/26] and [2004/02/27]');
 			assert.strictEqual(timeframe.getMinutes(), 1440, 'There are 1440 minutes between [2004/02/26] and [2004/02/27]');
 			assert.strictEqual(timeframe.getSeconds(), 86400, 'There are 86400 seconds between [2004/02/26] and [2004/02/27]');
+			assert.strictEqual(timeframe.getMilliseconds(), 86400000, 'There are 86400000 milliseconds between [2004/02/26] and [2004/02/27]');
 
 			timeframe = new Timeframe(new Date('2010/12/31'), new Date('2010/12/31'));
 			assert.strictEqual(timeframe.getDays(), 0, 'There is 0 day between [2010/12/31] and [2010/12/31]');
 			assert.strictEqual(timeframe.getHours(), 0, 'There is 0 hour between [2010/12/31] and [2010/12/31]');
 			assert.strictEqual(timeframe.getMinutes(), 0, 'There is 0 minute between [2010/12/31] and [2010/12/31]');
 			assert.strictEqual(timeframe.getSeconds(), 0, 'There is 0 second between [2010/12/31] and [2010/12/31]');
+			assert.strictEqual(timeframe.getMilliseconds(), 0, 'There are 0 milliseconds between [2004/02/26] and [2004/02/27]');
 
 			timeframe = new Timeframe(new Date('2004/02/26'), new Date('2004/03/01'));
 			assert.strictEqual(timeframe.getDays(), 4, 'There are 4 days between [2004/02/26] and [2004/03/01]');
@@ -57,6 +59,7 @@ describe('Timeframe', function() {
 			assert.strictEqual(Math.round(timeframe.getHours()), 0, 'There are 0 hour between [2016-05-01T08:12:04.999Z] and [2016-05-01T08:12:08.001Z]');
 			assert.strictEqual(Math.round(timeframe.getMinutes()), 0, 'There are 0 minute between [2016-05-01T08:12:04.999Z] and [2016-05-01T08:12:08.001Z]');
 			assert.strictEqual(timeframe.getSeconds(), 3.002, 'There are 3.002 seconds between [2016-05-01T08:12:04.999Z] and [2016-05-01T08:12:08.001Z]');
+			assert.strictEqual(timeframe.getMilliseconds(), 3002, 'There are 3002 milliseconds between [2016-05-01T08:12:04.999Z] and [2016-05-01T08:12:08.001Z]');
 
 			//infinite time frame periods
 			timeframe = new Timeframe(undefined, new Date('2016-05-01T08:12:04.999Z'));
@@ -64,12 +67,14 @@ describe('Timeframe', function() {
 			assert.strictEqual(timeframe.getHours(), undefined, 'Retrieving number of hours with an unstaked timeframe returns undefined');
 			assert.strictEqual(timeframe.getMinutes(), undefined, 'Retrieving number of minutes with an unstaked timeframe returns undefined');
 			assert.strictEqual(timeframe.getSeconds(), undefined, 'Retrieving number of seconds with an unstaked timeframe returns undefined');
+			assert.strictEqual(timeframe.getMilliseconds(), undefined, 'Retrieving number of milliseconds with an unstaked timeframe returns undefined');
 
 			timeframe = new Timeframe(new Date('2004/02/26'));
 			assert.strictEqual(timeframe.getDays(), undefined, 'Retrieving number of days with an unstaked timeframe returns undefined');
 			assert.strictEqual(timeframe.getHours(), undefined, 'Retrieving number of hours with an unstaked timeframe returns undefined');
 			assert.strictEqual(timeframe.getMinutes(), undefined, 'Retrieving number of minutes with an unstaked timeframe returns undefined');
 			assert.strictEqual(timeframe.getSeconds(), undefined, 'Retrieving number of seconds with an unstaked timeframe returns undefined');
+			assert.strictEqual(timeframe.getMilliseconds(), undefined, 'Retrieving number of milliseconds with an unstaked timeframe returns undefined');
 		});
 	});
 

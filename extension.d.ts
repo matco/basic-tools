@@ -66,6 +66,7 @@ interface DateConstructor {
 	getDifferenceInHours(start: Date, stop: Date): number;
 	getDifferenceInMinutes(start: Date, stop: Date): number;
 	getDifferenceInSeconds(start: Date, stop: Date): number;
+	getDifferenceInMilliseconds(start: Date, stop: Date): number;
 	parseToDisplay(date: string): Date;
 	parseToFullDisplay(date: string): Date;
 	parseToFullDisplayUTC(date: string): Date;

@@ -8,6 +8,7 @@ export class Timeframe {
 	getHours(): number
 	getMinutes(): number
 	getSeconds(): number
+	getMilliseconds(): number
 	clone(): Timeframe
 	surrounds(date: Date): boolean
 	overlaps(timeframe: Timeframe): boolean
@@ -18,6 +19,7 @@ export class Timeframe {
 	extendHours(hours: number): Timeframe
 	extendMinutes(minutes: number): Timeframe
 	extendSeconds(seconds: number): Timeframe
+	extendMilliseconds(milliseconds: number): Timeframe
 	roundToDay(): Timeframe
 	roundToHour(): Timeframe
 	roundToMinute(): Timeframe
@@ -25,6 +27,7 @@ export class Timeframe {
 	shiftHours(hours: number): Timeframe
 	shiftMinutes(minutes: number): Timeframe
 	shiftSeconds(seconds: number): Timeframe
+	shiftMilliseconds(milliseconds: number): Timeframe
 	shiftStartDate(date: Date): Timeframe
 	shiftStopDate(date: Date): Timeframe
 	isBefore(timeframe: Timeframe): boolean

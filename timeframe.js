@@ -26,6 +26,9 @@ export class Timeframe {
 	getSeconds() {
 		return this.isStaked() ? Date.getDifferenceInSeconds(this.startDate, this.stopDate) : undefined;
 	}
+	getMilliseconds() {
+		return this.isStaked() ? Date.getDifferenceInMilliseconds(this.startDate, this.stopDate) : undefined;
+	}
 	clone() {
 		return new Timeframe(this.startDate ? this.startDate.clone() : undefined, this.stopDate ? this.stopDate.clone() : undefined);
 	}
@@ -86,6 +89,12 @@ export class Timeframe {
 		this.stopDate.addSeconds(margin);
 		return this;
 	}
+	extendMilliseconds(milliseconds) {
+		const margin = (milliseconds / 2);
+		this.startDate.addMilliseconds(-margin);
+		this.stopDate.addMilliseconds(margin);
+		return this;
+	}
 	roundToDay() {
 		this.roundToHour();
 		this.startDate.roundToDay();
@@ -120,6 +129,11 @@ export class Timeframe {
 	shiftSeconds(seconds) {
 		this.startDate.addSeconds(seconds);
 		this.stopDate.addSeconds(seconds);
+		return this;
+	}
+	shiftMilliseconds(milliseconds) {
+		this.startDate.addMilliseconds(milliseconds);
+		this.stopDate.addMilliseconds(milliseconds);
 		return this;
 	}
 	shiftStartDate(date) {
