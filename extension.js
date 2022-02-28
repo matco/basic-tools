@@ -385,6 +385,10 @@ Date.prototype.isAfter = function(date) {
 	return date.isBefore(this);
 };
 //add duration
+Date.prototype.addMilliseconds = function(milliseconds) {
+	this.setTime(this.getTime() + milliseconds);
+	return this;
+};
 Date.prototype.addSeconds = function(seconds) {
 	this.setTime(this.getTime() + seconds * Date.MS_IN_SECOND);
 	return this;

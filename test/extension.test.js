@@ -662,6 +662,13 @@ describe('extension', function() {
 			it('add the number of units to a date', function() {
 				let date, time;
 
+				date = new Date('2020-01-05T07:59:59.142');
+				time = date.getTime();
+				date.addMilliseconds(42);
+				assert.strictEqual(date.getTime(), new Date('2020-01-05T07:59:59.184').getTime(), 'Adding 42 milliseconds to a date updates the date to 42 milliseconds later');
+				date.addMilliseconds(900);
+				assert.strictEqual(date.getTime(), new Date('2020-01-05T08:00:00.084').getTime(), 'Adding 900 milliseconds to a date updates the date to 900 milliseconds later');
+
 				date = new Date('2020-01-05T07:59:59');
 				time = date.getTime();
 				date.addSeconds(2);
