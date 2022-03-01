@@ -4,6 +4,7 @@ export class Timeframe {
 	stopDate: Date
 	isInfinite(): boolean
 	isStaked(): boolean
+	isBlank(): boolean
 	getDays(): number
 	getHours(): number
 	getMinutes(): number

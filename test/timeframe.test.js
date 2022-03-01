@@ -33,6 +33,16 @@ describe('Timeframe', function() {
 		});
 	});
 
+	describe('#isBlank', function() {
+		it('check if a timeframe has a start date equal to its stop date', function() {
+			const date = new Date('2004/02/26');
+			assert.ok(new Timeframe(date, date).isBlank(), 'Timeframe with the same start date and stop date is blank');
+			assert.ok(new Timeframe(new Date('2004/02/26'), new Date('2004/02/26')).isBlank(), 'Timeframe with start date equal to stop date is blank');
+			assert.ok(!new Timeframe(new Date('2004/02/26')).isBlank(), 'Timeframe with only start date is not blank');
+			assert.ok(!new Timeframe().isBlank(), 'Timeframe without start date nor stop date is not blank');
+		});
+	});
+
 	describe('#getDays, #getHours, #getMinutes and #getSeconds', function() {
 		it('returns the right value', function() {
 			let timeframe;

@@ -14,6 +14,9 @@ export class Timeframe {
 	isStaked() {
 		return !!(this.startDate && this.stopDate);
 	}
+	isBlank() {
+		return this.isStaked() && this.startDate.equals(this.stopDate);
+	}
 	getDays() {
 		return this.isStaked() ? Date.getDifferenceInDays(this.startDate, this.stopDate) : undefined;
 	}
