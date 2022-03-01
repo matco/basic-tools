@@ -61,11 +61,12 @@ export class Timeframe {
 		const same_stop_date = !this.stopDate && !timeframe.stopDate || this.stopDate && timeframe.stopDate && this.stopDate.getTime() === timeframe.stopDate.getTime();
 		return same_start_date && same_stop_date;
 	}
-	//TODO take infinite timeframes in consideration
 	extendPercentage(percentage) {
-		const margin = Math.floor(this.getSeconds() * percentage / 100);
-		this.startDate.addSeconds(-margin);
-		this.stopDate.addSeconds(margin);
+		if(this.isStaked()) {
+			const margin = Math.round(this.getMilliseconds() * percentage / 200);
+			this.startDate.addMilliseconds(-margin);
+			this.stopDate.addMilliseconds(margin);
+		}
 		return this;
 	}
 	extendDays(days) {

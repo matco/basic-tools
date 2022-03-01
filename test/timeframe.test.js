@@ -169,6 +169,63 @@ describe('Timeframe', function() {
 		});
 	});
 
+	describe('#extendPercentage', function() {
+		it('extends a timeframe properly', function() {
+			let timeframe;
+
+			timeframe = new Timeframe(new Date('2020-06-01T10:00:00Z'), new Date('2020-06-01T14:00:00Z'));
+			assert.strictEqual(timeframe.getSeconds(), 14400);
+			timeframe.extendPercentage(10);
+			assert.strictEqual(timeframe.getSeconds(), 15840, 'Adding 10 percents to a timeframe containing 14400 seconds gives a timeframe of 15840 seconds');
+			assert.strictEqual(timeframe.startDate.getTime(), new Date('2020-06-01T09:48:00Z').getTime(), 'Adding 10 percents to a timeframe of 14400 seconds shifts its start date 5 percents earlier');
+			assert.strictEqual(timeframe.stopDate.getTime(), new Date('2020-06-01T14:12:00Z').getTime(), 'Adding 10 percents to a timeframe of 14400 seconds shifts its stop date 5 percents later');
+
+			timeframe = new Timeframe(new Date('2020-01-05T12:00:00.450Z'), new Date('2020-01-05T12:00:00.550Z'));
+			assert.strictEqual(timeframe.getMilliseconds(), 100);
+			timeframe.extendPercentage(200);
+			assert.strictEqual(timeframe.getMilliseconds(), 300, 'Adding 200 percents to a timeframe containing 100 milliseconds gives a timeframe of 300 milliseconds');
+			assert.strictEqual(timeframe.startDate.getTime(), new Date('2020-01-05T12:00:00.350Z').getTime(), 'Adding 200 percents to a timeframe of 100 seconds shifts its start date 100 percents earlier');
+			assert.strictEqual(timeframe.stopDate.getTime(), new Date('2020-01-05T12:00:00.650Z').getTime(), 'Adding 200 percents to a timeframe of 100 seconds shifts its stop date 100 percents later');
+
+			timeframe = new Timeframe(new Date('2020-01-05T12:00:00Z'), new Date('2020-01-05T13:00:00Z'));
+			assert.strictEqual(timeframe.getMilliseconds(), 3600000);
+			timeframe.extendPercentage(0);
+			assert.strictEqual(timeframe.getMilliseconds(), 3600000, 'Adding 0 percent to a timeframe does not update it');
+			assert.strictEqual(timeframe.startDate.getTime(), new Date('2020-01-05T12:00:00Z').getTime(), 'Adding 0 percent to a timeframe does not update it');
+			assert.strictEqual(timeframe.stopDate.getTime(), new Date('2020-01-05T13:00:00Z').getTime(), 'Adding 0 percent to a timeframe does not update it');
+
+			timeframe = new Timeframe(new Date('2020-01-05T12:00:00Z'), new Date('2020-01-05T13:00:00Z'));
+			assert.strictEqual(timeframe.getSeconds(), 3600);
+			timeframe.extendPercentage(-10);
+			assert.strictEqual(timeframe.getSeconds(), 3240, 'Adding -10 percents to a timeframe containing 3600 seconds gives a timeframe of 3240 seconds');
+			assert.strictEqual(timeframe.startDate.getTime(), new Date('2020-01-05T12:03:00Z').getTime(), 'Adding -10 percents to a timeframe of 3600 seconds shifts its start date 5 percents later');
+			assert.strictEqual(timeframe.stopDate.getTime(), new Date('2020-01-05T12:57:00Z').getTime(), 'Adding -10 percents to a timeframe of 3600 seconds shifts its stop date 5 percents earlier');
+		});
+
+		it('does not update blank timeframes', function() {
+			const timeframe = new Timeframe(new Date('2020-01-05T08:00:00Z'), new Date('2020-01-05T08:00:00Z'));
+			assert.strictEqual(timeframe.getSeconds(), 0);
+			timeframe.extendPercentage(10);
+			assert.strictEqual(timeframe.getSeconds(), 0, 'Adding 10 percents to a blank timeframe does not update it');
+			assert.strictEqual(timeframe.startDate.getTime(), new Date('2020-01-05T08:00:00Z').getTime(), 'Adding 10 percents to a blank timeframe does not update it');
+			assert.strictEqual(timeframe.stopDate.getTime(), new Date('2020-01-05T08:00:00Z').getTime(), 'Adding 10 percents to a blank timeframe does not update it');
+		});
+
+		it('does not update unstaked timeframes', function() {
+			let timeframe;
+
+			timeframe = new Timeframe(undefined, new Date('2020-01-05T13:00:00Z'));
+			timeframe.extendPercentage(10);
+			assert.strictEqual(timeframe.startDate, undefined, 'Adding 10 percents to an unstaked timeframe does not update it');
+			assert.strictEqual(timeframe.stopDate.getTime(), new Date('2020-01-05T13:00:00Z').getTime(), 'Adding 10 percents to an unstaked timeframe does not update it');
+
+			timeframe = new Timeframe(new Date('2000-01-05T13:00:00Z'), undefined);
+			timeframe.extendPercentage(50);
+			assert.strictEqual(timeframe.startDate.getTime(), new Date('2000-01-05T13:00:00Z').getTime(), 'Adding 50 percents to an unstaked timeframe does not update it');
+			assert.strictEqual(timeframe.stopDate, undefined, 'Adding 50 percents to an unstaked timeframe does not update it');
+		});
+	});
+
 	describe('#extendSeconds', function() {
 		it('checks if it adds seconds to a timeframe', function() {
 			let timeframe;
