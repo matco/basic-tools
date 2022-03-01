@@ -57,8 +57,8 @@ export class Timeframe {
 		if(!timeframe) {
 			return false;
 		}
-		const same_start_date = !this.startDate && !timeframe.startDate || this.startDate && timeframe.startDate && this.startDate.getTime() === timeframe.startDate.getTime();
-		const same_stop_date = !this.stopDate && !timeframe.stopDate || this.stopDate && timeframe.stopDate && this.stopDate.getTime() === timeframe.stopDate.getTime();
+		const same_start_date = !this.startDate && !timeframe.startDate || this.startDate && timeframe.startDate && this.startDate.equals(timeframe.startDate);
+		const same_stop_date = !this.stopDate && !timeframe.stopDate || this.stopDate && timeframe.stopDate && this.stopDate.equals(timeframe.stopDate);
 		return same_start_date && same_stop_date;
 	}
 	extendPercentage(percentage) {
