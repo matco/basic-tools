@@ -18,7 +18,7 @@ describe('Timeframe', function() {
 	});
 
 	describe('#isInfinite', function() {
-		it('check if a timeframe has no start date nor stop date', function() {
+		it('checks if a timeframe has no start date nor stop date', function() {
 			assert.ok(!new Timeframe(new Date('2004/02/26'), new Date('2004/02/27')).isInfinite(), 'Timeframe with start date and stop date is not infinite');
 			assert.ok(!new Timeframe(new Date('2004/02/26')).isInfinite(), 'Timeframe with only start date is not infinite');
 			assert.ok(new Timeframe().isInfinite(), 'Timeframe without start date nor stop date is infinite');
@@ -26,7 +26,7 @@ describe('Timeframe', function() {
 	});
 
 	describe('#isStaked', function() {
-		it('check if a timeframe has a start date or a stop date', function() {
+		it('checks if a timeframe has a start date or a stop date', function() {
 			assert.ok(new Timeframe(new Date('2004/02/26'), new Date('2004/02/27')).isStaked(), 'Timeframe with start date and stop date is stacked');
 			assert.ok(!new Timeframe(new Date('2004/02/26')).isStaked(), 'Timeframe with only start date is not stacked');
 			assert.ok(!new Timeframe().isStaked(), 'Timeframe without start date nor stop date is not stacked');
@@ -34,7 +34,7 @@ describe('Timeframe', function() {
 	});
 
 	describe('#isBlank', function() {
-		it('check if a timeframe has a start date equal to its stop date', function() {
+		it('checks if a timeframe has a start date equal to its stop date', function() {
 			const date = new Date('2004/02/26');
 			assert.ok(new Timeframe(date, date).isBlank(), 'Timeframe with the same start date and stop date is blank');
 			assert.ok(new Timeframe(new Date('2004/02/26'), new Date('2004/02/26')).isBlank(), 'Timeframe with start date equal to stop date is blank');
@@ -89,7 +89,7 @@ describe('Timeframe', function() {
 	});
 
 	describe('#shift', function() {
-		it('shift a timeframe for a specified period', function() {
+		it('shifts a timeframe for a specified period', function() {
 			const timeframe = new Timeframe(new Date('2010/12/27'), new Date('2010/12/31'));
 			assert.strictEqual(timeframe.getDays(), 4, 'There are 4 days between [2010/12/27] and [2010/12/31]');
 			timeframe.shiftDays(7);
@@ -227,7 +227,7 @@ describe('Timeframe', function() {
 	});
 
 	describe('#extendSeconds', function() {
-		it('checks if it adds seconds to a timeframe', function() {
+		it('extends a timeframe by the right number of seconds', function() {
 			let timeframe;
 
 			timeframe = new Timeframe(new Date('2020-01-05T08:00:00'), new Date('2020-01-05T10:00:00'));
