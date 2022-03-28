@@ -1,5 +1,5 @@
 interface ObjectConstructor {
-	isObject(object: any): object is {};
+	isObject(object: any): object is Object;
 	isEmpty(object: object): boolean;
 	equals(object1: any, object2: any): boolean;
 	key(object: object, value: any): any;
