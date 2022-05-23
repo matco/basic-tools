@@ -19,8 +19,7 @@ class CSV {
 			//add link in the current document to be able to test the download
 			//if the link is not included in the document, there is no way to detect if it has been "used" (created and programmatically clicked) in tests
 			document.body.appendChild(link); //this line is only for tests to be able to detect the click on the link
-			const event = document.createEvent('MouseEvents');
-			event.initEvent('click', true, true);
+			const event = new MouseEvent('click', {bubbles: true, cancelable: true});
 			link.dispatchEvent(event);
 			//remove link because it is useless
 			link.remove();
