@@ -76,13 +76,13 @@ interface HTMLFormElement {
 }
 
 interface HTMLDataListElement {
-	fill(entries: Array<string> | {[key: string]: string;}, blank_entry: boolean, selected_entries: any): HTMLDataListElement;
-	fillObjects<T>(objects: Array<any>, value_property: string | ((object: T) => string), label_property: string | ((object: T) => string), blank_entry: boolean, selected_entries: any): HTMLDataListElement;
+	fill(entries: string[]): HTMLDataListElement;
+	fillObjects<T>(objects: Array<any>, property: string | ((object: T) => string)): HTMLDataListElement;
 }
 
 interface HTMLSelectElement {
-	fill(entries: Array<string> | {[key: string]: string;}, blank_entry: boolean, selected_entries: any): HTMLSelectElement;
-	fillObjects<T>(objects:  Array<T>, value_property: string | ((object: T) => string), label_property: string | ((object: T) => string), blank_entry: boolean, selected_entries: any): HTMLSelectElement;
+	fill(entries: [string, string][] | string[], blank_entry: boolean, selected_entries: string[] | string): HTMLSelectElement;
+	fillObjects<T>(objects:  Array<T>, value_property: string | ((object: T) => string), label_property: string | ((object: T) => string), blank_entry: boolean, selected_entries: string[] | string): HTMLSelectElement;
 }
 
 interface Storage {
