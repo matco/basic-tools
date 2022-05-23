@@ -1,8 +1,6 @@
 ﻿/*eslint-env mocha*/
 
 import * as assert from 'assert';
-//TODO remove this when the fetch API has been fully integrated in Node.js
-import fetch from 'node-fetch';
 import {LZW} from '../lzw.js';
 
 describe('LZW', function() {
