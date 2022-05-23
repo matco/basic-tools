@@ -2,6 +2,7 @@ import './extension.js';
 
 class Bus {
 	constructor() {
+		this.dispatching = false;
 		this.enabled = true;
 		this.paused = false;
 		this.locked = false;
@@ -9,6 +10,7 @@ class Bus {
 		this.onEvent = undefined;
 
 		this.awaitingEvents = [];
+		this.consequenceEvents = [];
 	}
 	disable() {
 		this.enabled = false;
@@ -47,14 +49,29 @@ class Bus {
 		this.awaitingEvents.length = 0;
 	}
 	dispatch(event) {
-		if(this.enabled) {
-			if(!this.paused) {
-				this.listeners.forEach(event.hit, event);
-				this.onEvent?.call(undefined, event);
+		//dispatch events like a wave instead of a tree
+		//an event is first dispatched to all the listeners, then the consequences are dispatched
+		if(!this.dispatching) {
+			this.dispatching = true;
+			//dispatch incoming event
+			if(this.enabled) {
+				if(!this.paused) {
+					this.listeners.forEach(event.hit, event);
+					this.onEvent?.call(undefined, event);
+				}
+				else {
+					this.awaitingEvents.push(event);
+				}
 			}
-			else {
-				this.awaitingEvents.push(event);
+			//consume consequences events
+			this.dispatching = false;
+			//more consequences events may pile up while the current one are being consumed
+			while(this.consequenceEvents.length > 0) {
+				this.dispatch(this.consequenceEvents.shift());
 			}
+		}
+		else {
+			this.consequenceEvents.push(event);
 		}
 	}
 }
