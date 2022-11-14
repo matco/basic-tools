@@ -9,8 +9,8 @@ const bus = new Bus();
 
 let beeps_number = 0;
 const beeps_type_numbers = {
-	'short': 0,
-	'long': 0
+	short: 0,
+	long: 0
 };
 const beeps_sequence = [];
 
@@ -23,10 +23,10 @@ const beep_counter = {
 
 const beep_recorder = {
 	onBeepShort: function(event) {
-		beeps_sequence.push({type: 'short', 'volume': event.volume});
+		beeps_sequence.push({type: 'short', volume: event.volume});
 	},
 	onBeepLong: function(event) {
-		beeps_sequence.push({type: 'long', 'volume': event.volume});
+		beeps_sequence.push({type: 'long', volume: event.volume});
 	}
 };
 
