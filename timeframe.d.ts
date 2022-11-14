@@ -1,36 +1,36 @@
 export class Timeframe {
-	constructor(startDate?: Date, stopDate?: Date)
-	startDate: Date
-	stopDate: Date
-	isInfinite(): boolean
-	isStaked(): boolean
-	isBlank(): boolean
-	getDays(): number
-	getHours(): number
-	getMinutes(): number
-	getSeconds(): number
-	getMilliseconds(): number
-	clone(): Timeframe
-	surrounds(date: Date): boolean
-	overlaps(timeframe: Timeframe): boolean
+	constructor(startDate?: Date, stopDate?: Date);
+	startDate: Date;
+	stopDate: Date;
+	isInfinite(): boolean;
+	isStaked(): boolean;
+	isBlank(): boolean;
+	getDays(): number;
+	getHours(): number;
+	getMinutes(): number;
+	getSeconds(): number;
+	getMilliseconds(): number;
+	clone(): Timeframe;
+	surrounds(date: Date): boolean;
+	overlaps(timeframe: Timeframe): boolean;
 	toString(): string;
-	equals(timeframe: Timeframe): boolean
-	extendPercentage(percentage: number): Timeframe
-	extendDays(days: number): Timeframe
-	extendHours(hours: number): Timeframe
-	extendMinutes(minutes: number): Timeframe
-	extendSeconds(seconds: number): Timeframe
-	extendMilliseconds(milliseconds: number): Timeframe
-	roundToDay(): Timeframe
-	roundToHour(): Timeframe
-	roundToMinute(): Timeframe
-	shiftDays(days: number): Timeframe
-	shiftHours(hours: number): Timeframe
-	shiftMinutes(minutes: number): Timeframe
-	shiftSeconds(seconds: number): Timeframe
-	shiftMilliseconds(milliseconds: number): Timeframe
-	shiftStartDate(date: Date): Timeframe
-	shiftStopDate(date: Date): Timeframe
-	isBefore(timeframe: Timeframe): boolean
-	isAfter(timeframe: Timeframe): boolean
+	equals(timeframe: Timeframe): boolean;
+	extendPercentage(percentage: number): Timeframe;
+	extendDays(days: number): Timeframe;
+	extendHours(hours: number): Timeframe;
+	extendMinutes(minutes: number): Timeframe;
+	extendSeconds(seconds: number): Timeframe;
+	extendMilliseconds(milliseconds: number): Timeframe;
+	roundToDay(): Timeframe;
+	roundToHour(): Timeframe;
+	roundToMinute(): Timeframe;
+	shiftDays(days: number): Timeframe;
+	shiftHours(hours: number): Timeframe;
+	shiftMinutes(minutes: number): Timeframe;
+	shiftSeconds(seconds: number): Timeframe;
+	shiftMilliseconds(milliseconds: number): Timeframe;
+	shiftStartDate(date: Date): Timeframe;
+	shiftStopDate(date: Date): Timeframe;
+	isBefore(timeframe: Timeframe): boolean;
+	isAfter(timeframe: Timeframe): boolean;
 }

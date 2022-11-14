@@ -47,7 +47,7 @@ interface NodeListOf<TNode extends Node> extends NodeList {
 interface Element {
 	empty(selector?: string): Element;
 	setAttributes(attributes: object): Element;
-	getPosition(): {left: number; top: number;};
+	getPosition(): {left: number; top: number};
 }
 
 interface HTMLCollectionBase {
