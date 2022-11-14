@@ -79,97 +79,98 @@ class Reviver {
 	 * @returns {any} - The revived object
 	 */
 	revive(object, container, type) {
-		//creating new entity
-		if(object !== undefined && object !== null) {
-			//array of objects
-			if(Array.isArray(object)) {
-				if(this.enforceTypes && type && type !== 'array') {
-					throw new TypeDoesNotMatch(container, object, type);
-				}
-				return object.map(o => this.revive(o, container));
+		//nothing to do with undefined or null objects
+		if(object === undefined || object === null) {
+			return object;
+		}
+		//array of objects
+		if(Array.isArray(object)) {
+			if(this.enforceTypes && type && type !== 'array') {
+				throw new TypeDoesNotMatch(container, object, type);
 			}
-			//object
-			if(typeof object === 'object') {
-				//typed object
-				if(object[this.entityProperty]) {
-					//create revived object
-					//send object values directly to the factory to be able to construct the object directly with its values
-					//this allows for immutables objects
-					const revived_object = this.factory(object[this.entityProperty], object);
-					//retrieve properties
-					const declared_properties = this.entitiesProperties ? this.entitiesProperties(object[this.entityProperty]) : undefined;
-					//import properties, looping only on own properties (property must no be inherited)
-					for(const [property, value] of Object.entries(object)) {
-						//check that current property has been declared or unknown properties are preserved or this is the entity property
-						if(this.preserveUnknownProperties || this.preserveEntityProperty && property === this.entityProperty || declared_properties.hasOwnProperty(property)) {
-							//revive may fail du to incompatible types
-							revived_object[property] = this.revive(value, revived_object, declared_properties[property]?.type);
-						}
-						else if(this.debug && !declared_properties.hasOwnProperty(property)) {
-							//warn user that a property from the object has not been declared in class
-							console.log(`Property ${property} (value: ${value}) does not exist in ${object[this.entityProperty]} and has not been assigned for object`, object);
-						}
+			return object.map(o => this.revive(o, container));
+		}
+		//object
+		if(typeof object === 'object') {
+			//typed object
+			if(object[this.entityProperty]) {
+				//create revived object
+				//send object values directly to the factory to be able to construct the object directly with its values
+				//this allows for immutables objects
+				const revived_object = this.factory(object[this.entityProperty], object);
+				//retrieve properties
+				const declared_properties = this.entitiesProperties ? this.entitiesProperties(object[this.entityProperty]) : undefined;
+				//import properties, looping only on own properties (property must no be inherited)
+				for(const [property, value] of Object.entries(object)) {
+					//check that current property has been declared or unknown properties are preserved or this is the entity property
+					if(this.preserveUnknownProperties || this.preserveEntityProperty && property === this.entityProperty || declared_properties.hasOwnProperty(property)) {
+						//revive may fail du to incompatible types
+						revived_object[property] = this.revive(value, revived_object, declared_properties[property]?.type);
 					}
-					//set back references only available when entities properties are provided
-					if(declared_properties && container) {
-						//there can be more than one back reference for entities linked to two different parent entities
-						const back_references = Object.entries(declared_properties).filter(e => e[1].back_reference);
-						if(back_references.length > 0) {
-							let back_reference_set = false;
-							for(const [name, definition] of back_references) {
-								//check if back reference match property type
-								//the goal is to associate the container to the right back reference
-								//some entities may have more than one reference if they are used in different containers
-								//this is only possible if "entitiesConstructors" is used
-								if(!this.entitiesConstructors) {
-									back_reference_set = true;
-									revived_object[name] = container;
-								}
-								else {
-									//if type is specified, set back reference only if type of container matches declared type
-									if(definition.type) {
-										if(definition.type === container.constructor.name) {
-											back_reference_set = true;
-											revived_object[name] = container;
-										}
-									}
-									else {
+					else if(this.debug && !declared_properties.hasOwnProperty(property)) {
+						//warn user that a property from the object has not been declared in class
+						console.log(`Property ${property} (value: ${value}) does not exist in ${object[this.entityProperty]} and has not been assigned for object`, object);
+					}
+				}
+				//set back references only available when entities properties are provided
+				if(declared_properties && container) {
+					//there can be more than one back reference for entities linked to two different parent entities
+					const back_references = Object.entries(declared_properties).filter(e => e[1].back_reference);
+					if(back_references.length > 0) {
+						let back_reference_set = false;
+						for(const [name, definition] of back_references) {
+							//check if back reference match property type
+							//the goal is to associate the container to the right back reference
+							//some entities may have more than one reference if they are used in different containers
+							//this is only possible if "entitiesConstructors" is used
+							if(!this.entitiesConstructors) {
+								back_reference_set = true;
+								revived_object[name] = container;
+							}
+							else {
+								//if type is specified, set back reference only if type of container matches declared type
+								if(definition.type) {
+									if(definition.type === container.constructor.name) {
 										back_reference_set = true;
 										revived_object[name] = container;
 									}
 								}
-							}
-							if(this.debug && !back_reference_set) {
-								//warn user that an object has back references but none could be set
-								console.info('No back reference have been set for object', object);
+								else {
+									back_reference_set = true;
+									revived_object[name] = container;
+								}
 							}
 						}
-						//exclude this property for enumeration
-						/*var descriptor = Object.getOwnPropertyDescriptor(proto_object, property);
-						descriptor.enumerable = false;
-						Object.defineProperty(proto_object, property, descriptor);*/
+						if(this.debug && !back_reference_set) {
+							//warn user that an object has back references but none could be set
+							console.info('No back reference have been set for object', object);
+						}
 					}
-					if(this.callback) {
-						this.callback(revived_object, object[this.entityProperty], container, object);
-					}
-					return revived_object;
+					//exclude this property for enumeration
+					/*var descriptor = Object.getOwnPropertyDescriptor(proto_object, property);
+					descriptor.enumerable = false;
+					Object.defineProperty(proto_object, property, descriptor);*/
 				}
-				//map of objects
-				else {
-					const proto_object = {};
-					for(const [key, value] of Object.entries(object)) {
-						//revive each value keeping a reference to container
-						proto_object[key] = this.revive(value, container);
-					}
-					return proto_object;
+				if(this.callback) {
+					this.callback(revived_object, object[this.entityProperty], container, object);
 				}
+				return revived_object;
 			}
-			//primitive data type
-			if(this.enforceTypes && type && typeof(object) !== type) {
-				throw new TypeDoesNotMatch(container, object, type);
+			//map of objects
+			else {
+				const proto_object = {};
+				for(const [key, value] of Object.entries(object)) {
+					//revive each value keeping a reference to container
+					proto_object[key] = this.revive(value, container);
+				}
+				return proto_object;
 			}
 		}
-		//object is undefined, nothing to do on it
+		//primitive data type
+		if(this.enforceTypes && type && typeof(object) !== type) {
+			throw new TypeDoesNotMatch(container, object, type);
+		}
+		//nothing to revive with primitive data type
 		return object;
 	}
 }
