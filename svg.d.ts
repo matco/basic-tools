@@ -17,7 +17,7 @@ export class SVG {
 	static Title(content: string, properties?: {[key: string]: string}): SVGTitleElement;
 	static Link(href: string, properties?: {[key: string]: string}): SVGAElement;
 	static Path(x: number, y: number, path: string, properties?: {[key: string]: string}): SVGPathElement
-	static TextWrap(text: string, width: number);
-	static TextEllipsis(text: string, width: number);
+	static TextWrap(text: SVGTextElement, width: number);
+	static TextEllipsis(text: SVGTextElement, width: number);
 	static Center(element: SVGElement, x1: number, x2: number, y1: number, y2: number);
 }
