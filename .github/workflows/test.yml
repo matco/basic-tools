@@ -3,7 +3,11 @@ name: Test
 permissions:
   contents: read
 
-on: [push]
+# this will be executed on every push on a branch (hence on every commit), but not when pushing a tag
+on:
+  push:
+    branches:
+      - '*'
 
 jobs:
   test:
