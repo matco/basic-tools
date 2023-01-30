@@ -23,12 +23,12 @@
 		"url": "https://github.com/matco/basic-tools/issues"
 	},
 	"devDependencies": {
-		"@types/mocha": "^10.0.0",
-		"@types/node": "^18.11.9",
-		"eslint": "^8.27.0",
-		"eslint-plugin-jsdoc": "^39.6.2",
+		"@types/mocha": "^10.0.1",
+		"@types/node": "^18.11.18",
+		"eslint": "^8.33.0",
+		"eslint-plugin-jsdoc": "^39.7.4",
 		"http-server": "^14.1.1",
-		"mocha": "^10.1.0",
-		"typescript": "^4.8.4"
+		"mocha": "^10.2.0",
+		"typescript": "^4.9.4"
 	}
 }
