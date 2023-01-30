@@ -1,7 +1,7 @@
 {
 	"name": "@matco/basic-tools",
 	"description": "basic-tools is a set of tools that will make your life easier when developing Javascript applications",
-	"version": "2.4.1",
+	"version": "2.4.2",
 	"scripts": {
 		"lint": "eslint .",
 		"tsc": "tsc",
