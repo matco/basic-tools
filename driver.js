@@ -212,12 +212,12 @@ export class Driver {
 		});
 	}
 	/**
-	 * @param {number} [time=100] - Time to wait in milliseconds
+	 * @param {number} [time] - Time to wait in milliseconds
 	 * @returns {Promise} - A promise that resolves after the specified time
 	 */
-	async wait(time) {
+	async wait(time = 100) {
 		return new Promise(resolve => {
-			const timeout = time || 100;
+			const timeout = time;
 			this.window.setTimeout(resolve, timeout);
 		});
 	}
