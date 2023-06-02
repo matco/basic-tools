@@ -152,20 +152,16 @@ export class Driver {
 		const droppable = await this.get(droppable_selector);
 		const data_transfer = new DataTransfer();
 
-		const dragstart = new DragEvent('DragEvent', {dataTransfer: data_transfer});
-		dragstart.initEvent('dragstart', true, true);
+		const dragstart = new DragEvent('dragstart', {bubbles: true, cancelable: true, dataTransfer: data_transfer});
 		draggable.dispatchEvent(dragstart);
 
-		const dragenter = new DragEvent('DragEvent', {dataTransfer: data_transfer});
-		dragenter.initEvent('dragenter', true, true);
+		const dragenter = new DragEvent('dragenter', {bubbles: true, cancelable: true, dataTransfer: data_transfer});
 		droppable.dispatchEvent(dragenter);
 
-		const drop = new DragEvent('DragEvent', {dataTransfer: data_transfer});
-		drop.initEvent('drop', true, true);
+		const drop = new DragEvent('drop', {bubbles: true, cancelable: true, dataTransfer: data_transfer});
 		droppable.dispatchEvent(drop);
 
-		const dragend = new DragEvent('DragEvent', {dataTransfer: data_transfer});
-		dragend.initEvent('dragend', true, true);
+		const dragend = new DragEvent('dragend', {bubbles: true, cancelable: true, dataTransfer: data_transfer});
 		draggable.dispatchEvent(dragend);
 	}
 	//forms
@@ -188,8 +184,7 @@ export class Driver {
 	}
 	async submit(selector) {
 		const element = await this.get(selector);
-		const submit = this.document.createEvent('Event');
-		submit.initEvent('submit', true, true);
+		const submit = new this.window.SubmitEvent('submit', {bubbles: true, cancelable: true});
 		element.dispatchEvent(submit);
 		//submit event could throw an exception if form is not valid
 	}
