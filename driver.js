@@ -1,28 +1,3 @@
-function trigger_change(element) {
-	const change = new UIEvent('change', {bubbles: true, cancelable: true});
-	element.dispatchEvent(change);
-}
-
-function trigger_input(element) {
-	const input = new InputEvent('input', {bubbles: true, cancelable: true});
-	element.dispatchEvent(input);
-}
-
-function trigger_keydown(element, key) {
-	const keydown = new KeyboardEvent('keydown', {key: key, bubbles: true, cancelable: true});
-	element.dispatchEvent(keydown);
-}
-
-function trigger_keypress(element, key) {
-	const keydown = new KeyboardEvent('keypress', {key: key, bubbles: true, cancelable: true});
-	element.dispatchEvent(keydown);
-}
-
-function trigger_keyup(element, key) {
-	const keydown = new KeyboardEvent('keyup', {key: key, bubbles: true, cancelable: true});
-	element.dispatchEvent(keydown);
-}
-
 function mouse_event_properties(window, element) {
 	const properties = {
 		view: window,
@@ -51,9 +26,29 @@ export class Driver {
 	throwError(error) {
 		throw new this.window.Error(error);
 	}
+	#triggerChange(element) {
+		const change = new this.window.UIEvent('change', {bubbles: true, cancelable: true});
+		element.dispatchEvent(change);
+	}
+	#triggerInput(element) {
+		const input = new this.window.InputEvent('input', {bubbles: true, cancelable: true});
+		element.dispatchEvent(input);
+	}
+	#triggerKeydown(element, key) {
+		const keydown = new this.window.KeyboardEvent('keydown', {key: key, bubbles: true, cancelable: true});
+		element.dispatchEvent(keydown);
+	}
+	#triggerKeypress(element, key) {
+		const keydown = new this.window.KeyboardEvent('keypress', {key: key, bubbles: true, cancelable: true});
+		element.dispatchEvent(keydown);
+	}
+	#triggerKeyup(element, key) {
+		const keydown = new this.window.KeyboardEvent('keyup', {key: key, bubbles: true, cancelable: true});
+		element.dispatchEvent(keydown);
+	}
 	//find an element in the page but does not check if it's visible
 	async find(selector) {
-		return new Promise((resolve, reject) => {
+		return new this.window.Promise((resolve, reject) => {
 			//exclude empty selector
 			if(!selector) {
 				this.throwError('A valid selector or a HTMLElement must provided');
@@ -134,34 +129,34 @@ export class Driver {
 	async click(selector, options) {
 		const element = await this.get(selector, options);
 		element.focus();
-		const click = new MouseEvent('click', mouse_event_properties(this.window, element));
+		const click = new this.window.MouseEvent('click', mouse_event_properties(this.window, element));
 		element.dispatchEvent(click);
 	}
 	async doubleClick(selector) {
 		const element = await this.get(selector);
-		const dblclick = new MouseEvent('dblclick', mouse_event_properties(this.window, element));
+		const dblclick = new this.window.MouseEvent('dblclick', mouse_event_properties(this.window, element));
 		element.dispatchEvent(dblclick);
 	}
 	async contextMenu(selector) {
 		const element = await this.get(selector);
-		const contextmenu = new MouseEvent('contextmenu', mouse_event_properties(this.window, element));
+		const contextmenu = new this.window.MouseEvent('contextmenu', mouse_event_properties(this.window, element));
 		element.dispatchEvent(contextmenu);
 	}
 	async dragAndDrop(draggable_selector, droppable_selector) {
 		const draggable = await this.get(draggable_selector);
 		const droppable = await this.get(droppable_selector);
-		const data_transfer = new DataTransfer();
+		const data_transfer = new this.window.DataTransfer();
 
-		const dragstart = new DragEvent('dragstart', {bubbles: true, cancelable: true, dataTransfer: data_transfer});
+		const dragstart = new this.window.DragEvent('dragstart', {bubbles: true, cancelable: true, dataTransfer: data_transfer});
 		draggable.dispatchEvent(dragstart);
 
-		const dragenter = new DragEvent('dragenter', {bubbles: true, cancelable: true, dataTransfer: data_transfer});
+		const dragenter = new this.window.DragEvent('dragenter', {bubbles: true, cancelable: true, dataTransfer: data_transfer});
 		droppable.dispatchEvent(dragenter);
 
-		const drop = new DragEvent('drop', {bubbles: true, cancelable: true, dataTransfer: data_transfer});
+		const drop = new this.window.DragEvent('drop', {bubbles: true, cancelable: true, dataTransfer: data_transfer});
 		droppable.dispatchEvent(drop);
 
-		const dragend = new DragEvent('dragend', {bubbles: true, cancelable: true, dataTransfer: data_transfer});
+		const dragend = new this.window.DragEvent('dragend', {bubbles: true, cancelable: true, dataTransfer: data_transfer});
 		draggable.dispatchEvent(dragend);
 	}
 	//forms
@@ -169,18 +164,18 @@ export class Driver {
 		const element = await this.get(selector);
 		element.value = value;
 		//trigger change event manually because it is not fired by the browser when the value is set with js
-		trigger_change(element);
-		trigger_input(element);
+		this.#triggerChange(element);
+		this.#triggerInput(element);
 	}
 	async check(selector) {
 		const element = await this.get(selector);
 		element.checked = true;
-		trigger_change(element);
+		this.#triggerChange(element);
 	}
 	async uncheck(selector) {
 		const element = await this.get(selector);
 		element.checked = false;
-		trigger_change(element);
+		this.#triggerChange(element);
 	}
 	async submit(selector) {
 		const element = await this.get(selector);
@@ -201,9 +196,9 @@ export class Driver {
 		//keys are usually sent on the whole document element
 		const element = selector ? await this.get(selector) : this.document;
 		sequence.forEach(k => {
-			trigger_keydown(element, k);
-			trigger_keypress(element, k);
-			trigger_keyup(element, k);
+			this.#triggerKeydown(element, k);
+			this.#triggerKeypress(element, k);
+			this.#triggerKeyup(element, k);
 		});
 	}
 	/**
