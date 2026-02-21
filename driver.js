@@ -47,7 +47,7 @@ export class Driver {
 		element.dispatchEvent(keydown);
 	}
 	//find an element in the page but does not check if it's visible
-	async find(selector) {
+	find(selector) {
 		return new this.window.Promise((resolve, reject) => {
 			//exclude empty selector
 			if(!selector) {
@@ -205,7 +205,7 @@ export class Driver {
 	 * @param {number} [time] - Time to wait in milliseconds
 	 * @returns {Promise} - A promise that resolves after the specified time
 	 */
-	async wait(time = 100) {
+	wait(time = 100) {
 		return new Promise(resolve => {
 			const timeout = time;
 			this.window.setTimeout(resolve, timeout);
