@@ -100,7 +100,7 @@ export const LZW = {
 	},
 
 	DecompressString: function(string) {
-		const integers = string.split('').map(function(character) {return character.charCodeAt(0);});
+		const integers = string.split('').map(c => c.charCodeAt(0));
 		return LZW.Decompress(integers, LZW.MAX_DICT_SIZE);
 	}
 };
