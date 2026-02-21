@@ -1,9 +1,29 @@
-class CSV {
+export class CSV {
+	static INVALID_CHARACTERS = ['\r'];
+	static MIME_TYPE = 'text/csv';
+	static DELIMITER_LINE = '\n';
+	static DELIMITER_COLUMN = ',';
+	static CHARACTER_QUOTER = '"';
+
 	constructor(data) {
 		this.data = data;
+		this.regexp = new RegExp(CSV.CHARACTER_QUOTER, 'g');
+	}
+
+	/**
+	 * Generate a line of the CSV file from an array of cells
+	 * @param {string[]} line - The array of cells
+	 * @returns {string} - The generated CSV line
+	 */
+	#generateLine(line) {
+		return line
+			.map(c => c || '')
+			.map(c => c.replace(this.regexp, `${CSV.CHARACTER_QUOTER}${CSV.CHARACTER_QUOTER}`))
+			.map(c => `${CSV.CHARACTER_QUOTER}${c}${CSV.CHARACTER_QUOTER}`)
+			.join(CSV.DELIMITER_COLUMN);
 	}
 	toString() {
-		return this.data.map(generate_line).join(CSV.DELIMITER_LINE);
+		return this.data.map(l => this.#generateLine(l)).join(CSV.DELIMITER_LINE);
 	}
 	toBlob() {
 		return new Blob([this.toString()], {type: CSV.MIME_TYPE});
@@ -94,21 +114,3 @@ class CSV {
 		});
 	}
 }
-
-CSV.INVALID_CHARACTERS = ['\r'];
-CSV.MIME_TYPE = 'text/csv';
-CSV.DELIMITER_LINE = '\n';
-CSV.DELIMITER_COLUMN = ',';
-CSV.CHARACTER_QUOTER = '"';
-
-const regexp = new RegExp(CSV.CHARACTER_QUOTER, 'g');
-
-function generate_line(line) {
-	return line
-		.map(c => c || '')
-		.map(c => c.replace(regexp, `${CSV.CHARACTER_QUOTER}${CSV.CHARACTER_QUOTER}`))
-		.map(c => `${CSV.CHARACTER_QUOTER}${c}${CSV.CHARACTER_QUOTER}`)
-		.join(CSV.DELIMITER_COLUMN);
-}
-
-export {CSV};
