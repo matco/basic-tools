@@ -79,10 +79,11 @@ class Bus {
 class BusEvent {
 	constructor() {
 	}
-	//get list of callback method names for the event
+
 	/**
-	 * @returns {string[]} - A list of method names that will be called on the listener
+	 * Get list of callback method names for the event
 	 * @abstract
+	 * @returns {string[]} A list of method names that will be called on the listener
 	 */
 	getCallbacks() {
 		throw new Error(`getCallbacks() is not implemented for ${this.constructor.name}`);

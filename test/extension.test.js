@@ -41,7 +41,7 @@ describe('extension', function() {
 				assert.ok(Object.isEmpty(object), 'Object built from empty constructor is an empty object');
 
 				constructor = function() {
-					this.property;
+					/**@type {object}*/ this.property;
 				};
 				object = new constructor();
 				assert.ok(Object.isEmpty(object), 'Object built from constructor defining property without value is an empty object');

@@ -82,6 +82,11 @@ class Shop {
 	}
 }
 
+/**
+ * Build an entity based on its name
+ * @param {string} entity - The name of the entity to build
+ * @returns {City | Street | Shop} The built entity
+ */
 function buildEntity(entity) {
 	const builder = getConstructorForEntity(entity);
 	const instance = new builder();
@@ -91,6 +96,12 @@ function buildEntity(entity) {
 	return instance;
 }
 
+/**
+ * Get the constructor function for an entity
+ * @param {string} entity - The name of the entity
+ * @returns {typeof City | typeof Street | typeof Shop} The constructor function for the entity
+ * @throws {Error} If the entity is unknown
+ */
 function getConstructorForEntity(entity) {
 	switch(entity) {
 		case 'City' : return City;
@@ -100,6 +111,11 @@ function getConstructorForEntity(entity) {
 	throw new Error(`No constructor for entity ${entity}`);
 }
 
+/**
+ * Get the properties for an entity
+ * @param {string} entity - The name of the entity
+ * @returns {object} The properties of the entity
+ */
 function getPropertiesForEntity(entity) {
 	return getConstructorForEntity(entity).getProperties();
 }

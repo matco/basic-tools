@@ -59,6 +59,15 @@ Element.prototype.setAttributes = function(attributes) {
 
 //Document
 (function() {
+	/**
+	 * Enhance an element by setting attributes, text and listeners on it
+	 * @param {HTMLElement} element - The element to enhance
+	 * @param {object} attributes - The attributes to set on the element
+	 * @param {string} [text] - The text content to set on the element
+	 * @param {object} [listeners] - The event listeners to add to the element
+	 * @returns {HTMLElement} The enhanced element
+	 * @this {Document}
+	 */
 	function enhance_element(element, attributes, text, listeners) {
 		element.setAttributes(attributes);
 		if(text !== undefined) {
@@ -101,12 +110,13 @@ HTMLFormElement.prototype.enable = function() {
 };
 
 //HTMLSelectElement
+
 /**
- * @type {Function}
+ * Fill a select element with options
  * @param {string[][] | string[]} entries - List of entries
  * @param {boolean} [blank_entry] - Add or not a blank entry
  * @param {string[] | string} [selected_entries] - Entries that will be selected
- * @returns {HTMLSelectElement} - The select element that will be filled
+ * @returns {HTMLSelectElement} The select element that will be filled
  */
 HTMLSelectElement.prototype.fill = function(entries, blank_entry, selected_entries) {
 	const options = entries.map(e => Array.isArray(e) ? e : [e, e]);
@@ -179,13 +189,14 @@ HTMLSelectElement.prototype.fill = function(entries, blank_entry, selected_entri
 };
 
 /**
- * @type {Function}
- * @param {any[]} objects - List of objects used to fill the select
- * @param {string|Function} value_property - Property of the object or function applied to the object to obtain the object value
- * @param {string|Function} label_property - Property of the object or function applied to the object to obtain the object label
+ * Fill a select element with options based on a list of objects
+ * @template T
+ * @param {T[]} objects - List of objects used to fill the select
+ * @param {string | ((object: T) => string)} value_property - Property of the object or function applied to the object to obtain the object value
+ * @param {string | ((object: T) => string)} label_property - Property of the object or function applied to the object to obtain the object label
  * @param {boolean} [blank_entry] - Add or not a blank entry
  * @param {string[] | string} [selected_entries] - Entries that will be selected
- * @returns {HTMLSelectElement} - The select element that will be filled
+ * @returns {HTMLSelectElement} The select element that will be filled
  */
 HTMLSelectElement.prototype.fillObjects = function(objects, value_property, label_property, blank_entry, selected_entries) {
 	/**@type {[string,string][]}*/
@@ -198,10 +209,11 @@ HTMLSelectElement.prototype.fillObjects = function(objects, value_property, labe
 };
 
 //HTMLDataListElement
+
 /**
- * @type {Function}
+ * Fill a datalist element with options
  * @param {string[]} entries - List of entries
- * @returns {HTMLDataListElement} - The select element that will be filled
+ * @returns {HTMLDataListElement} The datalist element that will be filled
  */
 HTMLDataListElement.prototype.fill = function(entries) {
 	//clean existing options and handle selection status
@@ -232,10 +244,11 @@ HTMLDataListElement.prototype.fill = function(entries) {
 };
 
 /**
- * @type {Function}
- * @param {string[]} objects - List of objects used to fill the select
- * @param {string|Function} property - Property of the object or function applied to the object to obtain the value
- * @returns {HTMLDataListElement} - The select element that will be filled
+ * Fill a datalist element with options based on a list of objects
+ * @template T
+ * @param {T[]} objects - List of objects used to fill the select
+ * @param {string | ((object: T) => string)} property - Property of the object or function applied to the object to obtain the value
+ * @returns {HTMLDataListElement} The select element that will be filled
  */
 HTMLDataListElement.prototype.fillObjects = function(objects, property) {
 	const options = objects.map(o => Function.isFunction(property) ? property.call(o, o) : o[property]);

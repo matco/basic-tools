@@ -7,6 +7,12 @@ const messages = [];
 let chrono = 0;
 const delay = 50;
 
+/**
+ * Generate a promise that will add a message to the messages list and increase the chrono by a given time after a delay
+ * @param {string} message - The message to add to the messages list
+ * @param {number} time - The time to wait before resolving the promise
+ * @returns {() => Promise<void>} A function that returns a promise
+ */
 function timer_generator(message, time) {
 	return () => new Promise(function(resolve) {
 		messages.push(message);

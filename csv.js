@@ -13,7 +13,7 @@ export class CSV {
 	/**
 	 * Generate a line of the CSV file from an array of cells
 	 * @param {string[]} line - The array of cells
-	 * @returns {string} - The generated CSV line
+	 * @returns {string} The generated CSV line
 	 */
 	#generateLine(line) {
 		return line

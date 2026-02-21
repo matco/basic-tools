@@ -1,3 +1,9 @@
+/**
+ * Calculate properties for mouse events based on the position of an element
+ * @param {Window} window - The window object to use for creating events and accessing the document
+ * @param {HTMLElement} element - The element to use for calculating mouse event properties
+ * @returns {object} An object containing properties for mouse events
+ */
 function mouse_event_properties(window, element) {
 	const properties = {
 		view: window,
@@ -123,7 +129,8 @@ export class Driver {
 		element.focus();
 	}
 	/**
-	 * @param {string|HTMLElement} selector - The HTML element (or a string selector) to click
+	 * Simulate a click on an element
+	 * @param {string | HTMLElement} selector - The HTML element (or a string selector) to click
 	 * @param {object} [options] - The options used to retrieve the HTML element is a selector is used
 	 */
 	async click(selector, options) {
@@ -183,14 +190,15 @@ export class Driver {
 		element.dispatchEvent(submit);
 		//submit event could throw an exception if form is not valid
 	}
-	//sequence must be an array of key like explained here https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
-	//that means you can send letters or digits directly such as "0", "4", "a" or "h" but not "Number0", "Number4", "KeyQ" or "KeyH"
-	//you can also send other keys such as "Escape", "F2", "PageDown"
-	//a valid sequence is ['a', 'Escape', 'q', '5', 'PageDown']
-	//this code does not manage modifier keys (such as "Ctrl", "Alt" or "Shift") and only set the key property of the event (and not the code property)
 	/**
-	 * @param {Array<string>} sequence - An array of key to press (see https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key)
-	 * @param {string|HTMLElement} [selector] - The HTML element (or a string selector) where the keys will be pressed
+	 * Simulate a sequence of key presses on an element
+	 * sequence must be an array of key like explained here https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
+	 * that means you can send letters or digits directly such as "0", "4", "a" or "h" but not "Number0", "Number4", "KeyQ" or "KeyH"
+	 * you can also send other keys such as "Escape", "F2", "PageDown"
+	 * a valid sequence is ['a', 'Escape', 'q', '5', 'PageDown']
+	 * this code does not manage modifier keys (such as "Ctrl", "Alt" or "Shift") and only set the key property of the event (and not the code property)
+	 * @param {string[]} sequence - An array of key to press (see https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key)
+	 * @param {string | HTMLElement} [selector] - The HTML element (or a string selector) where the keys will be pressed
 	 */
 	async press(sequence, selector) {
 		//keys are usually sent on the whole document element
@@ -202,8 +210,9 @@ export class Driver {
 		});
 	}
 	/**
+	 * Wait for a specified time
 	 * @param {number} [time] - Time to wait in milliseconds
-	 * @returns {Promise} - A promise that resolves after the specified time
+	 * @returns {Promise} A promise that resolves after the specified time
 	 */
 	wait(time = 100) {
 		return new Promise(resolve => {

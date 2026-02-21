@@ -1,3 +1,10 @@
+/**
+ * Log a success or failure message to the console and return it
+ * @param {boolean} success - Indicates if the assertion was successful
+ * @param {string} message - The message to log
+ * @param {string} specification - Additional specification for the message
+ * @returns {string} The logged message
+ */
 function log(success, message, specification) {
 	let text = success ? 'Success' : 'Fail';
 	if(message) {
@@ -12,6 +19,14 @@ function log(success, message, specification) {
 	return text;
 }
 
+/**
+ * Check if an exception matches criteria and log a success or failure message to the console
+ * @param {Error} exception - The exception to check
+ * @param {(exception: Error) => boolean} exception_assert - A function to assert the exception
+ * @param {string} message - The message to log
+ * @param {string} specification - Additional specification for the message
+ * @this {object}
+ */
 function check_exception(exception, exception_assert, message, specification) {
 	if(!exception_assert) {
 		this.success(message || 'Code throws an exception', specification);

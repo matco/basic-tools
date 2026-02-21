@@ -5,10 +5,10 @@ class TypeDoesNotMatch extends Error {
 }
 
 /**
- * @typedef {Function} Factory
+ * @callback Factory
  * @param {string} entity - String containing the object entity
- * @param {string} [container] - The container of the object that is currently being revived
- * @returns {Function} - The constructor associated to the entity
+ * @param {object} [container] - The container of the object that is currently being revived
+ * @returns {object} The constructor associated to the entity
  */
 
 class Reviver {
@@ -73,10 +73,12 @@ class Reviver {
 		}
 	}
 	/**
+	 * Revive a plain object into a class instance
 	 * @param {object} object - The object to revive
-	 * @param {any} [container] - The container of the object that will be bound to object back references
+	 * @param {object} [container] - The container of the object that will be bound to object back references
 	 * @param {string} [type] - Awaited type of object
-	 * @returns {any} - The revived object
+	 * @returns {object} The revived object
+	 * @throws {TypeDoesNotMatch} If the type of a property does not match the expected type
 	 */
 	revive(object, container, type) {
 		//nothing to do with undefined or null objects

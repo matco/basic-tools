@@ -1,5 +1,11 @@
 import './extension.js';
 
+/**
+ * Append attributes to an element using
+ * @param {SVGElement} object - The element to enhance
+ * @param {object} properties - The properties to append
+ * @returns {SVGElement} The enhanced element
+ */
 function append_xhtml_properties(object, properties) {
 	if(object && properties) {
 		for(const property in properties) {
@@ -9,6 +15,12 @@ function append_xhtml_properties(object, properties) {
 	return object;
 }
 
+/**
+ * Append attributes to an element using with null namespace
+ * @param {SVGElement} object - The element to enhance
+ * @param {object} properties - The properties to append
+ * @returns {SVGElement} The enhanced element
+ */
 function append_properties(object, properties) {
 	if(object && properties) {
 		for(const property in properties) {
@@ -18,28 +30,41 @@ function append_properties(object, properties) {
 	return object;
 }
 
+/**
+ * Round a coordinate to the nearest half integer to avoid anti-aliasing
+ * @param {number} coordinate - The coordinate to round
+ * @returns {number} The rounded coordinate
+ */
 function round_coordinate(coordinate) {
 	return Math.round(coordinate - 0.5) + 0.5;
 	//return coordinate;
 }
 
+/**
+ * Round a dimension to the nearest integer to avoid anti-aliasing
+ * @param {number} dimension - The dimension to round
+ * @returns {number} The rounded dimension
+ */
 function round_dimension(dimension) {
 	return Math.round(dimension);
 	//return dimension;
 }
 
+const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
+const XHTML_NAMESPACE = 'http://www.w3.org/1999/xhtml';
+
 export const SVG = {
 	Create: function(properties) {
-		const svg = document.createElementNS(SVG.Namespaces.SVG, 'svg');
+		const svg = document.createElementNS(SVG_NAMESPACE, 'svg');
 		append_xhtml_properties(svg, {
 			'version': '1.2',
-			'xmlns': SVG.Namespaces.SVG,
-			'xmlns:xhtml': SVG.Namespaces.XHTML
+			'xmlns': SVG_NAMESPACE,
+			'xmlns:xhtml': XHTML_NAMESPACE
 		});
 		return append_xhtml_properties(svg, properties);
 	},
 	Element: function(tag, properties) {
-		return append_properties(document.createElementNS(SVG.Namespaces.SVG, tag), properties);
+		return append_properties(document.createElementNS(SVG_NAMESPACE, tag), properties);
 	},
 	Group: function(properties) {
 		return SVG.Element('g', properties);
@@ -126,7 +151,7 @@ export const SVG = {
 		const words = text.textContent.split(' ');
 		text.textContent = '';
 		//create first line
-		let tspan = SVG.Element('tspan', {x: text.getAttribute('x'), dy: 0});
+		let tspan = /**@type {SVGTextContentElement}*/ (SVG.Element('tspan', {x: text.getAttribute('x'), dy: 0}));
 		text.appendChild(tspan);
 		//re-add word one after an other
 		let word;
@@ -143,7 +168,7 @@ export const SVG = {
 				line.pop();
 				tspan.textContent = line.join(' ');
 				//start a new line
-				tspan = SVG.Element('tspan', {x: text.getAttribute('x'), dy: 15});
+				tspan = /**@type {SVGTextContentElement}*/ (SVG.Element('tspan', {x: text.getAttribute('x'), dy: 15}));
 				text.appendChild(tspan);
 				line = [];
 				//excluded word must be managed next loop
@@ -173,6 +198,6 @@ export const SVG = {
 };
 
 SVG.Namespaces = {
-	SVG: 'http://www.w3.org/2000/svg',
-	XHTML: 'http://www.w3.org/1999/xhtml'
+	SVG: SVG_NAMESPACE,
+	XHTML: XHTML_NAMESPACE
 };

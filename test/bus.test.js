@@ -37,6 +37,10 @@ class BusEventBeep extends BusEvent {
 		this.type = type;
 		this.volume = volume;
 	}
+	/**
+	 * @override
+	 * @returns {string[]} The list of callbacks to call for this event
+	 */
 	getCallbacks() {
 		return [`onBeep${this.type.capitalize()}`, 'onBeep'];
 	}
