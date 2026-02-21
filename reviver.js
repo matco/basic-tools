@@ -105,7 +105,7 @@ class Reviver {
 				//import properties, looping only on own properties (property must no be inherited)
 				for(const [property, value] of Object.entries(object)) {
 					//check that current property has been declared or unknown properties are preserved or this is the entity property
-					if(this.preserveUnknownProperties || this.preserveEntityProperty && property === this.entityProperty || declared_properties.hasOwnProperty(property)) {
+					if(this.preserveUnknownProperties || (this.preserveEntityProperty && property === this.entityProperty) || declared_properties.hasOwnProperty(property)) {
 						//revive may fail du to incompatible types
 						revived_object[property] = this.revive(value, revived_object, declared_properties[property]?.type);
 					}
