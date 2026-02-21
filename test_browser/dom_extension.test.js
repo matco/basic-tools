@@ -53,7 +53,7 @@ describe('dom_extension', function() {
 				assert.ok(!a.hasAttribute('href'), 'Newly created link has no attribute "href"');
 
 				//add some attributes
-				a.setAttributes({href: '#here', 'class': 'important', style: 'border: 1px solid black;'});
+				a.setAttributes({href: '#here', class: 'important', style: 'border: 1px solid black;'});
 
 				assert.ok(a.hasAttribute('href'), 'Link has attribute "href"');
 				assert.ok(a.hasAttribute('class'), 'Link has attribute "class"');
@@ -61,7 +61,7 @@ describe('dom_extension', function() {
 				assert.strictEqual(a.getAttribute('class'), 'important', 'Attribute "class" has been set with good value');
 
 				//overwrite one attribute and add a new one
-				a.setAttributes({'class': 'useless', title: 'Useless link'});
+				a.setAttributes({class: 'useless', title: 'Useless link'});
 
 				assert.strictEqual(a.getAttribute('class'), 'useless', 'Attribute "class" has been overridden with good value');
 				assert.strictEqual(a.getAttribute('title'), 'Useless link', 'Attribute "title" has been set with good value');
@@ -76,7 +76,7 @@ describe('dom_extension', function() {
 				let clicked = false;
 				const button = document.createFullElement(
 					'button',
-					{type: 'button', 'class': 'important', style: 'cursor: pointer;'},
+					{type: 'button', class: 'important', style: 'cursor: pointer;'},
 					'Here',
 					{
 						click: function(event) {

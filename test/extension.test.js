@@ -290,25 +290,25 @@ describe('extension', function() {
 
 		describe('#replaceObject', function() {
 			it('replaces specials token in a string with the value of an object', function() {
-				assert.strictEqual('Welcome ${name}'.replaceObject({'name': 'Mat'}), 'Welcome Mat', 'ReplaceObject fill blanks with object properties');
+				assert.strictEqual('Welcome ${name}'.replaceObject({name: 'Mat'}), 'Welcome Mat', 'ReplaceObject fill blanks with object properties');
 				assert.strictEqual(
-					'Welcome ${name}. I am happy to see you, ${name}.'.replaceObject({'name': 'Mat', 'other': 'Matthieu'}),
+					'Welcome ${name}. I am happy to see you, ${name}.'.replaceObject({name: 'Mat', other: 'Matthieu'}),
 					'Welcome Mat. I am happy to see you, Mat.',
 					'ReplaceObject can replace more than one blank with the same object properties');
 				assert.strictEqual(
-					'Cool ${what} : $, { or } or even {}.'.replaceObject({'what': 'characters', 'test': 'test'}),
+					'Cool ${what} : $, { or } or even {}.'.replaceObject({what: 'characters', test: 'test'}),
 					'Cool characters : $, { or } or even {}.',
 					'ReplaceObject works with any character');
 				assert.strictEqual(
-					'Welcome ${person.firstname} ${person.lastname} or ${surname}'.replaceObject({'person': {firstname: 'John', lastname: 'Doe'}, 'surname': 'Jdo'}),
+					'Welcome ${person.firstname} ${person.lastname} or ${surname}'.replaceObject({person: {firstname: 'John', lastname: 'Doe'}, surname: 'Jdo'}),
 					'Welcome John Doe or Jdo',
 					'ReplaceObject fill blanks with object path');
 				assert.strictEqual(
-					'Welcome ${person.firstname.reverse} ${person.lastname.reverse} or ${surname.reverse}'.replaceObject({'person': {firstname: 'John', lastname: 'Doe'}, 'surname': 'Jdo'}),
+					'Welcome ${person.firstname.reverse} ${person.lastname.reverse} or ${surname.reverse}'.replaceObject({person: {firstname: 'John', lastname: 'Doe'}, surname: 'Jdo'}),
 					'Welcome nhoJ eoD or odJ',
 					'ReplaceObject fill blanks with object path containing a method');
 				assert.strictEqual(
-					'Welcome ${person.firstname.reverse.reverse}'.replaceObject({'person': {firstname: 'John'}}),
+					'Welcome ${person.firstname.reverse.reverse}'.replaceObject({person: {firstname: 'John'}}),
 					'Welcome John',
 					'ReplaceObject fill blanks with object path containing a chain of methods');
 			});

@@ -7,7 +7,7 @@ const data = [
 	['First name', 'Last name', 'Quote'],
 	['Anakin "Darth Vader"', 'Skywalker', 'I am altering the deal.\nPray I don’t alter it any further.'],
 	['Luke', 'Skywalker'],
-	['Leia', 'Organa, Skywalker'],
+	['Leia', 'Organa, Skywalker']
 ];
 
 const file = `"First name","Last name","Quote"
@@ -46,9 +46,9 @@ Leia,"Organa, Skywalker"`;
 	describe('#parseToDictionary', function() {
 		it('parses a CSV string to a dictionary', function() {
 			const dictionary = [
-				{'First name': 'Anakin "Darth Vader"', 'Last name': 'Skywalker', Quote: 'I am altering the deal.\nPray I don’t alter it any further.'},
-				{'First name': 'Luke', 'Last name': 'Skywalker', Quote: undefined},
-				{'First name': 'Leia', 'Last name': 'Organa, Skywalker', Quote: undefined}
+				{'First name': 'Anakin "Darth Vader"', 'Last name': 'Skywalker', 'Quote': 'I am altering the deal.\nPray I don’t alter it any further.'},
+				{'First name': 'Luke', 'Last name': 'Skywalker', 'Quote': undefined},
+				{'First name': 'Leia', 'Last name': 'Organa, Skywalker', 'Quote': undefined}
 			];
 			assert.deepStrictEqual(CSV.parseToDictionary(file), dictionary, 'Standard CSV are serialized to strings properly');
 		});

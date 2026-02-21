@@ -32,8 +32,8 @@ export const SVG = {
 	Create: function(properties) {
 		const svg = document.createElementNS(SVG.Namespaces.SVG, 'svg');
 		append_xhtml_properties(svg, {
-			version: '1.2',
-			xmlns: SVG.Namespaces.SVG,
+			'version': '1.2',
+			'xmlns': SVG.Namespaces.SVG,
 			'xmlns:xhtml': SVG.Namespaces.XHTML
 		});
 		return append_xhtml_properties(svg, properties);
@@ -78,7 +78,7 @@ export const SVG = {
 	},
 	Polyline: function(points, properties) {
 		return append_properties(SVG.Element('polyline', {
-			points: points.map(round_coordinate).join(' '),
+			points: points.map(round_coordinate).join(' ')
 		}), properties);
 	},
 	Text: function(x, y, content, properties) {
@@ -118,7 +118,7 @@ export const SVG = {
 		}), properties);
 	},
 	Path: function(x, y, path, properties) {
-		return append_properties(SVG.Element('path', {'d': `M${round_coordinate(x)} ${round_coordinate(y)} ${path}`}), properties);
+		return append_properties(SVG.Element('path', {d: `M${round_coordinate(x)} ${round_coordinate(y)} ${path}`}), properties);
 	},
 	//work only with left to right and top to bottom languages
 	TextWrap: function(text, width) {

@@ -105,90 +105,90 @@ function getPropertiesForEntity(entity) {
 }
 
 const city = {
-	'names': {
-		'en': 'Geneva',
-		'fr': 'Genève',
-		'de': 'Genf'
+	names: {
+		en: 'Geneva',
+		fr: 'Genève',
+		de: 'Genf'
 	},
-	'population': 500000,
-	'className': 'City',
-	'streets': [
+	population: 500000,
+	className: 'City',
+	streets: [
 		{
-			'name': 'Avenue de Champel',
-			'className': 'Street',
-			'length': 1500,
-			'population': 100, //undeclared property
-			'shops': [
+			name: 'Avenue de Champel',
+			className: 'Street',
+			length: 1500,
+			population: 100, //undeclared property
+			shops: [
 				{
-					'name': 'Migros',
-					'number': 81,
-					'className': 'Shop',
-					'category': 'Supermarket'
+					name: 'Migros',
+					number: 81,
+					className: 'Shop',
+					category: 'Supermarket'
 				},
 				{
-					'name': 'Pompei',
-					'number': 75,
-					'className': 'Shop',
-					'category': 'Restaurant'
+					name: 'Pompei',
+					number: 75,
+					className: 'Shop',
+					category: 'Restaurant'
 				}
 			]
 		},
 		{
-			'name': 'Rue de Lausanne',
-			'className': 'Street',
-			'length': 1000
+			name: 'Rue de Lausanne',
+			className: 'Street',
+			length: 1000
 		}
 	]
 };
 
 const streets = [
 	{
-		'name': 'Avenue de Champel',
-		'className': 'Street',
-		'length': 1500,
-		'population': 100, //undeclared property
-		'shops': [
+		name: 'Avenue de Champel',
+		className: 'Street',
+		length: 1500,
+		population: 100, //undeclared property
+		shops: [
 			{
-				'name': 'Migros',
-				'number': 81,
-				'className': 'Shop',
-				'category': 'Supermarket'
+				name: 'Migros',
+				number: 81,
+				className: 'Shop',
+				category: 'Supermarket'
 			},
 			{
-				'name': 'Pompei',
-				'number': 75,
-				'className': 'Shop',
-				'category': 'Restaurant'
+				name: 'Pompei',
+				number: 75,
+				className: 'Shop',
+				category: 'Restaurant'
 			}
 		]
 	},
 	{
-		'name': 'Rue de Lausanne',
-		'className': 'Street',
-		'length': 1000
+		name: 'Rue de Lausanne',
+		className: 'Street',
+		length: 1000
 	}
 ];
 
 const street = {
-	'name': 'Avenue de Lausanne',
-	'className': 'Street',
-	'length': 'very long', //property that does not match its declared type
-	'population': 100, //undeclared property
-	'shops': []
+	name: 'Avenue de Lausanne',
+	className: 'Street',
+	length: 'very long', //property that does not match its declared type
+	population: 100, //undeclared property
+	shops: []
 };
 
 const shops = {
 	Restaurant: {
-		'name': 'Pompei',
-		'number': 75,
-		'className': 'Shop',
-		'category': 'Restaurant'
+		name: 'Pompei',
+		number: 75,
+		className: 'Shop',
+		category: 'Restaurant'
 	},
 	Supermarket: {
-		'name': 'Migros',
-		'number': 81,
-		'className': 'Shop',
-		'category': 'Supermarket'
+		name: 'Migros',
+		number: 81,
+		className: 'Shop',
+		category: 'Supermarket'
 	}
 };
 
@@ -256,7 +256,7 @@ describe('Reviver', function() {
 		it('handles property that does not match its declared type', function() {
 			const reviver_1 = new Reviver({
 				factory: buildEntity,
-				entitiesProperties: getPropertiesForEntity,
+				entitiesProperties: getPropertiesForEntity
 			});
 			const revived_street = reviver_1.revive(street);
 			assert.strictEqual(revived_street.length, 'very long', 'Properties that do not match their declared types are kept when types are not enforced');
