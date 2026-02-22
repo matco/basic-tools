@@ -12,42 +12,53 @@ class Bus {
 		this.awaitingEvents = [];
 		this.consequenceEvents = [];
 	}
+
 	disable() {
 		this.enabled = false;
 	}
+
 	enable() {
 		this.enabled = true;
 	}
+
 	lock() {
 		this.locked = true;
 	}
+
 	unlock() {
 		this.locked = false;
 	}
+
 	reset() {
 		this.listeners = [];
 	}
+
 	register(listener) {
 		if(!this.locked) {
 			this.listeners.push(listener);
 		}
 	}
+
 	unregister(listener) {
 		if(!this.locked) {
 			this.listeners.removeElement(listener);
 		}
 	}
+
 	isRegistered(listener) {
 		return this.listeners.includes(listener);
 	}
+
 	pause() {
 		this.paused = true;
 	}
+
 	resume() {
 		this.paused = false;
 		this.awaitingEvents.forEach(Bus.prototype.dispatch, this);
 		this.awaitingEvents.length = 0;
 	}
+
 	dispatch(event) {
 		//dispatch events like a wave instead of a tree
 		//an event is first dispatched to all the listeners, then the consequences are dispatched
@@ -88,6 +99,7 @@ class BusEvent {
 	getCallbacks() {
 		throw new Error(`getCallbacks() is not implemented for ${this.constructor.name}`);
 	}
+
 	hit(listener) {
 		this.getCallbacks().forEach(c => listener[c]?.call(listener, this));
 	}

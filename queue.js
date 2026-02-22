@@ -8,6 +8,7 @@ export class Queue {
 		this.exceptionCallback;
 		this.running;
 	}
+
 	run() {
 		if(!this.running) {
 			if(this.promises.isEmpty()) {
@@ -33,24 +34,29 @@ export class Queue {
 			}
 		}
 	}
+
 	add(promiser) {
 		this.promises.push(promiser);
 		this.run();
 		return this;
 	}
+
 	addAll(promisers) {
 		this.promises.pushAll(promisers);
 		this.run();
 		return this;
 	}
+
 	clear() {
 		this.promises = [];
 		return this;
 	}
+
 	then(callback) {
 		this.endCallback = callback;
 		return this;
 	}
+
 	catch(callback) {
 		this.exceptionCallback = callback;
 		return this;

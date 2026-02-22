@@ -11,6 +11,7 @@ export class Loader {
 			this[parameter] = parameters[parameter];
 		}
 	}
+
 	buildUrl(url) {
 		let full_url = '';
 		if(this.url) {
@@ -23,6 +24,7 @@ export class Loader {
 		}
 		return full_url;
 	}
+
 	loadJavascript(js, type) {
 		const js_url = this.buildUrl(js);
 		const that = this;
@@ -42,18 +44,23 @@ export class Loader {
 			}
 		});
 	}
+
 	loadLibrary(library) {
 		return this.loadJavascript(library, 'text/javascript');
 	}
+
 	loadModule(mod) {
 		return this.loadJavascript(mod, 'module');
 	}
+
 	loadQueuedLibraries(libraries) {
 		return libraries.reduce((a, l) => a.then(this.loadLibrary.bind(this, l)), Promise.resolve());
 	}
+
 	loadConcurrentLibraries(libraries) {
 		return Promise.all(libraries.map(l => this.loadLibrary(l)));
 	}
+
 	loadCSS(css) {
 		const css_url = this.buildUrl(css);
 		const that = this;
@@ -74,6 +81,7 @@ export class Loader {
 			}
 		});
 	}
+
 	loadHTML(html, container) {
 		const html_url = this.buildUrl(html);
 		const that = this;
@@ -97,6 +105,7 @@ export class Loader {
 			xhr.send();
 		});
 	}
+
 	//when loading a template, template node is put in the "head" element
 	loadHTMLTemplate(html, container) {
 		const html_url = this.buildUrl(html);

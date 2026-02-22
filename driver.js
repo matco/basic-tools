@@ -29,29 +29,36 @@ export class Driver {
 		this.document = doc || document;
 		this.scripts = [];
 	}
+
 	throwError(error) {
 		throw new this.window.Error(error);
 	}
+
 	#triggerChange(element) {
 		const change = new this.window.UIEvent('change', {bubbles: true, cancelable: true});
 		element.dispatchEvent(change);
 	}
+
 	#triggerInput(element) {
 		const input = new this.window.InputEvent('input', {bubbles: true, cancelable: true});
 		element.dispatchEvent(input);
 	}
+
 	#triggerKeydown(element, key) {
 		const keydown = new this.window.KeyboardEvent('keydown', {key: key, bubbles: true, cancelable: true});
 		element.dispatchEvent(keydown);
 	}
+
 	#triggerKeypress(element, key) {
 		const keydown = new this.window.KeyboardEvent('keypress', {key: key, bubbles: true, cancelable: true});
 		element.dispatchEvent(keydown);
 	}
+
 	#triggerKeyup(element, key) {
 		const keydown = new this.window.KeyboardEvent('keyup', {key: key, bubbles: true, cancelable: true});
 		element.dispatchEvent(keydown);
 	}
+
 	//find an element in the page but does not check if it's visible
 	find(selector) {
 		return new this.window.Promise((resolve, reject) => {
@@ -76,6 +83,7 @@ export class Driver {
 			}
 		});
 	}
+
 	//get an element in the page
 	//element must be visible except if hidden is set to true in options
 	async get(selector, options) {
@@ -93,41 +101,51 @@ export class Driver {
 		}
 		return element;
 	}
+
 	async getShadow(selector, shadow_selector, options) {
 		const element = await this.get(selector, options);
 		return element.shadowRoot.querySelector(shadow_selector);
 	}
+
 	async getByText(selector, text) {
 		const element = await this.get(selector);
 		const children = element.children;
 		return children.find(c => c.textContent === text) || children.find(async c => await this.getByText(c, text));
 	}
+
 	async getTextContent(selector) {
 		const element = await this.get(selector);
 		return element.textContent;
 	}
+
 	async getValue(selector) {
 		const element = await this.get(selector);
 		return element.value;
 	}
+
 	async getValueShadow(selector, shadow_selector) {
 		const element = await this.getShadow(selector, shadow_selector);
 		return element.value;
 	}
+
 	async getStyle(selector, style) {
 		const element = await this.find(selector);
 		return element.style[style];
 	}
+
 	async eval(selector, evaluator, options) {
 		return evaluator.call(this.window, await this.get(selector, options));
 	}
+
 	async evalShadow(selector, shadow_selector, evaluator, options) {
 		return evaluator.call(this.window, await this.getShadow(selector, shadow_selector), options);
 	}
+
 	async focus(selector) {
 		const element = await this.get(selector);
 		element.focus();
 	}
+
 	/**
 	 * Simulate a click on an element
 	 * @param {string | HTMLElement} selector - The HTML element (or a string selector) to click
@@ -139,16 +157,19 @@ export class Driver {
 		const click = new this.window.MouseEvent('click', mouse_event_properties(this.window, element));
 		element.dispatchEvent(click);
 	}
+
 	async doubleClick(selector) {
 		const element = await this.get(selector);
 		const dblclick = new this.window.MouseEvent('dblclick', mouse_event_properties(this.window, element));
 		element.dispatchEvent(dblclick);
 	}
+
 	async contextMenu(selector) {
 		const element = await this.get(selector);
 		const contextmenu = new this.window.MouseEvent('contextmenu', mouse_event_properties(this.window, element));
 		element.dispatchEvent(contextmenu);
 	}
+
 	async dragAndDrop(draggable_selector, droppable_selector) {
 		const draggable = await this.get(draggable_selector);
 		const droppable = await this.get(droppable_selector);
@@ -166,6 +187,7 @@ export class Driver {
 		const dragend = new this.window.DragEvent('dragend', {bubbles: true, cancelable: true, dataTransfer: data_transfer});
 		draggable.dispatchEvent(dragend);
 	}
+
 	//forms
 	async type(selector, value) {
 		const element = await this.get(selector);
@@ -174,22 +196,26 @@ export class Driver {
 		this.#triggerChange(element);
 		this.#triggerInput(element);
 	}
+
 	async check(selector) {
 		const element = await this.get(selector);
 		element.checked = true;
 		this.#triggerChange(element);
 	}
+
 	async uncheck(selector) {
 		const element = await this.get(selector);
 		element.checked = false;
 		this.#triggerChange(element);
 	}
+
 	async submit(selector) {
 		const element = await this.get(selector);
 		const submit = new this.window.SubmitEvent('submit', {bubbles: true, cancelable: true});
 		element.dispatchEvent(submit);
 		//submit event could throw an exception if form is not valid
 	}
+
 	/**
 	 * Simulate a sequence of key presses on an element
 	 * sequence must be an array of key like explained here https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
@@ -209,6 +235,7 @@ export class Driver {
 			this.#triggerKeyup(element, k);
 		});
 	}
+
 	/**
 	 * Wait for a specified time
 	 * @param {number} [time] - Time to wait in milliseconds

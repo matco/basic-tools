@@ -72,6 +72,7 @@ class Reviver {
 			};
 		}
 	}
+
 	/**
 	 * Revive a plain object into a class instance
 	 * @param {object} object - The object to revive

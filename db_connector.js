@@ -4,9 +4,11 @@ export class DBConnector {
 		this.keypath = keypath;
 		this.database = undefined;
 	}
+
 	isOpen() {
 		return !!this.database;
 	}
+
 	open() {
 		return new Promise((resolve, reject) => {
 			const version = 1;
@@ -39,6 +41,7 @@ export class DBConnector {
 			});
 		});
 	}
+
 	drop() {
 		return new Promise((resolve, reject) => {
 			if(this.isOpen()) {
@@ -51,6 +54,7 @@ export class DBConnector {
 			request.addEventListener('success', resolve);
 		});
 	}
+
 	getCursor() {
 		//start transaction
 		const transaction = this.database.transaction([this.name], 'readwrite');
@@ -59,6 +63,7 @@ export class DBConnector {
 		//do request
 		return store.openCursor();
 	}
+
 	add(item) {
 		return new Promise((resolve, reject) => {
 			if(!this.isOpen()) {
@@ -82,9 +87,11 @@ export class DBConnector {
 			request.addEventListener('success', resolve);
 		});
 	}
+
 	addAll(items) {
 		return Promise.all(items.map(item => this.add(item)));
 	}
+
 	get(key) {
 		return new Promise((resolve, reject) => {
 			if(!this.isOpen()) {
@@ -110,6 +117,7 @@ export class DBConnector {
 			});
 		});
 	}
+
 	getAll() {
 		return new Promise((resolve, reject) => {
 			if(!this.isOpen()) {
@@ -135,12 +143,14 @@ export class DBConnector {
 			});
 		});
 	}
+
 	getSome(filter) {
 		return this.getAll().then(results => {
 			//apply filter on results if needed
 			return filter ? results.filter(filter) : results;
 		});
 	}
+
 	remove(key) {
 		return new Promise((resolve, reject) => {
 			if(!this.isOpen()) {
@@ -166,9 +176,11 @@ export class DBConnector {
 			});
 		});
 	}
+
 	removeAll() {
 		return this.removeSome();
 	}
+
 	removeSome(filter) {
 		return this.getSome(filter).then(items => Promise.all(items.map(item => this.remove(item[this.keypath]))));
 	}

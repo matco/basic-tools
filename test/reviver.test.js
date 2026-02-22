@@ -11,6 +11,7 @@ class City {
 			streets: {type: 'array'}
 		};
 	}
+
 	constructor() {
 		//declaring properties here only helps type checking by a Typescript compiler
 		this.names = {};
@@ -41,6 +42,7 @@ class Street {
 			shops: {type: 'array'}
 		};
 	}
+
 	constructor() {
 		//declaring properties here only helps type checking by a Typescript compiler
 		/**@type {City}*/
@@ -64,6 +66,7 @@ class Shop {
 			category: {type: 'string'}
 		};
 	}
+
 	constructor() {
 		//declaring properties here only helps type checking by a Typescript compiler
 		/**@type {Street}*/

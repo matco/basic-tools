@@ -1,8 +1,12 @@
 export class CSV {
 	static INVALID_CHARACTERS = ['\r'];
+
 	static MIME_TYPE = 'text/csv';
+
 	static DELIMITER_LINE = '\n';
+
 	static DELIMITER_COLUMN = ',';
+
 	static CHARACTER_QUOTER = '"';
 
 	constructor(data) {
@@ -22,12 +26,15 @@ export class CSV {
 			.map(c => `${CSV.CHARACTER_QUOTER}${c}${CSV.CHARACTER_QUOTER}`)
 			.join(CSV.DELIMITER_COLUMN);
 	}
+
 	toString() {
 		return this.data.map(l => this.#generateLine(l)).join(CSV.DELIMITER_LINE);
 	}
+
 	toBlob() {
 		return new Blob([this.toString()], {type: CSV.MIME_TYPE});
 	}
+
 	download(name) {
 		const filename = name || new Date().toFullDisplay();
 		const blob = this.toBlob();
@@ -50,6 +57,7 @@ export class CSV {
 		//revoke url after event has been dispatched
 		setTimeout(() => URL.revokeObjectURL(url), 0);
 	}
+
 	static parse(string) {
 		const lines = [];
 		let columns = [];
@@ -105,6 +113,7 @@ export class CSV {
 		}
 		return lines;
 	}
+
 	static parseToDictionary(string) {
 		const data = CSV.parse(string);
 		//remove header line
