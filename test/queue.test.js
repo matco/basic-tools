@@ -1,5 +1,3 @@
-/*eslint-env mocha*/
-
 import * as assert from 'assert';
 import {Queue} from '../queue.js';
 
@@ -23,7 +21,6 @@ function timer_generator(message, time) {
 }
 
 describe('Queue', function() {
-
 	describe('#add and #addAll', function() {
 		it('add one promise or an array or promises to a queue', function(done) {
 			const queue = new Queue().then(done);

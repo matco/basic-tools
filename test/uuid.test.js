@@ -1,10 +1,7 @@
-/*eslint-env mocha*/
-
 import * as assert from 'assert';
 import {UUID} from '../uuid.js';
 
 describe('UUID', function() {
-
 	describe('#Generate', function() {
 		it('generates valid UUID', function() {
 			assert.strictEqual(UUID.Generate().length, 36, 'An UUID contains 36 characters');

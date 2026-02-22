@@ -8,7 +8,6 @@ export class CSV {
 	static DELIMITER_COLUMN = ',';
 
 	static CHARACTER_QUOTER = '"';
-
 	constructor(data) {
 		this.data = data;
 		this.regexp = new RegExp(CSV.CHARACTER_QUOTER, 'g');

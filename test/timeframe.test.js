@@ -1,10 +1,7 @@
-/*eslint-env mocha*/
-
 import * as assert from 'assert';
 import {Timeframe} from '../timeframe.js';
 
 describe('Timeframe', function() {
-
 	describe('#constructor', function() {
 		it('does not accept timeframe with stop date before start date', function() {
 			assert.throws(

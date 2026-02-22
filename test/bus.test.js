@@ -1,5 +1,3 @@
-/*eslint-env mocha*/
-
 import '../extension.js';
 
 import * as assert from 'assert';
@@ -48,7 +46,6 @@ class BusEventBeep extends BusEvent {
 }
 
 describe('Bus', function() {
-
 	describe('#register', function() {
 		it('registers listener properly', function() {
 			bus.register(beep_counter);

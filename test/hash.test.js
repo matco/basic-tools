@@ -1,10 +1,7 @@
-/*eslint-env mocha*/
-
 import * as assert from 'assert';
 import {Hash} from '../hash.js';
 
 describe('Hash', function() {
-
 	describe('#Encode and #Decode', function() {
 		it('encodes and decodes simple objects', function() {
 			const object_1 = {toto: 'tata'};

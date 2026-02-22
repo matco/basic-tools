@@ -1,10 +1,7 @@
-/*eslint-env mocha*/
-
 import {assert} from './assert.js';
 import {SVG} from '../svg.js';
 
 describe('SVG', function() {
-
 	describe('#Create', function() {
 		it('creates an SVG element', function() {
 			const svg = SVG.Create({class: 'test'});

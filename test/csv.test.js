@@ -1,5 +1,3 @@
-/*eslint-env mocha*/
-
 import * as assert from 'assert';
 import {CSV} from '../csv.js';
 
@@ -16,7 +14,6 @@ const file = `"First name","Last name","Quote"
 "Leia","Organa, Skywalker"`;
 
 describe('CSV', function() {
-
 	describe('#toString', function() {
 		it('serializes a CSV to a string', function() {
 			const csv = new CSV(data);

@@ -1,5 +1,3 @@
-/*eslint-env mocha*/
-
 import * as assert from 'assert';
 import {Reviver} from '../reviver.js';
 
@@ -212,7 +210,6 @@ const shops = {
 };
 
 describe('Reviver', function() {
-
 	describe('#revive', function() {
 		it('preserve unknown properties (properties are not checked)', function() {
 			const reviver = new Reviver({

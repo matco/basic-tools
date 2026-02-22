@@ -1,5 +1,3 @@
-/*eslint-env mocha*/
-
 import {assert} from './assert.js';
 import {DBConnector} from '../db_connector.js';
 
@@ -27,7 +25,6 @@ const character_4 = {
 const db_name = `characters_${Math.floor(Math.random() * 10000)}`;
 
 describe('DBConnector', function() {
-
 	describe('#open', function() {
 		it('opens a database', async function() {
 			const db_1 = new DBConnector(db_name, 'id');
@@ -44,7 +41,7 @@ describe('DBConnector', function() {
 			await db_2.open();
 			//add character without id
 			await assert.throwAsync(
-				async () => await db_2.add(character_1),
+				async() => await db_2.add(character_1),
 				e => e.name === 'DataError',
 				'It is not possible to add an object without id'
 			);

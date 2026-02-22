@@ -13,7 +13,6 @@ class TypeDoesNotMatch extends Error {
 
 class Reviver {
 	static ENTITY_PROPERTY = 'className';
-
 	constructor(parameters) {
 		//String: property used to know which property of plain objects must be used to determine their entity
 		this.entityProperty = Reviver.ENTITY_PROPERTY;
@@ -170,7 +169,7 @@ class Reviver {
 			}
 		}
 		//primitive data type
-		if(this.enforceTypes && type && typeof(object) !== type) {
+		if(this.enforceTypes && type && typeof (object) !== type) {
 			throw new TypeDoesNotMatch(container, object, type);
 		}
 		//nothing to revive with primitive data type

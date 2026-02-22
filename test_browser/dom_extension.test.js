@@ -1,13 +1,9 @@
-/*eslint-env mocha*/
-
 import '../dom_extension.js';
 
 import {assert} from './assert.js';
 
 describe('dom_extension', function() {
-
 	describe('Node', function() {
-
 		describe('#empty', function() {
 			it('empty a node', function() {
 				const div = document.createElement('div');
@@ -45,7 +41,6 @@ describe('dom_extension', function() {
 	});
 
 	describe('Element', function() {
-
 		describe('#setAttributes', function() {
 			it('adds a map of attribute to an element', function() {
 				const a = document.createElement('a');
@@ -70,7 +65,6 @@ describe('dom_extension', function() {
 	});
 
 	describe('Document', function() {
-
 		describe('#createFullElement', function() {
 			it('create an element with attributes, text content and listeners', function() {
 				let clicked = false;
@@ -97,7 +91,6 @@ describe('dom_extension', function() {
 	});
 
 	describe('Form', function() {
-
 		describe('#disable and #enable', function() {
 			it('disables and enables a form', function() {
 				const form = document.createElement('form');
@@ -126,7 +119,6 @@ describe('dom_extension', function() {
 	});
 
 	describe('Storage', function() {
-
 		describe('#setObject and #getObject', function() {
 			it('set and get an object in a storage', function() {
 				const city = {

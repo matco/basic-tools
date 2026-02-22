@@ -21,7 +21,7 @@ if(!Object.equals) {
 		if(object_1 === object_2) {
 			return true;
 		}
-		if(typeof(object_1) !== typeof(object_2)) {
+		if(typeof (object_1) !== typeof (object_2)) {
 			return false;
 		}
 		if(object_1 === undefined || object_1 === null || object_2 === undefined || object_2 === null) {
@@ -120,7 +120,7 @@ if(!String.isString) {
 	//@ts-ignore
 	String.isString = function(value) {
 		//return toString.call(object) === '[object String]';
-		return typeof(value) === 'string';
+		return typeof (value) === 'string';
 	};
 }
 //prototypes
@@ -424,12 +424,24 @@ Date.prototype.addTimeString = function(time) {
 	while((match = time_regexp.exec(time)) !== null) {
 		let method;
 		switch(match[2]) {
-			case 'y': method = Date.prototype.addYears; break;
-			case 'm': method = Date.prototype.addMonths; break;
-			case 'd': method = Date.prototype.addDays; break;
-			case 'H': method = Date.prototype.addHours; break;
-			case 'M': method = Date.prototype.addMinutes; break;
-			case 'S': method = Date.prototype.addSeconds; break;
+			case 'y':
+				method = Date.prototype.addYears;
+				break;
+			case 'm':
+				method = Date.prototype.addMonths;
+				break;
+			case 'd':
+				method = Date.prototype.addDays;
+				break;
+			case 'H':
+				method = Date.prototype.addHours;
+				break;
+			case 'M':
+				method = Date.prototype.addMinutes;
+				break;
+			case 'S':
+				method = Date.prototype.addSeconds;
+				break;
 		}
 		if(method) {
 			method.call(this, parseInt(match[1]));

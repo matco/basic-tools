@@ -1,13 +1,9 @@
-/*eslint-env mocha*/
-
 import '../extension.js';
 
 import * as assert from 'assert';
 
 describe('extension', function() {
-
 	describe('Object', function() {
-
 		describe('#isObject', function() {
 			it('considers all objects as objects', function() {
 				const object = {toto: 'tutu'};
@@ -18,7 +14,9 @@ describe('extension', function() {
 			});
 
 			it('does not consider not objects as objects', function() {
-				const func = function() {'nothing to do';};
+				const func = function() {
+					'nothing to do';
+				};
 				const not_func = 'nothing';
 
 				assert.ok(!Object.isObject(func), 'A function variable is not an object');
@@ -65,8 +63,8 @@ describe('extension', function() {
 			});
 
 			it('works with arrays', function() {
-				assert.ok(Object.equals([1,2,3], [1,2,3]), '[1,2,3] is equal to [1,2,3]');
-				assert.ok(!Object.equals([1,2,3], [1,2,3,4]), '[1,2,3] is not equal to [1,2,3,4]');
+				assert.ok(Object.equals([1, 2, 3], [1, 2, 3]), '[1,2,3] is equal to [1,2,3]');
+				assert.ok(!Object.equals([1, 2, 3], [1, 2, 3, 4]), '[1,2,3] is not equal to [1,2,3,4]');
 			});
 
 			it('works with objects', function() {
@@ -89,7 +87,7 @@ describe('extension', function() {
 					),
 					'Object containing string and array is equal to an other object containing an equal string and an equal array');
 
-				const value = [1,2,'tutu'];
+				const value = [1, 2, 'tutu'];
 				assert.ok(Object.equals({property: value}, {property: value}), 'Object containing an array is equal to an other object containing the same array');
 			});
 		});
@@ -214,15 +212,22 @@ describe('extension', function() {
 	});
 
 	describe('Function', function() {
-
 		describe('#isFunction', function() {
 			it('considers all functions as functions', function() {
-				const func = function() {'nothing to do';};
+				const func = function() {
+					'nothing to do';
+				};
 				const not_func = 'nothing';
 
 				assert.ok(Function.isFunction(func), 'A function variable is a function');
 				assert.ok(Function.isFunction(function() {}), 'An empty anonymous function is a function');
-				assert.ok(Function.isFunction(function() {'function';}), 'An anonymous function is a function');
+				assert.ok(
+					Function.isFunction(
+						function() {
+							'function';
+						}),
+					'An anonymous function is a function'
+				);
 				assert.ok(!Function.isFunction(not_func), 'A string is not a function');
 				assert.ok(Function.isFunction(not_func.toString), 'toString method of string is a function');
 				assert.ok(Function.isFunction(func.constructor), 'Function constructor is a function');
@@ -234,7 +239,6 @@ describe('extension', function() {
 	});
 
 	describe('String', function() {
-
 		describe('#capitalize', function() {
 			it('set the first character of a string in uppercase and do not touch other characters', function() {
 				assert.strictEqual('rodanotech'.capitalize(), 'Rodanotech', 'Capitalize "rodanotech" gives "Rodanotech"');
@@ -290,6 +294,7 @@ describe('extension', function() {
 
 		describe('#replaceObject', function() {
 			it('replaces specials token in a string with the value of an object', function() {
+				/*eslint-disable no-template-curly-in-string*/
 				assert.strictEqual('Welcome ${name}'.replaceObject({name: 'Mat'}), 'Welcome Mat', 'ReplaceObject fill blanks with object properties');
 				assert.strictEqual(
 					'Welcome ${name}. I am happy to see you, ${name}.'.replaceObject({name: 'Mat', other: 'Matthieu'}),
@@ -311,12 +316,12 @@ describe('extension', function() {
 					'Welcome ${person.firstname.reverse.reverse}'.replaceObject({person: {firstname: 'John'}}),
 					'Welcome John',
 					'ReplaceObject fill blanks with object path containing a chain of methods');
+				/*eslint-enable no-template-curly-in-string*/
 			});
 		});
 	});
 
 	describe('Number', function() {
-
 		describe('#isNumber', function() {
 			it('considers all numbers as numbers', function() {
 				assert.ok(!Number.isNumber(''), '"" is not a number');
@@ -344,12 +349,11 @@ describe('extension', function() {
 	});
 
 	describe('Array', function() {
-
 		describe('#isEmpty', function() {
 			it('checks if an arrays is empty', function() {
-				assert.ok(new Array().isEmpty(), 'A new array is empty');
+				assert.ok([].isEmpty(), 'A new array is empty');
 				assert.ok([].isEmpty(), 'Array type is empty when created');
-				assert.ok(!new Array(1, 2).isEmpty(), 'New array [1, 2] is not empty');
+				assert.ok(![1, 2].isEmpty(), 'New array [1, 2] is not empty');
 				assert.ok(!['a', 'b'].isEmpty(), 'Array type initialized with values is not empty');
 			});
 		});
@@ -357,15 +361,15 @@ describe('extension', function() {
 		describe('#remove', function() {
 			it('removes the specified index from the array', function() {
 				let array;
-				array = [1,2,3,4];
+				array = [1, 2, 3, 4];
 				array.remove(1);
-				assert.ok(Object.equals(array, [1,3,4]), 'Remove (1) on array [1,2,3,4] gives array [1,3,4]');
+				assert.ok(Object.equals(array, [1, 3, 4]), 'Remove (1) on array [1,2,3,4] gives array [1,3,4]');
 
-				array = new Array(1,2,3,4);
+				array = [1, 2, 3, 4];
 				array.remove(1);
-				assert.ok(Object.equals(array, [1,3,4]), 'Remove (1) on object array [1,2,3,4] gives array [1,3,4]');
+				assert.ok(Object.equals(array, [1, 3, 4]), 'Remove (1) on object array [1,2,3,4] gives array [1,3,4]');
 
-				array = [1,2,3,4];
+				array = [1, 2, 3, 4];
 				array.remove(0, 2);
 				assert.ok(Object.equals(array, [4]), 'Remove (0,2) to array [1,2,3,4] gives array [4]');
 			});
@@ -509,7 +513,6 @@ describe('extension', function() {
 	});
 
 	describe('Date', function() {
-
 		describe('#isDate', function() {
 			it('considers all dates as dates', function() {
 				assert.ok(Date.isDate(new Date()), 'New date is a date');
@@ -552,6 +555,7 @@ describe('extension', function() {
 
 		describe('#toDisplay, #toUTCDisplay, #toFullDisplay, #toUTCFullDisplay, #format and #formatUTC', function() {
 			it('converts date to string using a predefined or chosen format', function() {
+				/*eslint-disable no-template-curly-in-string*/
 				//do not set timezone in date string so Javascript engine will use the timezone of the context, like the toDisplay method
 				assert.strictEqual(new Date('2009-01-25T00:00:00').toDisplay(), '2009-01-25', 'Date "2009-01-25T00:00:00" to display is "2009-01-25"');
 				assert.strictEqual(new Date('2009-01-25T00:00:00+02:00').toUTCDisplay(), '2009-01-24', 'Date "2009-01-25T00:00:00+02:00" to UTC display is "2009-01-24"');
@@ -591,7 +595,7 @@ describe('extension', function() {
 					new Date('2009-12-17T19:24:12').format('${hour}$${minute}seconds${second} // Day ${day} of month ${month} in year ${year}'),
 					'19$24seconds12 // Day 17 of month 12 in year 2009',
 					'Date "2009-12-17T19:24:12" formatted with formatter "${hour}$${minute}seconds${second} // Day ${day} of month ${month} in year ${year}" is "19$$24seconds12 // Day 17 of month 12 in year 2009"');
-
+				/*eslint-enable no-template-curly-in-string*/
 			});
 		});
 
@@ -663,7 +667,6 @@ describe('extension', function() {
 				let date, time;
 
 				date = new Date('2020-01-05T07:59:59.142');
-				time = date.getTime();
 				date.addMilliseconds(42);
 				assert.strictEqual(date.getTime(), new Date('2020-01-05T07:59:59.184').getTime(), 'Adding 42 milliseconds to a date updates the date to 42 milliseconds later');
 				date.addMilliseconds(900);

@@ -1,10 +1,7 @@
-﻿/*eslint-env mocha*/
-
-import * as assert from 'assert';
+﻿import * as assert from 'assert';
 import {LZW} from '../lzw.js';
 
 describe('LZW', function() {
-
 	describe('#Compress and #CompressToString', function() {
 		it('compress text successfully', function() {
 			let text = 'taratata';
@@ -27,10 +24,12 @@ describe('LZW', function() {
 			assert.strictEqual(LZW.CompressToString(text), text, 'LZW for "some text will no encode" is "some text will no encode"');
 			assert.strictEqual(LZW.DecompressString(LZW.CompressToString(text)), text, 'LZW encoding then decoding a text gives the same text');
 
+			/*eslint-disable @stylistic/no-tabs*/
 			text = 'a	text	with	some	tabulations';
 			encoded_text = 'a	text	with	someāabulations';
 			assert.strictEqual(LZW.CompressToString(text), encoded_text, 'LZW for "a	text	with	some	tabulations" is "a	text	with	someāabulations"');
 			assert.strictEqual(LZW.DecompressString(LZW.CompressToString(text)), text, 'LZW encoding then decoding a text gives the same text');
+			/*eslint-enable @stylistic/no-tabs*/
 
 			text = 'This is free and unencumbered software released into the public domain. Anyone is free to copy, modify, publish, use, compile, sell, or distribute this software, either in source code form or as a compiled binary, for any purpose, commercial or non-commercial, and by any means. In jurisdictions that recognize copyright laws, the author or authors of this software dedicate any and all copyright interest in the software to the public domain. We make this dedication for the benefit of the public at large and to the detriment of our heirs and successors. We intend this dedication to be an overt act of relinquishment in perpetuity of all present and future rights to this software under copyright law. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. For more information, please refer to <http://unlicense.org>';
 			encoded_text = LZW.CompressToString(text);
@@ -65,7 +64,6 @@ describe('LZW', function() {
 			compressed_data = LZW.CompressToString(data);
 			uncompressed_data = LZW.DecompressString(compressed_data);
 			assert.strictEqual(data, uncompressed_data, 'LZW works with big files');
-
 		});
 
 		it('compress very big text that can exceed 2^16 for the dictionary successfully', async function() {
@@ -80,7 +78,6 @@ describe('LZW', function() {
 			compressed_data = LZW.CompressToString(data);
 			uncompressed_data = LZW.DecompressString(compressed_data);
 			assert.strictEqual(data, uncompressed_data, 'LZW works with very big files');
-
 		});
 	});
 });
