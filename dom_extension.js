@@ -190,8 +190,8 @@ HTMLSelectElement.prototype.fill = function(entries, blank_entry, selected_entri
 HTMLSelectElement.prototype.fillObjects = function(objects, value_property, label_property, blank_entry, selected_entries) {
 	/**@type {[string,string][]}*/
 	const entries = objects.map(o => {
-		const value = Function.isFunction(value_property) ? value_property.call(o) : o[value_property];
-		const label = Function.isFunction(label_property) ? label_property.call(o) : o[label_property];
+		const value = Function.isFunction(value_property) ? value_property.call(o, o) : o[value_property];
+		const label = Function.isFunction(label_property) ? label_property.call(o, o) : o[label_property];
 		return [value, label];
 	});
 	return this.fill(entries, blank_entry, selected_entries);
@@ -238,7 +238,7 @@ HTMLDataListElement.prototype.fill = function(entries) {
  * @returns {HTMLDataListElement} - The select element that will be filled
  */
 HTMLDataListElement.prototype.fillObjects = function(objects, property) {
-	const options = objects.map(o => Function.isFunction(property) ? property.call(o) : o[property]);
+	const options = objects.map(o => Function.isFunction(property) ? property.call(o, o) : o[property]);
 	return this.fill(options);
 };
 
