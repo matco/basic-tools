@@ -106,11 +106,11 @@ class Reviver {
 				//import properties, looping only on own properties (property must no be inherited)
 				for(const [property, value] of Object.entries(object)) {
 					//check that current property has been declared or unknown properties are preserved or this is the entity property
-					if(this.preserveUnknownProperties || (this.preserveEntityProperty && property === this.entityProperty) || declared_properties.hasOwnProperty(property)) {
-						//revive may fail du to incompatible types
-						revived_object[property] = this.revive(value, revived_object, declared_properties[property]?.type);
+					if(this.preserveUnknownProperties || (this.preserveEntityProperty && property === this.entityProperty) || declared_properties?.hasOwnProperty(property)) {
+						//revive may fail due to incompatible types
+						revived_object[property] = this.revive(value, revived_object, declared_properties?.[property]?.type);
 					}
-					else if(this.debug && !declared_properties.hasOwnProperty(property)) {
+					else if(this.debug && !declared_properties?.hasOwnProperty(property)) {
 						//warn user that a property from the object has not been declared in class
 						console.log(`Property ${property} (value: ${value}) does not exist in ${object[this.entityProperty]} and has not been assigned for object`, object);
 					}
