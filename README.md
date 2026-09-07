@@ -1,7 +1,7 @@
 # basic-tools
 basic-tools is a set of tools that will make your life easier when developing Javascript applications.
 
-It contains two kind of tools:
+It contains two kinds of tools:
 * Two tools "enhance" Javascript by prototyping Javascript native classes (use with caution)
 * The other tools are Javascript classes that can be imported as ES modules
 
@@ -17,11 +17,11 @@ Javascript classes:
 * **db_connector.js** (requires a DOM) simplifies manipulation of indexedDB.
 * **loader.js** (requires a DOM) is able to load code (HTML, CSS or Javascript) in a DOM document.
 * **lzw.js** is an implementation of LZW.
-* **queue.js** executes a set promises one after the other.
-* **reviver.js** transforms a tree or raw objects in a tree of typed object.
+* **queue.js** executes a set of promises one after the other.
+* **reviver.js** transforms a tree of raw objects into a tree of typed objects.
 * **svg.js** (requires a DOM) simplifies drawing in SVG.
-* **timeframe.js** manages timeframe.
-* **uuid.js** generated UUIDs.
+* **timeframe.js** manages timeframes.
+* **uuid.js** generates UUIDs.
 
 All tools are tested in their related file *.test.js.
 
