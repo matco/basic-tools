@@ -181,7 +181,7 @@ HTMLSelectElement.prototype.fill = function(entries, blank_entry, selected_entri
 			this.value = options[0][0];
 		}
 		else {
-			this.value = undefined;
+			this.value = '';
 		}
 	}
 	//allow chain
