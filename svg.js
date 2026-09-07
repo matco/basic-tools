@@ -315,10 +315,11 @@ export const SVG = {
 	//work only with left to right and top to bottom languages
 	TextWrap: function(text, width) {
 		//retrieve all words and clear text
-		const words = text.textContent.split(' ');
+		const x = text.getAttribute('x') ?? 0;
+		const words = (text.textContent ?? '').split(' ');
 		text.textContent = '';
 		//create first line
-		let tspan = /**@type {SVGTextContentElement}*/ (SVG.Element('tspan', {x: text.getAttribute('x'), dy: 0}));
+		let tspan = /**@type {SVGTextContentElement}*/ (SVG.Element('tspan', {x: x, dy: 0}));
 		text.appendChild(tspan);
 		//re-add word one after an other
 		let word;
@@ -335,7 +336,7 @@ export const SVG = {
 				line.pop();
 				tspan.textContent = line.join(' ');
 				//start a new line
-				tspan = /**@type {SVGTextContentElement}*/ (SVG.Element('tspan', {x: text.getAttribute('x'), dy: 15}));
+				tspan = /**@type {SVGTextContentElement}*/ (SVG.Element('tspan', {x: x, dy: 15}));
 				text.appendChild(tspan);
 				line = [];
 				//excluded word must be managed next loop
@@ -352,7 +353,7 @@ export const SVG = {
 	 */
 	//work only with left to right languages
 	TextEllipsis: function(text, width) {
-		let letters = text.textContent.split('');
+		let letters = (text.textContent ?? '').split('');
 		let truncated = false;
 		while(text.getComputedTextLength() > width) {
 			truncated = true;
