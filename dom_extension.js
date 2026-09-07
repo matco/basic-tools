@@ -146,7 +146,7 @@ HTMLSelectElement.prototype.fill = function(entries, blank_entry, selected_entri
 		//find existing option if any
 		const existing_option = existing_options.find(o => o.value === value);
 		if(existing_option) {
-			//re-add existing option at the end of the select to have the good order at the end or the process
+			//re-add existing option at the end of the select to have the good order at the end of the process
 			this.appendChild(existing_option);
 			continue;
 		}
@@ -155,7 +155,7 @@ HTMLSelectElement.prototype.fill = function(entries, blank_entry, selected_entri
 		if(selected_options.includes(properties.value)) {
 			properties.selected = 'selected';
 		}
-		//add option at the end of the select to have the good order at the end or the process
+		//add option at the end of the select to have the good order at the end of the process
 		this.appendChild(document.createFullElement('option', properties, text));
 	}
 	//manage blank option
@@ -231,12 +231,12 @@ HTMLDataListElement.prototype.fill = function(entries) {
 		//find existing option if any
 		const existing_option = existing_options.find(o => o.value === value);
 		if(existing_option) {
-			//re-add existing option at the end of the select to have the good order at the end or the process
+			//re-add existing option at the end of the select to have the good order at the end of the process
 			this.appendChild(existing_option);
 			continue;
 		}
 		//option does not already exist and must be added
-		//add option at the end of the select to have the good order at the end or the process
+		//add option at the end of the select to have the good order at the end of the process
 		this.appendChild(document.createFullElement('option', {value: value}));
 	}
 	//allow chain
