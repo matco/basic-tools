@@ -109,8 +109,20 @@ export class Driver {
 
 	async getByText(selector, text) {
 		const element = await this.get(selector);
-		const children = element.children;
-		return children.find(c => c.textContent === text) || children.find(async c => await this.getByText(c, text));
+		//recursively look for the deepest descendant whose text content matches
+		const find_in = current => {
+			const children = Array.prototype.slice.call(current.children);
+			//search in descendants first to return the most specific matching element
+			for(const child of children) {
+				const match = find_in(child);
+				if(match) {
+					return match;
+				}
+			}
+			//fall back to the current element if its text content matches
+			return current.textContent === text ? current : undefined;
+		};
+		return find_in(element);
 	}
 
 	async getTextContent(selector) {
