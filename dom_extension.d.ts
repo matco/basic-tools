@@ -81,8 +81,8 @@ interface HTMLDataListElement {
 }
 
 interface HTMLSelectElement {
-	fill(entries: [string, string][] | string[], blank_entry: boolean, selected_entries: string[] | string): HTMLSelectElement;
-	fillObjects<T>(objects:  Array<T>, value_property: string | ((object: T) => string), label_property: string | ((object: T) => string), blank_entry: boolean, selected_entries: string[] | string): HTMLSelectElement;
+	fill(entries: [string, string][] | string[], blank_entry?: boolean, selected_entries?: string[] | string): HTMLSelectElement;
+	fillObjects<T>(objects: Array<T>, value_property: string | ((object: T) => string), label_property: string | ((object: T) => string), blank_entry?: boolean, selected_entries?: string[] | string): HTMLSelectElement;
 }
 
 interface Storage {
