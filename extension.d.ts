@@ -51,8 +51,7 @@ interface Array<T> {
 
 	pushAll(elements: Array<T>);
 	insert(number: number, object: T);
-	remove(index: number);
-	remove(from: number, to: number);
+	remove(from: number, to?: number): void;
 	removeElement(element: T);
 	removeElements(elements: Array<T>);
 
@@ -90,7 +89,7 @@ interface Date {
 	toUTCFullDisplay(): string;
 	formatUTC(formatter: string): string;
 
-	equals(otherDate: Date): boolean;
+	equals(otherDate?: Date): boolean;
 	compareTo(otherDate: Date): number;
 
 	isBefore(otherDate: Date): boolean;
