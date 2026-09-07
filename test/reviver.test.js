@@ -45,7 +45,7 @@ class Street {
 	constructor() {
 		//declaring properties here only helps type checking by a Typescript compiler
 		this.className = 'Street';
-		/**@type {City}*/
+		/**@type {City | undefined}*/
 		this.city = undefined;
 		this.name = undefined;
 		this.length = undefined;
@@ -71,7 +71,7 @@ class Shop {
 
 	constructor() {
 		//declaring properties here only helps type checking by a Typescript compiler
-		/**@type {Street}*/
+		/**@type {Street | undefined}*/
 		this.street = undefined;
 		this.name = undefined;
 		this.number = undefined;
@@ -83,7 +83,9 @@ class Shop {
 	}
 
 	getAddress(language) {
-		return `${this.name} - ${this.street.name}, ${this.number} - ${this.street.city.names[language]}`;
+		const street = /**@type {Street}*/ (this.street);
+		const city = /**@type {City}*/ (street.city);
+		return `${this.name} - ${street.name}, ${this.number} - ${city.names[language]}`;
 	}
 }
 
@@ -232,7 +234,7 @@ describe('Reviver', function() {
 			assert.strictEqual(revived_city_1.getLongStreets().length, 1, 'Object has been revived and methods are available: there is 1 long street');
 			assert.strictEqual(revived_city_1.streets[0].name, 'Avenue de Champel', 'Arrays and properties are not modified: first street name is "Avenue de Champel"');
 			assert.strictEqual(revived_city_1.streets[0].population, 100, 'If preserve unknown properties is set to true, even properties that have not been declared are copied: population for first street is 100');
-			assert.strictEqual(revived_city_1.streets[0].city.names['fr'], 'Genève', 'Back referenced are managed: city name in "fr" for the first street is "Genève"');
+			assert.strictEqual(/**@type {City}*/ (revived_city_1.streets[0].city).names['fr'], 'Genève', 'Back referenced are managed: city name in "fr" for the first street is "Genève"');
 			assert.strictEqual(revived_city_1.getStreetFromName('Avenue de Champel').shops[0].name, 'Migros', 'Methods are available and return revived objects: first shop in street "Avenue de Champel" is "Migros"');
 			assert.strictEqual(revived_city_1.getStreetFromName('Avenue de Champel').shops[0].getAddress('de'), 'Migros - Avenue de Champel, 81 - Genf', 'Methods are available on revived objects: address in "de" for first shop in "Avenue de Champel" is "Migros - Avenue de Champel, 81 - Genf"');
 		});
@@ -265,7 +267,6 @@ describe('Reviver', function() {
 			assert.strictEqual(revived_shops['Restaurant'].constructor, Shop, 'Constructor is the good class');
 			assert.throws(
 				() => revived_shops['Supermarket'].getAddress('en'),
-				undefined,
 				'Revived objects are self-contained'
 			);
 			assert.strictEqual(revived_shops['Supermarket'].getLabel(), 'Supermarket Migros', 'Methods are available on revived objects: supermarket label is "Supermarket Migros"');
@@ -287,7 +288,6 @@ describe('Reviver', function() {
 			});
 			assert.throws(
 				() => reviver_2.revive(street),
-				undefined,
 				'Properties that do not match their declared types are discarded when types are enforced'
 			);
 		});
