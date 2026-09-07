@@ -19,8 +19,10 @@ class Reviver {
 		//factory used to create objects if you want to create objects manually
 		//Function: return an instance for entity
 		//entity, container => an instance of the class matching the parameter entity
-		/**@type {Factory} */
-		this.factory;
+		//it is undefined until it is either provided through the parameters or built from "entitiesConstructors" below
+		//but it is always defined once the constructor has run, thanks to the check that follows the parameters binding
+		/**@type {Factory | undefined} */
+		this.factory = undefined;
 		//delegate creation of the objects to the reviver, only providing a constructor function
 		//Function: return a constructor for an entity that will be used to create the object
 		//entity, plain_object => a function that will be used as a constructor
@@ -62,7 +64,6 @@ class Reviver {
 
 		//build factory using constructor function
 		if(!this.factory && this.entitiesConstructors) {
-			/**@type {Factory} */
 			this.factory = function(entity) {
 				const builder = this.entitiesConstructors(entity);
 				if(!builder) {
@@ -100,7 +101,8 @@ class Reviver {
 				//create revived object
 				//send object values directly to the factory to be able to construct the object directly with its values
 				//this allows for immutables objects
-				const revived_object = this.factory(object[this.entityProperty], object);
+				//the factory is always defined here because the constructor guarantees it
+				const revived_object = /**@type {Factory}*/ (this.factory)(object[this.entityProperty], object);
 				//retrieve properties
 				const declared_properties = this.entitiesProperties ? this.entitiesProperties(object[this.entityProperty]) : undefined;
 				//import properties, looping only on own properties (property must no be inherited)
