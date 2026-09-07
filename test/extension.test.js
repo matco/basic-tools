@@ -38,12 +38,14 @@ describe('extension', function() {
 				object = new constructor();
 				assert.ok(Object.isEmpty(object), 'Object built from empty constructor is an empty object');
 
+				/**@this {{property?: object}}*/
 				constructor = function() {
 					/**@type {object}*/ this.property;
 				};
 				object = new constructor();
 				assert.ok(Object.isEmpty(object), 'Object built from constructor defining property without value is an empty object');
 
+				/**@this {{property: string}}*/
 				constructor = function() {
 					this.property = 'value';
 				};
@@ -101,6 +103,7 @@ describe('extension', function() {
 			});
 
 			it('clones only class properties', function() {
+				/**@this {{property: string}}*/
 				const constructor = function() {
 					this.property = 'value';
 				};
