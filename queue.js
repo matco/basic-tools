@@ -16,7 +16,7 @@ export class Queue {
 		this.endCallback;
 		/**@type {(exception: any) => any} */
 		this.exceptionCallback;
-		/**@type {() => Promise<any>} */
+		/**@type {(() => Promise<any>) | undefined} */
 		this.running;
 	}
 
@@ -32,23 +32,26 @@ export class Queue {
 				}
 			}
 			else {
-				this.running = this.promises.shift();
-				this.running()
-					.then(result => {
-						if(this.resultCallback) {
-							this.resultCallback(result);
-						}
-						this.running = undefined;
-						this.run();
-					})
-					.catch(exception => {
-						if(this.exceptionCallback) {
-							this.exceptionCallback(exception);
-						}
-						//clear the running promise and continue with the rest of the queue so a rejection does not stall it
-						this.running = undefined;
-						this.run();
-					});
+				const promiser = this.promises.shift();
+				if(promiser) {
+					this.running = promiser;
+					promiser()
+						.then(result => {
+							if(this.resultCallback) {
+								this.resultCallback(result);
+							}
+							this.running = undefined;
+							this.run();
+						})
+						.catch(exception => {
+							if(this.exceptionCallback) {
+								this.exceptionCallback(exception);
+							}
+							//clear the running promise and continue with the rest of the queue so a rejection does not stall it
+							this.running = undefined;
+							this.run();
+						});
+				}
 			}
 		}
 	}
