@@ -145,6 +145,9 @@ export class CSV {
 		const data = CSV.parse(string);
 		//remove header line
 		const header = data.shift();
+		if(!header) {
+			return [];
+		}
 		return data.map(line => {
 			return Object.fromEntries(header.map((header, index) => [header, line[index]]));
 		});
