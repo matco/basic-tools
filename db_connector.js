@@ -11,12 +11,13 @@ export class DBConnector {
 	constructor(name, keypath) {
 		this.name = name;
 		this.keypath = keypath;
+		/**@type {IDBDatabase | undefined} */
 		this.database = undefined;
 	}
 
 	/**
 	 * Check if the database is open
-	 * @returns {boolean} True if the database is open, false otherwise
+	 * @returns {this is this & {database: IDBDatabase}} True if the database is open, false otherwise
 	 */
 	isOpen() {
 		return !!this.database;
@@ -79,8 +80,12 @@ export class DBConnector {
 	/**
 	 * Get a cursor for iterating over the database
 	 * @returns {IDBRequest} The cursor request
+	 * @throws {Error} If the database is not open
 	 */
 	getCursor() {
+		if(!this.isOpen()) {
+			throw new Error('The database must be open before a transaction can occur');
+		}
 		//start transaction
 		const transaction = this.database.transaction([this.name], 'readwrite');
 		//retrieve store
@@ -98,6 +103,7 @@ export class DBConnector {
 		return new Promise((resolve, reject) => {
 			if(!this.isOpen()) {
 				reject('The database must be open before a transaction can occur');
+				return;
 			}
 			//start transaction
 			const transaction = this.database.transaction([this.name], 'readwrite');
@@ -136,6 +142,7 @@ export class DBConnector {
 		return new Promise((resolve, reject) => {
 			if(!this.isOpen()) {
 				reject('The database must be open before a transaction can occur');
+				return;
 			}
 			//start transaction
 			const transaction = this.database.transaction([this.name]);
@@ -166,6 +173,7 @@ export class DBConnector {
 		return new Promise((resolve, reject) => {
 			if(!this.isOpen()) {
 				reject('The database must be open before a transaction can occur');
+				return;
 			}
 			//start transaction
 			const transaction = this.database.transaction([this.name]);
@@ -209,6 +217,7 @@ export class DBConnector {
 		return new Promise((resolve, reject) => {
 			if(!this.isOpen()) {
 				reject('The database must be open before a transaction can occur');
+				return;
 			}
 			//start transaction
 			const transaction = this.database.transaction([this.name], 'readwrite');
@@ -226,7 +235,7 @@ export class DBConnector {
 				reject(`Error with request while removing item ${key} in database ${this.name}: ${transaction.error}`);
 			});
 			request.addEventListener('success', () => {
-				resolve(request.result);
+				resolve(/**@type {T}*/ (request.result));
 			});
 		});
 	}
