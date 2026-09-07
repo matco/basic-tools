@@ -178,7 +178,7 @@ HTMLSelectElement.prototype.fill = function(entries, blank_entry, selected_entri
 		//otherwise select the blank or the first entry as HTML would automatically do when a select appears on a page
 		//in this case, this must be managed manually because some options could have be re-used and may have been selected
 		if(!blank_entry && !this.multiple && options.length > 0) {
-			this.value = options.keys().next().value;
+			this.value = options[0][0];
 		}
 		else {
 			this.value = undefined;
