@@ -9,7 +9,7 @@ import './extension.js';
 function append_xhtml_properties(object, properties) {
 	if(object && properties) {
 		for(const property in properties) {
-			object.setAttribute(property, properties[property]);
+			object.setAttribute(property, `${properties[property]}`);
 		}
 	}
 	return object;
@@ -24,7 +24,7 @@ function append_xhtml_properties(object, properties) {
 function append_properties(object, properties) {
 	if(object && properties) {
 		for(const property in properties) {
-			object.setAttributeNS(null, property, properties[property]);
+			object.setAttributeNS(null, property, `${properties[property]}`);
 		}
 	}
 	return object;
