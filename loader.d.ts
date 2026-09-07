@@ -1,5 +1,5 @@
 export class Loader {
-	constructor(HTMLDocument, any?);
+	constructor(document?: Document, parameters?: {[key: string]: any});
 	loadLibrary(library: string): Promise<void>;
 	loadModule(mod: string): Promise<void>;
 	loadCSS(css: string): Promise<void>;

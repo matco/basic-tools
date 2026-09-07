@@ -1,19 +1,19 @@
 export class BusEvent {
 	getCallbacks(): Array<string>;
-	hit(listener: any);
+	hit(listener: any): void;
 }
 
 export class Bus {
-	disable();
-	enable();
-	lock();
-	unlock();
-	reset();
-	register(listener: any);
-	unregister(listener: any);
+	disable(): void;
+	enable(): void;
+	lock(): void;
+	unlock(): void;
+	reset(): void;
+	register(listener: any): void;
+	unregister(listener: any): void;
 	isRegistered(listener: any): boolean;
-	pause();
-	resume();
-	dispatch(event: BusEvent);
+	pause(): void;
+	resume(): void;
+	dispatch(event: BusEvent): void;
 	listeners: any;
 }
