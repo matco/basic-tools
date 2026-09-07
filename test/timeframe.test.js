@@ -90,8 +90,8 @@ describe('Timeframe', function() {
 			assert.strictEqual(timeframe.getDays(), 4, 'There are 4 days between [2010/12/27] and [2010/12/31]');
 			timeframe.shiftDays(7);
 			assert.strictEqual(timeframe.getDays(), 4, 'There are still 4 days between [2010/12/27] and [2010/12/31] with a shift of 7 days');
-			assert.strictEqual(timeframe.startDate.toDisplay(), '2011-01-03', 'Timeframe beginning [2010/12/27] begins [2011/01/03] with a shift of 7 days');
-			assert.strictEqual(timeframe.stopDate.toDisplay(), '2011-01-07', 'Timeframe ending [2010/12/31] ends [2011/01/06] with a shift of 7 days');
+			assert.strictEqual(/**@type {Date}*/ (timeframe.startDate).toDisplay(), '2011-01-03', 'Timeframe beginning [2010/12/27] begins [2011/01/03] with a shift of 7 days');
+			assert.strictEqual(/**@type {Date}*/ (timeframe.stopDate).toDisplay(), '2011-01-07', 'Timeframe ending [2010/12/31] ends [2011/01/06] with a shift of 7 days');
 		});
 	});
 
@@ -223,8 +223,8 @@ describe('Timeframe', function() {
 			assert.strictEqual(timeframe.getSeconds(), 0);
 			timeframe.extendPercentage(10);
 			assert.strictEqual(timeframe.getSeconds(), 0, 'Adding 10 percents to a blank timeframe does not update it');
-			assert.strictEqual(timeframe.startDate.getTime(), new Date('2020-01-05T08:00:00Z').getTime(), 'Adding 10 percents to a blank timeframe does not update it');
-			assert.strictEqual(timeframe.stopDate.getTime(), new Date('2020-01-05T08:00:00Z').getTime(), 'Adding 10 percents to a blank timeframe does not update it');
+			assert.strictEqual(/**@type {Date}*/ (timeframe.startDate).getTime(), new Date('2020-01-05T08:00:00Z').getTime(), 'Adding 10 percents to a blank timeframe does not update it');
+			assert.strictEqual(/**@type {Date}*/ (timeframe.stopDate).getTime(), new Date('2020-01-05T08:00:00Z').getTime(), 'Adding 10 percents to a blank timeframe does not update it');
 		});
 
 		it('does not update unstaked timeframes', function() {
