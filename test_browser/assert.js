@@ -25,7 +25,7 @@ function log(success, message, specification) {
  * @param {(exception: Error) => boolean} exception_assert - A function to assert the exception
  * @param {string} message - The message to log
  * @param {string} specification - Additional specification for the message
- * @this {object}
+ * @this {typeof assert}
  */
 function check_exception(exception, exception_assert, message, specification) {
 	if(!exception_assert) {
