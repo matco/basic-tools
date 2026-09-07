@@ -4,7 +4,6 @@
 		"allowSyntheticDefaultImports": true,
 		"checkJs": true,
 		"declaration": false,
-		"downlevelIteration": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"forceConsistentCasingInFileNames": true,
@@ -14,8 +13,8 @@
 			/*"WebWorker", do not include web workers because it conflicts with ESNext*/
 			"DOM"
 		],
-		"module": "ESNext",
-		"moduleResolution": "node",
+		"module": "nodenext",
+		"moduleResolution": "nodenext",
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitOverride": true,
 		"noImplicitReturns": true,
@@ -28,6 +27,14 @@
 		"sourceMap": true,
 		"strictNullChecks": false,
 		"strictPropertyInitialization": false,
-		"target": "ESNext"
-	}
+		"target": "ESNext",
+		"types": [
+			"node",
+			"mocha"
+		]
+	},
+	"exclude": [
+		"node_modules",
+		"eslint.config.js"
+	]
 }
