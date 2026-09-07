@@ -1,9 +1,9 @@
 import './extension.js';
 
 /**
- * Append attributes to an element using
+ * Append attributes to an element
  * @param {SVGElement} object - The element to enhance
- * @param {object} properties - The properties to append
+ * @param {{[key: string]: string | number | boolean}} [properties] - The properties to append
  * @returns {SVGElement} The enhanced element
  */
 function append_xhtml_properties(object, properties) {
@@ -16,9 +16,9 @@ function append_xhtml_properties(object, properties) {
 }
 
 /**
- * Append attributes to an element using with null namespace
+ * Append attributes to an element with null namespace
  * @param {SVGElement} object - The element to enhance
- * @param {object} properties - The properties to append
+ * @param {{[key: string]: string | number | boolean}} [properties] - The properties to append
  * @returns {SVGElement} The enhanced element
  */
 function append_properties(object, properties) {
