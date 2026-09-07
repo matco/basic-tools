@@ -25,6 +25,12 @@ export class Loader {
 		return full_url;
 	}
 
+	/**
+	 * Load a JavaScript file dynamically
+	 * @param {string} js - The URL of the JavaScript file to load
+	 * @param {string} type - The type attribute for the script element (e.g., "text/javascript" or "module")
+	 * @returns {Promise<void>}
+	 */
 	loadJavascript(js, type) {
 		const js_url = this.buildUrl(js);
 		const that = this;
@@ -61,6 +67,11 @@ export class Loader {
 		return Promise.all(libraries.map(l => this.loadLibrary(l)));
 	}
 
+	/**
+	 * Load a CSS file dynamically
+	 * @param {string} css - The URL of the CSS file to load
+	 * @returns {Promise<void>}
+	 */
 	loadCSS(css) {
 		const css_url = this.buildUrl(css);
 		const that = this;
@@ -106,7 +117,13 @@ export class Loader {
 		});
 	}
 
-	//when loading a template, template node is put in the "head" element
+	/**
+	 * Load an HTML template dynamically.
+	 * When loading a template, the template node is put in the "head" element.
+	 * @param {string} html - The URL of the HTML template to load
+	 * @param {HTMLElement} container - The container to append the template to
+	 * @returns {Promise<void>}
+	 */
 	loadHTMLTemplate(html, container) {
 		const html_url = this.buildUrl(html);
 		const that = this;
