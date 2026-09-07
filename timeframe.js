@@ -57,7 +57,7 @@ export class Timeframe {
 			return !this.startDate || this.startDate.isBefore(timeframe.stopDate);
 		}
 		if(!timeframe.stopDate) {
-			return !this.stopDate || this.stopDate.isBefore(timeframe.startDate);
+			return !this.stopDate || this.stopDate.isAfter(timeframe.startDate);
 		}
 		return this.surrounds(timeframe.startDate) || this.surrounds(timeframe.stopDate) || timeframe.surrounds(this.startDate);
 	}

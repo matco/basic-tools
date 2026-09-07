@@ -142,6 +142,26 @@ describe('Timeframe', function() {
 			timeframe_1 = new Timeframe(undefined, new Date('2008/09/07'));
 			timeframe_2 = new Timeframe(undefined, new Date('2010/02/20'));
 			assert.ok(timeframe_1.overlaps(timeframe_2), 'Timeframe [infinite to 2008/09/07] overlaps timeframe [infinite to 2010/02/20]');
+
+			//overlap with a timeframe that has no stop date (open-ended into the future)
+			timeframe_1 = new Timeframe(new Date('2009/02/01'), new Date('2009/10/01'));
+			timeframe_2 = new Timeframe(new Date('2009/08/01'));
+			assert.ok(timeframe_1.overlaps(timeframe_2), 'Timeframe [2009/02/01 to 2009/10/01] overlaps timeframe [2009/08/01 to infinite]');
+
+			//a bounded timeframe must not overlap an open-ended timeframe starting after its stop date
+			timeframe_1 = new Timeframe(new Date('2009/02/01'), new Date('2009/10/01'));
+			timeframe_2 = new Timeframe(new Date('2010/01/01'));
+			assert.ok(!timeframe_1.overlaps(timeframe_2), 'Timeframe [2009/02/01 to 2009/10/01] does not overlap timeframe [2010/01/01 to infinite]');
+
+			//an open-ended timeframe starting before another must overlap it
+			timeframe_1 = new Timeframe(new Date('2009/02/01'), new Date('2009/10/01'));
+			timeframe_2 = new Timeframe(new Date('2008/01/01'));
+			assert.ok(timeframe_1.overlaps(timeframe_2), 'Timeframe [2009/02/01 to 2009/10/01] overlaps timeframe [2008/01/01 to infinite]');
+
+			//an open-ended (no stop date) timeframe overlaps another open-ended timeframe
+			timeframe_1 = new Timeframe(new Date('2009/02/01'));
+			timeframe_2 = new Timeframe(new Date('2010/01/01'));
+			assert.ok(timeframe_1.overlaps(timeframe_2), 'Timeframe [2009/02/01 to infinite] overlaps timeframe [2010/01/01 to infinite]');
 		});
 	});
 
