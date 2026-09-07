@@ -1,0 +1,25 @@
+{
+	//this configuration generates the type definition files (*.d.ts) from the JSDoc annotations of the source files
+	//it is used by the "types" script and should be run whenever the source files change
+	//the "extension.js" and "dom_extension.js" files are excluded because their type definitions augment global/native prototypes, which cannot be generated automatically, so their *.d.ts are maintained by hand
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"noEmit": false,
+		"declaration": true,
+		"emitDeclarationOnly": true,
+		"checkJs": false
+	},
+	"include": [
+		"bus.js",
+		"csv.js",
+		"db_connector.js",
+		"hash.js",
+		"loader.js",
+		"lzw.js",
+		"queue.js",
+		"reviver.js",
+		"svg.js",
+		"timeframe.js",
+		"uuid.js"
+	]
+}

@@ -5,10 +5,74 @@
 	"scripts": {
 		"lint": "eslint .",
 		"tsc": "tsc",
+		"types": "tsc -p tsconfig.types.json",
 		"test": "mocha",
-		"test-server": "http-server ."
+		"test-server": "http-server .",
+		"prepublishOnly": "npm run types"
 	},
 	"type": "module",
+	"files": [
+		"*.js",
+		"*.d.ts",
+		"!eslint.config.js",
+		"!driver.js"
+	],
+	"types": "./extension.d.ts",
+	"exports": {
+		"./bus.js": {
+			"types": "./bus.d.ts",
+			"import": "./bus.js"
+		},
+		"./csv.js": {
+			"types": "./csv.d.ts",
+			"import": "./csv.js"
+		},
+		"./db_connector.js": {
+			"types": "./db_connector.d.ts",
+			"import": "./db_connector.js"
+		},
+		"./dom_extension.js": {
+			"types": "./dom_extension.d.ts",
+			"import": "./dom_extension.js"
+		},
+		"./extension.js": {
+			"types": "./extension.d.ts",
+			"import": "./extension.js"
+		},
+		"./hash.js": {
+			"types": "./hash.d.ts",
+			"import": "./hash.js"
+		},
+		"./loader.js": {
+			"types": "./loader.d.ts",
+			"import": "./loader.js"
+		},
+		"./lzw.js": {
+			"types": "./lzw.d.ts",
+			"import": "./lzw.js"
+		},
+		"./queue.js": {
+			"types": "./queue.d.ts",
+			"import": "./queue.js"
+		},
+		"./reviver.js": {
+			"types": "./reviver.d.ts",
+			"import": "./reviver.js"
+		},
+		"./svg.js": {
+			"types": "./svg.d.ts",
+			"import": "./svg.js"
+		},
+		"./timeframe.js": {
+			"types": "./timeframe.d.ts",
+			"import": "./timeframe.js"
+		},
+		"./uuid.js": {
+			"types": "./uuid.d.ts",
+			"import": "./uuid.js"
+		},
+		"./package.json": "./package.json"
+	},
 	"keywords": [],
 	"author": {
 		"name": "Matthieu Corageoud",
