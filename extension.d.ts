@@ -105,6 +105,7 @@ interface Date {
 	addDays(days: number): Date;
 	addMonths(months: number): Date;
 	addYears(years: number): Date;
+	addTimeString(time: string): Date;
 
 	roundToDay(): Date;
 	roundToHour(): Date;
