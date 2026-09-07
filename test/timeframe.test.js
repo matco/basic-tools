@@ -8,7 +8,6 @@ describe('Timeframe', function() {
 				function() {
 					new Timeframe(new Date('2004/02/26'), new Date('2004/02/25'));
 				},
-				undefined,
 				'It is not possible to create a timeframe with a stop date before its start date'
 			);
 		});
@@ -70,18 +69,18 @@ describe('Timeframe', function() {
 
 			//infinite time frame periods
 			timeframe = new Timeframe(undefined, new Date('2016-05-01T08:12:04.999Z'));
-			assert.strictEqual(timeframe.getDays(), undefined, 'Retrieving number of days with an unstaked timeframe returns undefined');
-			assert.strictEqual(timeframe.getHours(), undefined, 'Retrieving number of hours with an unstaked timeframe returns undefined');
-			assert.strictEqual(timeframe.getMinutes(), undefined, 'Retrieving number of minutes with an unstaked timeframe returns undefined');
-			assert.strictEqual(timeframe.getSeconds(), undefined, 'Retrieving number of seconds with an unstaked timeframe returns undefined');
-			assert.strictEqual(timeframe.getMilliseconds(), undefined, 'Retrieving number of milliseconds with an unstaked timeframe returns undefined');
+			assert.throws(() => timeframe.getDays(), 'Retrieving number of days with an unstaked timeframe throws an exception');
+			assert.throws(() => timeframe.getHours(), 'Retrieving number of hours with an unstaked timeframe throws an exception');
+			assert.throws(() => timeframe.getMinutes(), 'Retrieving number of minutes with an unstaked timeframe throws an exception');
+			assert.throws(() => timeframe.getSeconds(), 'Retrieving number of seconds with an unstaked timeframe throws an exception');
+			assert.throws(() => timeframe.getMilliseconds(), 'Retrieving number of milliseconds with an unstaked timeframe throws an exception');
 
 			timeframe = new Timeframe(new Date('2004/02/26'));
-			assert.strictEqual(timeframe.getDays(), undefined, 'Retrieving number of days with an unstaked timeframe returns undefined');
-			assert.strictEqual(timeframe.getHours(), undefined, 'Retrieving number of hours with an unstaked timeframe returns undefined');
-			assert.strictEqual(timeframe.getMinutes(), undefined, 'Retrieving number of minutes with an unstaked timeframe returns undefined');
-			assert.strictEqual(timeframe.getSeconds(), undefined, 'Retrieving number of seconds with an unstaked timeframe returns undefined');
-			assert.strictEqual(timeframe.getMilliseconds(), undefined, 'Retrieving number of milliseconds with an unstaked timeframe returns undefined');
+			assert.throws(() => timeframe.getDays(), 'Retrieving number of days with an unstaked timeframe throws an exception');
+			assert.throws(() => timeframe.getHours(), 'Retrieving number of hours with an unstaked timeframe throws an exception');
+			assert.throws(() => timeframe.getMinutes(), 'Retrieving number of minutes with an unstaked timeframe throws an exception');
+			assert.throws(() => timeframe.getSeconds(), 'Retrieving number of seconds with an unstaked timeframe throws an exception');
+			assert.throws(() => timeframe.getMilliseconds(), 'Retrieving number of milliseconds with an unstaked timeframe throws an exception');
 		});
 	});
 
