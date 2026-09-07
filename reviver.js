@@ -57,7 +57,7 @@ class Reviver {
 
 		//check required conditions
 		if(!this.factory && !this.entitiesConstructors) {
-			throw 'A factory or a function which returns entity constructor is required';
+			throw new Error('A factory or a function which returns entity constructor is required');
 		}
 
 		//build factory using constructor function
