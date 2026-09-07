@@ -62,6 +62,7 @@ class Reviver {
 
 		//build factory using constructor function
 		if(!this.factory && this.entitiesConstructors) {
+			/**@type {Factory} */
 			this.factory = function(entity) {
 				const builder = this.entitiesConstructors(entity);
 				if(!builder) {

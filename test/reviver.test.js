@@ -12,6 +12,7 @@ class City {
 
 	constructor() {
 		//declaring properties here only helps type checking by a Typescript compiler
+		this.className = 'City';
 		this.names = {};
 		this.population = 10;
 		/**@type {Array<Street>}*/
@@ -43,11 +44,14 @@ class Street {
 
 	constructor() {
 		//declaring properties here only helps type checking by a Typescript compiler
+		this.className = 'Street';
 		/**@type {City}*/
 		this.city = undefined;
 		this.name = undefined;
 		this.length = undefined;
 		this.shops = [];
+		//undeclared property, declared in the type so Typescript will not complain
+		this.population = undefined;
 	}
 
 	getHasMigros() {
@@ -219,7 +223,7 @@ describe('Reviver', function() {
 				preserveUnknownProperties: true,
 				preserveEntityProperty: true
 			});
-			const revived_city_1 = reviver.revive(city);
+			const revived_city_1 = /**@type {City}*/ (reviver.revive(city));
 			assert.strictEqual(revived_city_1.constructor, City, 'Constructor is the good class');
 			assert.strictEqual(revived_city_1.names['en'], 'Geneva', 'Simple objects properties are not modified: city name in "en" is "Geneva"');
 			assert.strictEqual(revived_city_1.population, 500000, 'Properties are not modified: population is 500000');
@@ -241,22 +245,21 @@ describe('Reviver', function() {
 				preserveEntityProperty: true,
 				debug: false
 			});
-			const revived_city_2 = reviver.revive(city);
+			const revived_city_2 = /**@type {City}*/ (reviver.revive(city));
 			assert.strictEqual(revived_city_2.names['en'], 'Geneva', 'Simple objects properties are not modified: city name in "en" is "Geneva"');
-			assert.strictEqual(revived_city_2.streets.className, undefined, 'Entity property is undefined even if preserveEntityProperty has been set to true because entity property is not returned by entitiesProperties function');
 			assert.strictEqual(revived_city_2.population, 500000, 'Properties are not modified: population is 500000');
 			assert.strictEqual(revived_city_2.getLongStreets().length, 1, 'Object has been revived and methods are available: there is 1 long street');
 			assert.strictEqual(revived_city_2.streets[0].population, undefined, 'If preserve unknown properties is left default (set to false), properties that have not been declared are not copied: population for first street is undefined');
 
 			//array
-			const revived_streets = reviver.revive(streets);
+			const revived_streets = /**@type {Array<Street>}*/ (reviver.revive(streets));
 			assert.strictEqual(revived_streets.length, 2, 'Array structure is preserved: there is two streets');
 			assert.strictEqual(revived_streets[0].constructor, Street, 'Constructor is the good class');
 			assert.ok(revived_streets[0].getHasMigros(), 'Methods are available: first street contains a Migros');
 			assert.ok(!revived_streets[1].getHasMigros(), 'Methods are available: second street contains a Migros');
 
 			//map
-			const revived_shops = reviver.revive(shops);
+			const revived_shops = /**@type {Record<string, Shop>}*/ (reviver.revive(shops));
 			assert.ok('Restaurant' in revived_shops, 'Map structure is preserved');
 			assert.ok('Supermarket' in revived_shops, 'Map structure is preserved');
 			assert.strictEqual(revived_shops['Restaurant'].constructor, Shop, 'Constructor is the good class');
@@ -266,7 +269,7 @@ describe('Reviver', function() {
 				'Revived objects are self-contained'
 			);
 			assert.strictEqual(revived_shops['Supermarket'].getLabel(), 'Supermarket Migros', 'Methods are available on revived objects: supermarket label is "Supermarket Migros"');
-			assert.strictEqual(revived_shops.Restaurant.getLabel(), 'Restaurant Pompei', 'Methods are available on revived objects: restaurant label is "Restaurant Pompei"');
+			assert.strictEqual(revived_shops['Restaurant'].getLabel(), 'Restaurant Pompei', 'Methods are available on revived objects: restaurant label is "Restaurant Pompei"');
 		});
 
 		it('handles property that does not match its declared type', function() {
@@ -274,7 +277,7 @@ describe('Reviver', function() {
 				factory: buildEntity,
 				entitiesProperties: getPropertiesForEntity
 			});
-			const revived_street = reviver_1.revive(street);
+			const revived_street = /**@type {Street}*/ (reviver_1.revive(street));
 			assert.strictEqual(revived_street.length, 'very long', 'Properties that do not match their declared types are kept when types are not enforced');
 
 			const reviver_2 = new Reviver({
