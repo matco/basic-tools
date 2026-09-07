@@ -30,6 +30,9 @@ export class Queue {
 						if(this.exceptionCallback) {
 							this.exceptionCallback(exception);
 						}
+						//clear the running promise and continue with the rest of the queue so a rejection does not stall it
+						this.running = undefined;
+						this.run();
 					});
 			}
 		}
