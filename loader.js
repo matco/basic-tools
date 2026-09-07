@@ -1,4 +1,9 @@
 export class Loader {
+	/**
+	 * Create a Loader instance
+	 * @param {Document} [doc] - The document where scripts must be loaded (defaults to global document)
+	 * @param {{[key: string]: any}} [parameters] - Optional parameters to bind to the instance
+	 */
 	constructor(doc, parameters) {
 		//DOMDocument: document where scripts must be loaded
 		this.document = doc || document;
@@ -12,6 +17,11 @@ export class Loader {
 		}
 	}
 
+	/**
+	 * Build a full URL by combining base URL with the given path
+	 * @param {string} url - The URL path to build
+	 * @returns {string} The full URL with optional cache-busting timestamp
+	 */
 	buildUrl(url) {
 		let full_url = '';
 		if(this.url) {
@@ -41,7 +51,7 @@ export class Loader {
 				const script = that.document.createElement('script');
 				script.setAttribute('type', type);
 				script.setAttribute('src', js_url);
-				script.addEventListener('load', resolve);
+				script.addEventListener('load', () => resolve());
 				script.addEventListener('error', reject);
 				that.document.head.appendChild(script);
 			}
@@ -51,18 +61,38 @@ export class Loader {
 		});
 	}
 
+	/**
+	 * Load a library (JavaScript file)
+	 * @param {string} library - The URL of the library to load
+	 * @returns {Promise<void>}
+	 */
 	loadLibrary(library) {
 		return this.loadJavascript(library, 'text/javascript');
 	}
 
+	/**
+	 * Load a module (JavaScript module file)
+	 * @param {string} mod - The URL of the module to load
+	 * @returns {Promise<void>}
+	 */
 	loadModule(mod) {
 		return this.loadJavascript(mod, 'module');
 	}
 
+	/**
+	 * Load multiple libraries sequentially
+	 * @param {string[]} libraries - The URLs of the libraries to load
+	 * @returns {Promise<void>}
+	 */
 	loadQueuedLibraries(libraries) {
 		return libraries.reduce((a, l) => a.then(this.loadLibrary.bind(this, l)), Promise.resolve());
 	}
 
+	/**
+	 * Load multiple libraries concurrently
+	 * @param {string[]} libraries - The URLs of the libraries to load
+	 * @returns {Promise<void[]>} A promise resolved once all libraries are loaded
+	 */
 	loadConcurrentLibraries(libraries) {
 		return Promise.all(libraries.map(l => this.loadLibrary(l)));
 	}
@@ -83,7 +113,7 @@ export class Loader {
 				link.setAttribute('type', 'text/css');
 				link.setAttribute('rel', 'stylesheet');
 				link.setAttribute('href', css_url);
-				link.addEventListener('load', resolve);
+				link.addEventListener('load', () => resolve());
 				link.addEventListener('error', reject);
 				that.document.head.appendChild(link);
 			}
@@ -93,6 +123,12 @@ export class Loader {
 		});
 	}
 
+	/**
+	 * Load an HTML file dynamically
+	 * @param {string} html - The URL of the HTML file to load
+	 * @param {Node} container - The container to append the loaded HTML to
+	 * @returns {Promise<void>}
+	 */
 	loadHTML(html, container) {
 		const html_url = this.buildUrl(html);
 		const that = this;
@@ -118,10 +154,10 @@ export class Loader {
 	}
 
 	/**
-	 * Load an HTML template dynamically.
+	 * Load an HTML template dynamically
 	 * When loading a template, the template node is put in the "head" element.
 	 * @param {string} html - The URL of the HTML template to load
-	 * @param {HTMLElement} container - The container to append the template to
+	 * @param {Node} container - The container to append the template to
 	 * @returns {Promise<void>}
 	 */
 	loadHTMLTemplate(html, container) {

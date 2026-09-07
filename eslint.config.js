@@ -79,6 +79,7 @@ export default defineConfig([
 			'@stylistic/spaced-comment': ['error', 'never'],
 			//jsdoc rules
 			...jsdoc.configs['flat/recommended'].rules,
+			'jsdoc/reject-any-type': 'off', //allow the "any" type, which is legitimately used for generic values
 			'jsdoc/check-indentation': 'warn',
 			'jsdoc/check-line-alignment': 'warn',
 			'jsdoc/check-syntax': 'warn',

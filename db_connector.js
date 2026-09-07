@@ -1,14 +1,31 @@
+/**
+ * IndexedDB connector class for managing database operations
+ * @template T - The type of items stored in the database
+ */
 export class DBConnector {
+	/**
+	 * Create a DBConnector instance
+	 * @param {string} name - The name of the database
+	 * @param {string} keypath - The key path for the object store
+	 */
 	constructor(name, keypath) {
 		this.name = name;
 		this.keypath = keypath;
 		this.database = undefined;
 	}
 
+	/**
+	 * Check if the database is open
+	 * @returns {boolean} True if the database is open, false otherwise
+	 */
 	isOpen() {
 		return !!this.database;
 	}
 
+	/**
+	 * Open the database
+	 * @returns {Promise<IDBDatabase>} Promise resolving to the IDBDatabase instance
+	 */
 	open() {
 		return new Promise((resolve, reject) => {
 			const version = 1;
@@ -42,6 +59,10 @@ export class DBConnector {
 		});
 	}
 
+	/**
+	 * Drop the database
+	 * @returns {Promise<Event>} Promise resolving to the success event
+	 */
 	drop() {
 		return new Promise((resolve, reject) => {
 			if(this.isOpen()) {
@@ -55,6 +76,10 @@ export class DBConnector {
 		});
 	}
 
+	/**
+	 * Get a cursor for iterating over the database
+	 * @returns {IDBRequest} The cursor request
+	 */
 	getCursor() {
 		//start transaction
 		const transaction = this.database.transaction([this.name], 'readwrite');
@@ -64,6 +89,11 @@ export class DBConnector {
 		return store.openCursor();
 	}
 
+	/**
+	 * Add an item to the database
+	 * @param {T} item - The item to add
+	 * @returns {Promise<Event>} Promise resolving to the success event
+	 */
 	add(item) {
 		return new Promise((resolve, reject) => {
 			if(!this.isOpen()) {
@@ -88,10 +118,20 @@ export class DBConnector {
 		});
 	}
 
+	/**
+	 * Add multiple items to the database
+	 * @param {T[]} items - The items to add
+	 * @returns {Promise<Event[]>} Promise resolving to an array of success events
+	 */
 	addAll(items) {
 		return Promise.all(items.map(item => this.add(item)));
 	}
 
+	/**
+	 * Get an item from the database by key
+	 * @param {string | number} key - The key of the item to retrieve
+	 * @returns {Promise<T>} Promise resolving to the retrieved item
+	 */
 	get(key) {
 		return new Promise((resolve, reject) => {
 			if(!this.isOpen()) {
@@ -118,6 +158,10 @@ export class DBConnector {
 		});
 	}
 
+	/**
+	 * Get all items from the database
+	 * @returns {Promise<T[]>} Promise resolving to an array of all items
+	 */
 	getAll() {
 		return new Promise((resolve, reject) => {
 			if(!this.isOpen()) {
@@ -144,6 +188,11 @@ export class DBConnector {
 		});
 	}
 
+	/**
+	 * Get some items from the database matching a filter
+	 * @param {(item: T) => boolean} [filter] - Optional filter function
+	 * @returns {Promise<T[]>} Promise resolving to an array of filtered items
+	 */
 	getSome(filter) {
 		return this.getAll().then(results => {
 			//apply filter on results if needed
@@ -151,6 +200,11 @@ export class DBConnector {
 		});
 	}
 
+	/**
+	 * Remove an item from the database by key
+	 * @param {string | number} key - The key of the item to remove
+	 * @returns {Promise<T>} Promise resolving to the removed item
+	 */
 	remove(key) {
 		return new Promise((resolve, reject) => {
 			if(!this.isOpen()) {
@@ -177,10 +231,19 @@ export class DBConnector {
 		});
 	}
 
+	/**
+	 * Remove all items from the database
+	 * @returns {Promise<T[]>} Promise resolving to an array of removed items
+	 */
 	removeAll() {
 		return this.removeSome();
 	}
 
+	/**
+	 * Remove some items from the database matching a filter
+	 * @param {(item: T) => boolean} [filter] - Optional filter function
+	 * @returns {Promise<T[]>} Promise resolving to an array of removed items
+	 */
 	removeSome(filter) {
 		return this.getSome(filter).then(items => Promise.all(items.map(item => this.remove(item[this.keypath]))));
 	}

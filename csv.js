@@ -8,6 +8,11 @@ export class CSV {
 	static DELIMITER_COLUMN = ',';
 
 	static CHARACTER_QUOTER = '"';
+
+	/**
+	 * Create a CSV instance
+	 * @param {string[][]} data - The CSV data
+	 */
 	constructor(data) {
 		this.data = data;
 		this.regexp = new RegExp(CSV.CHARACTER_QUOTER, 'g');
@@ -26,14 +31,27 @@ export class CSV {
 			.join(CSV.DELIMITER_COLUMN);
 	}
 
+	/**
+	 * Convert the CSV data to a string
+	 * @returns {string} The CSV string representation
+	 */
 	toString() {
 		return this.data.map(l => this.#generateLine(l)).join(CSV.DELIMITER_LINE);
 	}
 
+	/**
+	 * Convert the CSV data to a Blob
+	 * @returns {Blob} The CSV data as a Blob
+	 */
 	toBlob() {
 		return new Blob([this.toString()], {type: CSV.MIME_TYPE});
 	}
 
+	/**
+	 * Download the CSV data
+	 * @param {string} [name] - The filename for the download (defaults to the current date)
+	 * @returns {void}
+	 */
 	download(name) {
 		const filename = name || new Date().toFullDisplay();
 		const blob = this.toBlob();
@@ -57,6 +75,11 @@ export class CSV {
 		setTimeout(() => URL.revokeObjectURL(url), 0);
 	}
 
+	/**
+	 * Parse a CSV string into a 2D array
+	 * @param {string} string - The CSV string to parse
+	 * @returns {string[][]} The parsed CSV data
+	 */
 	static parse(string) {
 		const lines = [];
 		let columns = [];
@@ -113,6 +136,11 @@ export class CSV {
 		return lines;
 	}
 
+	/**
+	 * Parse a CSV string into an array of objects (dictionaries)
+	 * @param {string} string - The CSV string to parse
+	 * @returns {Record<string, string>[]} The parsed CSV data as an array of objects
+	 */
 	static parseToDictionary(string) {
 		const data = CSV.parse(string);
 		//remove header line

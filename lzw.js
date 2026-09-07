@@ -1,7 +1,16 @@
+/**
+ * LZW compression and decompression utility.
+ */
 export const LZW = {
 	INITIAL_DICT_SIZE: 256,
 	MAX_DICT_SIZE: 65536,
 
+	/**
+	 * Compresses a string using LZW algorithm.
+	 * @param {string} string - The string to compress
+	 * @param {number} [dictionary_max_size] - Optional maximum dictionary size
+	 * @returns {number[]} Array of compressed codes
+	 */
 	Compress: function(string, dictionary_max_size) {
 		let i, length;
 		//build initial dictionary
@@ -68,10 +77,21 @@ export const LZW = {
 		return out;
 	},*/
 
+	/**
+	 * Compresses a string to a character string.
+	 * @param {string} string - The string to compress
+	 * @returns {string} The compressed string
+	 */
 	CompressToString: function(string) {
 		return LZW.Compress(string, LZW.MAX_DICT_SIZE).map(c => String.fromCharCode(c)).join('');
 	},
 
+	/**
+	 * Decompresses an array of codes using LZW algorithm.
+	 * @param {number[]} integers - Array of codes to decompress
+	 * @param {number} [dictionary_max_size] - Optional maximum dictionary size
+	 * @returns {string} The decompressed string
+	 */
 	Decompress: function(integers, dictionary_max_size) {
 		const dictionary = {};
 		let character = String.fromCharCode(integers[0]);
@@ -99,6 +119,11 @@ export const LZW = {
 		return out.join('');
 	},
 
+	/**
+	 * Decompresses a string using LZW algorithm.
+	 * @param {string} string - The string to decompress
+	 * @returns {string} The decompressed string
+	 */
 	DecompressString: function(string) {
 		const integers = string.split('').map(c => c.charCodeAt(0));
 		return LZW.Decompress(integers, LZW.MAX_DICT_SIZE);
